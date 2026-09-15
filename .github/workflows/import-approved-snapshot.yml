@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
   issues:
     types: [opened]
+  pull_request:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   import:
-    if: github.event_name == 'workflow_dispatch' || github.event.issue.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && github.event.issue.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT') || (github.event_name == 'pull_request' && github.event.pull_request.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout destination
