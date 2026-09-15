@@ -2,8 +2,6 @@ name: Import approved StackUp Academy snapshot
 
 on:
   workflow_dispatch:
-  issues:
-    types: [opened]
   pull_request:
     types: [opened]
 
@@ -12,12 +10,13 @@ permissions:
 
 jobs:
   import:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && github.event.issue.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT') || (github.event_name == 'pull_request' && github.event.pull_request.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout destination
+      - name: Checkout destination main
         uses: actions/checkout@v6
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Fetch approved source snapshot
@@ -27,18 +26,12 @@ jobs:
           git -C /tmp/approved-source checkout 886ec061bfcb65b65bdb30a30adb9d75947ada9a
           test "$(git -C /tmp/approved-source rev-parse HEAD)" = "886ec061bfcb65b65bdb30a30adb9d75947ada9a"
 
-      - name: Replace destination contents with approved snapshot
+      - name: Replace repository contents except workflows
         run: |
           set -euo pipefail
-          rsync -a --delete --exclude='.git/' /tmp/approved-source/ ./
-          rm -rf .git
-          git init
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          rsync -a --delete --exclude='.git/' --exclude='.github/workflows/' /tmp/approved-source/ ./
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "snapshot: approved StackUp Academy baseline 886ec061"
-          git branch -M main
-          git push --force origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git commit -m "snapshot: approved StackUp Academy baseline 886ec061 (content)"
+          git push origin HEAD:main
