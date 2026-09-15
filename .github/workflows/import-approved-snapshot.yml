@@ -1,18 +1,16 @@
 name: Import approved StackUp Academy snapshot
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/import-approved-snapshot.yml'
   workflow_dispatch:
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   import:
+    if: github.event_name == 'workflow_dispatch' || github.event.issue.title == 'IMPORT_APPROVED_STACKUP_ACADEMY_SNAPSHOT'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout destination
