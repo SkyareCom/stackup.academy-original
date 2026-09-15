@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate JavaScript syntax
+        run: |
+          find . -maxdepth 1 -type f -name '*.js' -print0 | sort -z | xargs -0 -n1 node --check
+
+      - name: Run poker engine tests
+        run: node test-engine.js
+
+      - name: Audit quiz options
+        run: node test-quiz-quality.js
+
+      - name: Audit English translation
+        run: node test-i18n.js
+
+      - name: Protect Academy performance
+        run: node test-performance.js
+
+      - name: Protect Academy typography
+        run: node test-typography.js
+
+      - name: Validate Play release UI
+        run: node test-ui-release.js
+
+      - name: Validate web manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8')); console.log('manifest.webmanifest OK')"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
