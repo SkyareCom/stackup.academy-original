@@ -1,0 +1,44 @@
+name: Import approved StackUp Academy snapshot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/import-approved-snapshot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Fetch approved source snapshot
+        run: |
+          set -euo pipefail
+          git clone https://github.com/SkyareCom/stackup.holdem-academy.git /tmp/approved-source
+          git -C /tmp/approved-source checkout 886ec061bfcb65b65bdb30a30adb9d75947ada9a
+          test "$(git -C /tmp/approved-source rev-parse HEAD)" = "886ec061bfcb65b65bdb30a30adb9d75947ada9a"
+
+      - name: Replace destination contents with approved snapshot
+        run: |
+          set -euo pipefail
+          rsync -a --delete --exclude='.git/' /tmp/approved-source/ ./
+          rm -rf .git
+          git init
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "snapshot: approved StackUp Academy baseline 886ec061"
+          git branch -M main
+          git push --force origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
