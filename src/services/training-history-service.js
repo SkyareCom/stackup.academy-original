@@ -5,6 +5,14 @@
   const values=o=>Object.values(o&&typeof o==='object'?o:{});
   const read=()=>safeParse(localStorage.getItem(KEY),{runs:[]});
   const write=s=>{try{localStorage.setItem(KEY,JSON.stringify(s))}catch(_){}};
+  const prefs=()=>window.TrainingPreferenceService;
+  const targetRead=()=>prefs()?.isAuto?.()===false?(prefs()?.readDraft?.()||{runs:[]}):read();
+  const targetWrite=s=>{
+    if(prefs()?.isAuto?.()===false){
+      prefs()?.writeDraft?.(s);
+      window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
+    }else write(s);
+  };
 
   const answerStats=store=>{
     let answered=0,correct=0;
@@ -64,7 +72,7 @@
   function recordStorageChange(key,beforeRaw,afterRaw){
     const before=descriptors(key,beforeRaw),after=descriptors(key,afterRaw);
     if(!after.length)return;
-    const state=read();state.runs=Array.isArray(state.runs)?state.runs:[];
+    const state=targetRead();state.runs=Array.isArray(state.runs)?state.runs:[];
     const now=Date.now();
     for(const next of after){
       const prev=before.find(x=>x.kind===next.kind&&x.section===next.section)||{answered:0,correct:0};
@@ -91,7 +99,7 @@
       }
     }
     state.runs=state.runs.slice(0,250);
-    write(state);
+    targetWrite(state);
   }
 
   function list({section='',limit=100}={}){
@@ -109,10 +117,37 @@
       correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
     };
   }
+  function pendingSummary(){
+    const runs=prefs()?.readDraft?.()?.runs||[];
+    return {
+      total:runs.length,
+      answered:runs.reduce((n,r)=>n+Number(r.deltaAnswered||0),0),
+      correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
+    };
+  }
+  function savePending(){
+    const draft=prefs()?.readDraft?.()||{runs:[]},rows=Array.isArray(draft.runs)?draft.runs:[];
+    if(!rows.length)return 0;
+    const state=read();state.runs=[...rows,...(state.runs||[])]
+      .sort((a,b)=>Number(b.updatedAt||0)-Number(a.updatedAt||0))
+      .slice(0,250);
+    write(state);prefs()?.clearDraft?.();
+    window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
+    return rows.length;
+  }
+  function discardPending(){
+    prefs()?.clearDraft?.();
+    window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
+    return true;
+  }
   function remove(id){
     const s=read();s.runs=(s.runs||[]).filter(r=>r.id!==id);write(s);return true;
   }
-  function clear(){try{localStorage.removeItem(KEY)}catch(_){};return true}
+  function clear(){
+    try{localStorage.removeItem(KEY)}catch(_){}
+    prefs()?.clearDraft?.();
+    return true;
+  }
 
-  window.TrainingHistoryService={KEY,list,summary,remove,clear,recordStorageChange};
+  window.TrainingHistoryService={KEY,list,summary,pendingSummary,savePending,discardPending,remove,clear,recordStorageChange};
 })();
