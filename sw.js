@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v132';
-const SW_VERSION=132;
+const CACHE='stackup-academy-v133';
+const SW_VERSION=133;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -36,7 +36,7 @@ const SCRIPTS=[
   ['fundamentals-learning-flow.js',3],
   ['fundamentals-interactive-bank.js',1],
   ['fundamentals-visual-layer.js',5],
-  ['fundamentals-interactive.js',9],
+  ['fundamentals-interactive.js',10],
   ['fundamentals-progress-panel.js',6],
   ['modalities-module.js',7],
   ['modalities-depth-details.js',5],
@@ -44,7 +44,7 @@ const SCRIPTS=[
   ['practice-module.js',5],
   ['practice-table.js',7],
   ['practice-advanced-bank.js',2],
-  ['practice-advanced.js',8],
+  ['practice-advanced.js',9],
   ['table-rotation-guard.js',5],
   ['math-card-structure.js',2],
   ['practice-math-odds.js',6],
@@ -57,12 +57,12 @@ const SCRIPTS=[
   ['academy-loader.js',12],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',18],
+  ['src/i18n/academy-copy.js',19],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-preference-service.js',1],
-  ['src/services/training-history-service.js',6],
+  ['src/services/training-history-service.js',7],
   ['src/services/evolution-service.js',3],
-  ['src/services/progress-service.js',5],
+  ['src/services/progress-service.js',6],
   ['src/services/auth-service.js',1],
   ['src/services/content-service.js',1],
   ['src/services/analytics-service.js',2],
@@ -70,7 +70,7 @@ const SCRIPTS=[
   ['src/services/plan-access-service.js',2],
   ['src/components/academy-components.js',7],
   ['src/components/editorial-lesson-adapter.js',3],
-  ['src/components/training-save-bar.js',1],
+  ['src/components/training-save-bar.js',2],
   ['src/screens/home-screen.js',9],
   ['src/screens/stage-screen.js',11],
   ['src/screens/profile-screen.js',9],
