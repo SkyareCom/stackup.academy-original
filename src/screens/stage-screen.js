@@ -13,16 +13,7 @@
     `;document.head.appendChild(s);
   }
 
-  const groupsFor=(key,items)=>{
-    if(key!=='fundamentos')return[{title:key==='pratica'?t('trainingLab','TRAINING LAB'):t('modalities','MODALIDADES'),indexes:items.map((_,i)=>i)}];
-    return[
-      {title:t('hands','MÃOS'),indexes:[0]},
-      {title:t('gameStructure','ESTRUTURA DO JOGO'),indexes:[1,2,3,4,5,6,7]},
-      {title:t('terminologyProfiles','TERMINOLOGIA E PERFIS'),indexes:[8,9]},
-      {title:t('formats','FORMATOS'),indexes:[10,11]},
-      {title:t('rulesConduct','REGRAS E CONDUTA'),indexes:[12,13]}
-    ];
-  };
+  const groupsFor=(key,items)=>window.AcademyCourseMap?.getGroups?.(key,items)||[{labelKey:key==='pratica'?'trainingLab':'modalities',indexes:items.map((_,i)=>i)}];
   const labelFor=key=>key==='fundamentos'?t('base','BASE'):key==='modalidades'?t('modalities','MODALIDADES'):t('practice','PRÁTICA');
 
   function renderStage(key,pushState=false){
@@ -36,7 +27,7 @@
       const rows=g.indexes.filter(i=>s.i[i]).map(i=>{
         const item=s.i[i];return CC.LessonRow({num:String(i+1).padStart(2,'0'),title:item[0],note:item[1],attrs:`data-academy-lesson="${i}" data-stage="${key}"`});
       }).join('');
-      return `<section class="academy-group"><h2 class="academy-group-title">${esc(g.title)}</h2><div class="academy-group-list">${rows}</div></section>`;
+      return `<section class="academy-group"><h2 class="academy-group-title">${esc(t(g.labelKey,g.labelKey))}</h2><div class="academy-group-list">${rows}</div></section>`;
     }).join('');
     const practiceTools=key==='pratica'?`<section class="academy-group"><h2 class="academy-group-title">${t('practiceTools','FERRAMENTAS DE PRÁTICA')}</h2><div class="academy-group-list">${CC.LessonRow({num:'04',title:t('personalRanking','RANKING PESSOAL'),note:t('selfRankingCopy','Seu desempenho pessoal com base nos treinos já realizados.'),attrs:'data-practice-tool="ranking"'})}${CC.LessonRow({num:'05',title:t('history','HISTÓRICO'),note:t('historyCopy','Resumo consolidado do progresso salvo neste dispositivo.'),attrs:'data-practice-tool="history"'})}${CC.LessonRow({num:'06',title:t('exercises','EXERCÍCIOS'),note:t('exercisesCopy','Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.'),attrs:'data-practice-tool="exercises"'})}</div></section>`:'';
     root.innerHTML=`<section class="screen academy-stage-screen"><div class="eyebrow" style="display:none">${esc(s.e||'')}</div>${header}${groups}${practiceTools}</section>`;
