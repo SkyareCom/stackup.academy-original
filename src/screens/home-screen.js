@@ -72,7 +72,7 @@
     root.innerHTML=`<section class="screen academy-home">
       ${CC.AcademyBackground({src:window.academyTheme?.backgrounds?.home,className:'academy-home-hero',content:heroContent,alt:''})}
       <section class="academy-home-section">
-        ${CC.CourseSection({title:t('continueLearning','CONTINUE LEARNING'),content:`<div class="academy-continue"><div class="academy-continue-top"><div><div class="academy-kicker">${hasProgress?'ÚLTIMA SEÇÃO':'PRÓXIMA ETAPA'}</div><h3>${esc(lastLabel(route))}</h3><p>${Math.round(S.pct)}% · ${S.answered} ${t('answered','QUESTÕES RESPONDIDAS').toLowerCase()}</p></div><b>${Math.round(S.pct)}%</b></div>${CC.LearningProgress(S.pct)}${CC.SecondaryButton(hasProgress?t('continue','CONTINUAR APRENDENDO'):t('start','COMEÇAR'),'data-home-continue')}</div>`})}
+        ${CC.CourseSection({title:t('continueLearning','CONTINUE LEARNING'),content:`<div class="academy-continue"><div class="academy-continue-top"><div><div class="academy-kicker">${hasProgress?t('lastSection','ÚLTIMA SEÇÃO'):t('nextStep','PRÓXIMA ETAPA')}</div><h3>${esc(lastLabel(route))}</h3><p>${Math.round(S.pct)}% · ${S.answered} ${t('answered','QUESTÕES RESPONDIDAS').toLowerCase()}</p></div><b>${Math.round(S.pct)}%</b></div>${CC.LearningProgress(S.pct)}${CC.SecondaryButton(hasProgress?t('continue','CONTINUAR APRENDENDO'):t('start','COMEÇAR'),'data-home-continue')}</div>`})}
       </section>
       <section class="academy-home-section">${CC.CourseSection({title:t('threeSteps','3 ETAPAS PRINCIPAIS'),content:`<div class="academy-stage-grid">${stageCards}</div>`})}</section>
       <section class="academy-home-section">
