@@ -5,10 +5,10 @@
 
   if(!document.getElementById('academy-profile-style')){
     const s=document.createElement('style');s.id='academy-profile-style';s.textContent=`
-      .academy-profile{padding-top:22px!important}.academy-profile-head{padding:4px 2px 22px;border-bottom:1px solid var(--academy-line-strong)}
-      .academy-profile-section{padding:22px 0 0}.academy-profile-list{border-top:1px solid var(--academy-line)}
-      .academy-plan-grid{display:grid;gap:9px}.academy-plan{padding:15px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}
-      .academy-plan.current{border-color:var(--academy-silver)}.academy-plan-top{display:flex;justify-content:space-between;gap:12px}.academy-plan strong{font-size:14px}.academy-plan span{font-size:10px;letter-spacing:.08em;color:var(--academy-muted);text-transform:uppercase}
+      .academy-profile{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-profile-head{min-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}
+      .academy-profile-section{padding:20px 0 0}.academy-profile-list{border-top:1px solid var(--academy-line)}
+      .academy-plan-grid{display:grid;gap:12px}.academy-plan{padding:15px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}
+      .academy-plan.current{border-color:var(--academy-silver)}.academy-plan-top{display:flex;justify-content:space-between;gap:12px}.academy-plan strong{font-size:12px}.academy-plan span{font-size:12px;letter-spacing:.08em;color:var(--academy-muted);text-transform:uppercase}
       .academy-cross-sell{padding:17px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2)}
       .academy-cross-sell p{margin:6px 0 14px;color:var(--academy-muted);font-size:12px;line-height:1.45}
       .academy-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.academy-lang-toggle button.active{background:var(--academy-ivory);color:var(--academy-bg);border-color:var(--academy-ivory)}
@@ -20,7 +20,7 @@
     document.getElementById('navtools')?.classList.add('show');
     const CC=C(),plans=window.BillingService?.getPlans?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR';
     root.innerHTML=`<section class="screen academy-profile">
-      <header class="academy-profile-head"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
+      <header class="academy-profile-head academy-section-intro"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
       <section class="academy-profile-section" id="profile-language">${CC.CourseSection({title:t('language','IDIOMA'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${lang==='pt-BR'?'active':''}" data-profile-lang="pt-BR">PT-BR</button><button type="button" class="academy-secondary ${lang==='en-US'?'active':''}" data-profile-lang="en-US">EN-US</button></div>`})}</section>
       <section class="academy-profile-section" id="profile-plans">${CC.CourseSection({title:t('plans','PLANOS'),content:`<div class="academy-plan-grid">${plans.map(p=>`<div class="academy-plan ${p.id===current?'current':''}"><div class="academy-plan-top"><strong>${esc(t(p.id,p.name))}</strong><span>${p.id===current?t('currentPlan','PLANO ATUAL'):t('prepared','ESTRUTURA PREPARADA')}</span></div></div>`).join('')}</div>`})}</section>
       <section class="academy-profile-section" id="profile-apps">${CC.CourseSection({title:t('otherApps','OUTROS APPS'),content:`<div class="academy-cross-sell"><div class="academy-kicker">${t('ecosystem','ECOSSISTEMA STACKUP')}</div><p>${t('grinderCopy','Pronto para transformar conhecimento em treino?')}</p>${CC.SecondaryButton(t('knowGrinder','CONHEÇA O GRINDER'),'data-profile-grinder')}</div>`})}</section>
