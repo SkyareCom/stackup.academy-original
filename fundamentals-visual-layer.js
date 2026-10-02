@@ -104,20 +104,20 @@
   function addStyle(){
     if(document.getElementById(STYLE_ID)) return;
     const st=document.createElement('style');st.id=STYLE_ID;st.textContent=`
-      .fv-wrap{margin:2px 12px 13px;padding:12px;border:1px solid #a87c3260;border-radius:14px;background:#211008;color:#f8f0df;overflow:hidden}
-      .fv-label{text-align:center;color:#d4aa58;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+      .fv-wrap{margin:2px 12px 13px;padding:12px;border:1px solid #8f8f8f60;border-radius:14px;background:#070707;color:#f3eee4;overflow:hidden}
+      .fv-label{text-align:center;color:#d8d0bf;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
       .fv-cards{display:flex;justify-content:center;gap:5px;flex-wrap:nowrap}
-      .fv-card{width:45px;height:62px;border-radius:8px;background:#fffdf7;border:1px solid #d7c8a5;box-shadow:0 3px 8px #0005;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-weight:800;color:#17120f;line-height:1}
+      .fv-card{width:45px;height:62px;border-radius:8px;background:#f7f3eb;border:1px solid #d7c8a5;box-shadow:0 3px 8px #0005;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Arial,sans-serif;font-weight:800;color:#17120f;line-height:1}
       .fv-card.red{color:#a32929}.fv-rank{font-size:17px}.fv-suit{font-size:19px;margin-top:2px}
-      .fv-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fv-handbox{padding:9px 5px;border:1px solid #d4aa5840;border-radius:12px;background:#2a160d}.fv-handtitle{text-align:center;color:#d8c6ad;font-size:10px;margin-bottom:7px}
-      .fv-table{position:relative;height:220px;margin:auto;max-width:330px;border:12px solid #2a160d;border-radius:48%;background:#0e4b3b;box-shadow:inset 0 0 0 3px #d4aa5870}
-      .fv-seat{position:absolute;transform:translate(-50%,-50%);padding:5px 7px;border-radius:8px;background:#211008;border:1px solid #d4aa5855;color:#d8c6ad;font-size:10px;white-space:nowrap}.fv-seat.on{background:#d4aa58;color:#211008;border-color:#f8f0df;font-weight:700;box-shadow:0 0 0 2px #f8f0df55}
-      .fv-board{display:flex;justify-content:center;gap:6px;min-height:64px;align-items:center}.fv-empty{color:#a9947f;font-size:13px;text-align:center;padding:18px 0}
-      .fv-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border-top:1px solid #d4aa582d}.fv-row:first-child{border-top:0}.fv-pill{padding:5px 7px;border-radius:8px;background:#0e4b3b;color:#f8f0df;font-size:11px}.fv-value{color:#d4aa58;font-size:12px}
-      .fv-steps{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px}.fv-step{min-width:78px;padding:9px 6px;border:1px solid #d4aa5840;border-radius:10px;text-align:center;font-size:10px;color:#d8c6ad}.fv-step.on{background:#0e4b3b;color:#f8f0df;border-color:#d4aa58}
-      .fv-scene{text-align:center;padding:5px 4px}.fv-icon{font-family:Arial,sans-serif;font-size:38px;color:#d4aa58}.fv-scene h4{margin:5px 0 7px;color:#f8f0df;font-size:18px}.fv-scene p{margin:3px 0;color:#cfbda7;font-size:12px;line-height:1.35}
-      .fv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.fv-metric{padding:9px 4px;border:1px solid #d4aa5840;border-radius:10px;text-align:center;background:#2a160d}.fv-metric b{display:block;color:#d4aa58;font-size:17px}.fv-metric span{font-size:9px;color:#cfbda7}.fv-name{text-align:center;color:#f8f0df;font-size:18px;margin-bottom:8px}
-      .fv-format{display:grid;gap:6px}.fv-format h4{margin:0;color:#d4aa58;font-size:19px}.fv-formatline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid #d4aa582d;font-size:12px;color:#d8c6ad}
+      .fv-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fv-handbox{padding:9px 5px;border:1px solid #d8d0bf40;border-radius:12px;background:#151515}.fv-handtitle{text-align:center;color:#a7a7a7;font-size:10px;margin-bottom:7px}
+      .fv-table{position:relative;height:220px;margin:auto;max-width:330px;border:12px solid #151515;border-radius:48%;background:#151515;box-shadow:inset 0 0 0 3px #d8d0bf70}
+      .fv-seat{position:absolute;transform:translate(-50%,-50%);padding:5px 7px;border-radius:8px;background:#070707;border:1px solid #d8d0bf55;color:#a7a7a7;font-size:10px;white-space:nowrap}.fv-seat.on{background:#d8d0bf;color:#070707;border-color:#f3eee4;font-weight:700;box-shadow:0 0 0 2px #f3eee455}
+      .fv-board{display:flex;justify-content:center;gap:6px;min-height:64px;align-items:center}.fv-empty{color:#8f8f8f;font-size:13px;text-align:center;padding:18px 0}
+      .fv-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;border-top:1px solid #d8d0bf2d}.fv-row:first-child{border-top:0}.fv-pill{padding:5px 7px;border-radius:8px;background:#151515;color:#f3eee4;font-size:11px}.fv-value{color:#d8d0bf;font-size:12px}
+      .fv-steps{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px}.fv-step{min-width:78px;padding:9px 6px;border:1px solid #d8d0bf40;border-radius:10px;text-align:center;font-size:10px;color:#a7a7a7}.fv-step.on{background:#151515;color:#f3eee4;border-color:#d8d0bf}
+      .fv-scene{text-align:center;padding:5px 4px}.fv-icon{font-family:Arial,sans-serif;font-size:38px;color:#d8d0bf}.fv-scene h4{margin:5px 0 7px;color:#f3eee4;font-size:18px}.fv-scene p{margin:3px 0;color:#9f9f9f;font-size:12px;line-height:1.35}
+      .fv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.fv-metric{padding:9px 4px;border:1px solid #d8d0bf40;border-radius:10px;text-align:center;background:#151515}.fv-metric b{display:block;color:#d8d0bf;font-size:17px}.fv-metric span{font-size:9px;color:#9f9f9f}.fv-name{text-align:center;color:#f3eee4;font-size:18px;margin-bottom:8px}
+      .fv-format{display:grid;gap:6px}.fv-format h4{margin:0;color:#d8d0bf;font-size:19px}.fv-formatline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid #d8d0bf2d;font-size:12px;color:#a7a7a7}
       @media(max-width:380px){.fv-card{width:39px;height:56px}.fv-rank{font-size:15px}.fv-suit{font-size:17px}.fv-table{height:205px}.fv-seat{font-size:9px;padding:4px 5px}}
     `;document.head.appendChild(st);
   }
