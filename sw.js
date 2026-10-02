@@ -53,9 +53,9 @@ const SCRIPTS=[
   ['release-compliance.js',1],
   ['academy-visual-system.js',7],
   ['page-top-reset.js',4],
-  ['typography-standard.js',7],
+  ['typography-standard.js',8],
   ['academy-loader.js',11],
-  ['src/theme/academy-theme.js',3],
+  ['src/theme/academy-theme.js',4],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',4],
   ['src/content/academy-course-map.js',1],
@@ -109,7 +109,7 @@ function enhanceHtml(source){
     html=html.replace('</head>','<style id="stackup-header-logo-size">.brandin .logo[data-stackup-logo="1"]{width:80px!important;height:80px!important;flex:0 0 80px!important;object-fit:contain!important;background:transparent!important}</style></head>');
   }
   if(!html.includes('stackup-font-lock')){
-    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Overlock\',system-ui,sans-serif!important}.name,.intro h1,.stitle,.head h2,.card.lesson>h2,.ttitle,.rname,.compare h3{font-family:\'Overlock\',system-ui,sans-serif!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
+    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Saira Semi Condensed\',system-ui,sans-serif!important}.name,.intro h1,.stitle,.head h2,.card.lesson>h2,.ttitle,.rname,.compare h3{font-family:\'Saira Semi Condensed\',system-ui,sans-serif!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
   }
   for(const [name,version] of SCRIPTS){
     if(AUTO_SCRIPTS.has(name)&&!html.includes(name))html=html.replace('</body>',`<script src="./${name}?v=${version}"></script></body>`);
