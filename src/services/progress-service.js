@@ -42,11 +42,20 @@
   const weekStart=()=>{
     const d=new Date();const day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d.toISOString().slice(0,10);
   };
-  const activity=()=>{const a=read(KEYS.weekly);const start=weekStart();return a.weekStart===start?a:{weekStart:start,goal:25,days:{}}};
+  const activity=()=>{
+    const a=read(KEYS.weekly),start=weekStart(),allowed=[30,50,100];
+    const state=a.weekStart===start?a:{weekStart:start,goal:30,days:{}};
+    state.goal=allowed.includes(Number(state.goal))?Number(state.goal):30;
+    return state;
+  };
   const writeActivity=a=>{try{localStorage.setItem(KEYS.weekly,JSON.stringify(a))}catch(_){}};
   const recordActivity=(count=1)=>{
     if(count<=0)return;const a=activity();const today=new Date().toISOString().slice(0,10);
     a.days[today]=(a.days[today]||0)+count;writeActivity(a);
+  };
+  const setWeeklyGoal=goal=>{
+    const allowed=[30,50,100],value=Number(goal);if(!allowed.includes(value))return false;
+    const a=activity();a.goal=value;writeActivity(a);return true;
   };
   const countStore=(key,raw)=>{
     const s=safeParse(raw,{});
@@ -92,5 +101,5 @@
   }
   const setLastRoute=route=>{try{localStorage.setItem(KEYS.last,JSON.stringify(route))}catch(_){}};
   const getLastRoute=()=>read(KEYS.last);
-  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity};
+  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity,setWeeklyGoal};
 })();
