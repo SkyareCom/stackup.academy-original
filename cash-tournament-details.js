@@ -7,17 +7,17 @@
     s.id=STYLE_ID;
     s.textContent=`
       .ct-grid{display:grid;gap:12px}
-      .ct-card{padding:15px 16px;border-radius:17px;background:var(--c2,#e7dcc2);border:1px solid #a87c324d}
-      .ct-card h3{margin:0 0 8px;font-size:21px;color:var(--gd,#08372d);text-transform:uppercase}
-      .ct-card p{margin:0;color:var(--m,#725f4d);font-size:16px;line-height:1.5}
-      .ct-card p+p{margin-top:8px}.ct-card strong{color:var(--ink,#25170f)}
-      .ct-note{background:#e6d8b9;border-color:#c99539}
-      .ct-alert{background:#ead8c5;border-color:#a86b3c}
+      .ct-card{padding:15px 16px;border-radius:17px;background:var(--c2,#e6dfd3);border:1px solid #8f8f8f4d}
+      .ct-card h3{margin:0 0 8px;font-size:21px;color:var(--gd,#202020);text-transform:uppercase}
+      .ct-card p{margin:0;color:var(--m,#676767);font-size:16px;line-height:1.5}
+      .ct-card p+p{margin-top:8px}.ct-card strong{color:var(--ink,#151515)}
+      .ct-note{background:#d8d0bf;border-color:#9a9a9a}
+      .ct-alert{background:#e2dbcf;border-color:#a86b3c}
       .ct-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
-      .ct-mini{padding:11px 12px;border-radius:14px;background:#f4ecd9;border:1px solid #a87c3255}
-      .ct-mini strong{display:block;color:#08372d;font-size:16px;text-transform:uppercase;margin-bottom:4px}
-      .ct-mini span{display:block;color:#725f4d;font-size:14px;line-height:1.4}
-      .ct-tag{display:inline-block;margin-top:7px;padding:4px 8px;border-radius:999px;background:#211008;color:#d4aa58;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+      .ct-mini{padding:11px 12px;border-radius:14px;background:#f3eee4;border:1px solid #8f8f8f55}
+      .ct-mini strong{display:block;color:#202020;font-size:16px;text-transform:uppercase;margin-bottom:4px}
+      .ct-mini span{display:block;color:#676767;font-size:14px;line-height:1.4}
+      .ct-tag{display:inline-block;margin-top:7px;padding:4px 8px;border-radius:999px;background:#070707;color:#d8d0bf;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
       @media(max-width:390px){.ct-mini-grid{grid-template-columns:1fr}.ct-card h3{font-size:19px}.ct-card p{font-size:15px}}
     `;
     document.head.appendChild(s);
