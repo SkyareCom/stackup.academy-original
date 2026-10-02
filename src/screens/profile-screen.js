@@ -11,6 +11,8 @@
       .academy-plan.current{border-color:var(--academy-silver)}.academy-plan-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.academy-plan-price{margin-top:12px;display:flex;align-items:baseline;gap:6px}.academy-plan-benefits{display:grid;gap:6px;margin-top:12px;color:var(--academy-muted)}.academy-plan-benefits span{display:block}.academy-addon{margin-top:12px;padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-bg-2)}.academy-plan strong{font-size:12px}.academy-plan-top span,.academy-plan-price span{font-size:12px;letter-spacing:.08em;color:var(--academy-muted);text-transform:uppercase}.academy-plan-benefits span{font-size:12px;letter-spacing:0;color:var(--academy-muted);text-transform:none;font-weight:400}
       .academy-cross-sell{padding:16px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2)}
       .academy-cross-sell p{margin:6px 0 14px;color:var(--academy-muted);font-size:12px;line-height:1.45}
+      .academy-apps-grid{display:grid;gap:12px}.academy-app-card{padding:16px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+      .academy-app-card strong,.academy-app-card span{display:block}.academy-app-card p{margin:5px 0 0;color:var(--academy-muted);font-size:12px;line-height:1.4}.academy-soon-tag{flex:0 0 auto;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase}
       .academy-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.academy-lang-toggle button.active{background:var(--academy-ivory);color:var(--academy-bg);border-color:var(--academy-ivory)}
     `;document.head.appendChild(s);
   }
@@ -23,7 +25,13 @@
       <header class="academy-profile-head academy-section-intro"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
       <section class="academy-profile-section" id="profile-language">${CC.CourseSection({title:t('language','IDIOMA'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${lang==='pt-BR'?'active':''}" data-profile-lang="pt-BR">PT-BR</button><button type="button" class="academy-secondary ${lang==='en-US'?'active':''}" data-profile-lang="en-US">EN-US</button></div>`})}</section>
       <section class="academy-profile-section" id="profile-plans">${CC.CourseSection({title:t('plans','PLANOS'),content:`<div class="academy-plan-grid">${plans.map(p=>`<div class="academy-plan ${p.id===current?'current':''}"><div class="academy-plan-top"><strong>${esc(t(p.id,p.name))}</strong><span>${p.id===current?t('currentPlan','PLANO ATUAL'):t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(p.price||'')}</strong><span>${esc(p.period||'')}</span></div><div class="academy-plan-benefits">${(p.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}</div>${addons.map(a=>`<div class="academy-addon"><div class="academy-plan-top"><strong>${esc(t(a.id,a.name))}</strong><span>${t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(a.price||'')}</strong><span>${esc(a.period||'')}</span></div><div class="academy-plan-benefits">${(a.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}`})}</section>
-      <section class="academy-profile-section" id="profile-apps">${CC.CourseSection({title:t('otherApps','OUTROS APPS'),content:`<div class="academy-cross-sell"><div class="academy-kicker">${t('ecosystem','ECOSSISTEMA STACKUP')}</div><p>${t('grinderCopy','Pronto para transformar conhecimento em treino?')}</p>${CC.SecondaryButton(t('knowGrinder','CONHEÇA O GRINDER'),'data-profile-grinder')}</div>`})}</section>
+      <section class="academy-profile-section" id="profile-apps">${CC.CourseSection({title:t('otherApps','OUTROS APPS'),content:`<div class="academy-apps-grid">${[
+        ['GRINDER',"Treinamento de No-Limit Hold'em"],
+        ['HEROES',"Aperfeiçoamento em No-Limit Hold'em"],
+        ['REVOLUTION','Simulador de treino e jogo interativo de NLH'],
+        ['WRAPS','Treinamento de Pot-Limit Omaha'],
+        ['D ACTION','Aperfeiçoamento em Pot-Limit Omaha']
+      ].map(([name,desc])=>`<div class="academy-app-card"><div><strong>${name}</strong><p>${desc}</p></div><span class="academy-soon-tag">${t('comingSoon','EM BREVE')}</span></div>`).join('')}</div>`})}</section>
     </section>`;
     window.AnalyticsService?.screen?.('profile');
     if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
@@ -36,7 +44,6 @@
 
   document.addEventListener('click',e=>{
     const l=e.target.closest('[data-profile-lang]');if(l){const code=l.dataset.profileLang;try{localStorage.setItem('stackup-language-v1',code)}catch(_){};document.documentElement.lang=code;location.reload();return}
-    if(e.target.closest('[data-profile-grinder]')){e.preventDefault();window.dispatchEvent(new CustomEvent('academy:crosssell',{detail:{product:'grinder'}}));}
   });
   const old=window.onpopstate;
   window.onpopstate=e=>{if(e.state?.type==='academy-profile'){render(e.state.focus||'');return}old?.(e)};
