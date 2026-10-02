@@ -13,7 +13,7 @@
     },
     typography:{
       family:"'Saira Semi Condensed', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-      brand:'14px',screen:'14px',section:'14px',body:'12px',button:'12px',caption:'10px'
+      brand:'12px',screen:'12px',section:'12px',body:'12px',button:'12px',caption:'12px'
     },
     spacing:{xs:'4px',sm:'8px',md:'12px',lg:'16px',xl:'20px',xxl:'24px',xxxl:'32px',huge:'40px'},
     radius:{sm:'8px',md:'12px',lg:'16px',xl:'20px',pill:'999px'},
