@@ -9,61 +9,101 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#070707;--bg2:#0C0C0C;--surface:#1A1A1A;--ivory:#F2EDE2;--muted:#97938B;--line:rgba(242,237,226,.18);font-family:'Saira Semi Condensed',system-ui,sans-serif}
+    :root{--bg:#070707;--surface:#1A1A1A;--ivory:#F2EDE2;--muted:#97938B;--line:rgba(242,237,226,.18);font-family:'Saira Semi Condensed',system-ui,sans-serif}
     *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ivory);font-size:12px;font-weight:400}
     main{max-width:560px;margin:auto;padding:calc(22px + env(safe-area-inset-top)) 16px calc(34px + env(safe-area-inset-bottom))}
     .brand{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+    .langs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}.langs button{min-height:40px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ivory);font:600 12px 'Saira Semi Condensed',system-ui,sans-serif}.langs button.active{background:var(--ivory);color:var(--bg)}
     .card{padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    section[lang]{display:none}section[lang].on{display:block}
     h1,h2{font-size:12px;font-weight:600;text-transform:uppercase;color:var(--ivory)}h1{margin:0 0 8px}h2{margin:22px 0 7px}
     p,li,a,.date{font-size:12px;line-height:1.6}.date,p,li{color:var(--muted)}ul{padding-left:20px}a{color:var(--ivory)}
-    .note{padding:12px 14px;border-left:2px solid var(--ivory);background:var(--surface);color:var(--muted)}
     .back{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:20px;padding:0 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-weight:600;text-transform:uppercase}
   </style>
 </head>
 <body>
 <main>
   <div class="brand">STACKUP HOLD'EM ACADEMY</div>
-  <section class="card">
-    <h1>POLÍTICA DE PRIVACIDADE</h1>
-    <div class="date">Última atualização: 2 de outubro de 2026</div>
+  <div class="langs"><button type="button" data-lang="pt">PT-BR</button><button type="button" data-lang="en">EN-US</button></div>
 
-    <h2>FINALIDADE</h2>
-    <p>O StackUp Hold'em Academy é um aplicativo educacional de aprendizado e treinamento de poker. Ele não oferece apostas com dinheiro real, depósitos, saques, carteira ou distribuição de prêmios.</p>
-
-    <h2>ACESSO E DADOS PESSOAIS</h2>
-    <p>A versão Premium atual não exige cadastro ou login obrigatório para estudar. O aplicativo não solicita localização, contatos, câmera, microfone ou dados financeiros para o funcionamento normal.</p>
-
-    <h2>PROGRESSO, HISTÓRICO E EVOLUÇÃO</h2>
-    <p>Respostas, progresso, histórico de treinos, XP, metas semanais, revisão inteligente, simulados e preferências são armazenados localmente no aparelho para permitir continuidade do estudo.</p>
-
-    <h2>ACADEMY COACH</h2>
-    <p>Quando o usuário configura o Academy Coach, o número de WhatsApp e o consentimento ficam armazenados localmente. Se uma sincronização de conta for habilitada futuramente, esses dados somente serão sincronizados após ação e consentimento do próprio usuário.</p>
-
-    <h2>PLANOS E PAGAMENTOS</h2>
-    <p>O Premium contém a estrutura visual dos planos Free, Mensal, Semestral e Anual e do Coach PLUS. O frontend web atual não processa cartão nem cobra diretamente o usuário. Uma eventual cobrança pela loja dependerá da ativação específica desse recurso.</p>
-
-    <h2>SERVIÇOS DE TERCEIROS</h2>
-    <p>O conteúdo web pode ser servido pelo GitHub Pages e a tipografia pode ser carregada pelo Google Fonts. Esses provedores podem processar dados técnicos de conexão necessários para entregar seus serviços.</p>
-
-    <h2>ANÚNCIOS E ANALYTICS</h2>
-    <p>O Academy não vende dados pessoais e o Premium atual não contém SDK de publicidade. Eventos internos usados para funcionamento da interface não identificam o usuário para anunciantes.</p>
-
-    <h2>APAGAR DADOS DESTE APARELHO</h2>
-    <p>Em <strong>PERFIL → SOBRE E PRIVACIDADE</strong>, o usuário pode apagar progresso, histórico, metas e preferências locais do Academy. A limpeza é limitada às chaves do Academy e não usa uma limpeza global do armazenamento do domínio.</p>
-
-    <h2>EXCLUSÃO DE CONTA</h2>
-    <p>Caso exista futuramente uma conta sincronizada, o usuário pode solicitar sua exclusão em <strong>PERFIL → SOLICITAR EXCLUSÃO DA CONTA</strong> ou pelo e-mail <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
-
-    <h2>RETENÇÃO E SEGURANÇA</h2>
-    <p>Os dados locais permanecem no aparelho até serem apagados pelo usuário, pelo navegador ou pelo próprio aplicativo. Conexões externas utilizadas pelo app usam HTTPS.</p>
-
-    <h2>PÚBLICO</h2>
-    <p>O aplicativo é destinado a maiores de 18 anos e apresenta poker exclusivamente sob perspectiva educacional e de treinamento.</p>
-
-    <h2>CONTATO</h2>
-    <p>Dúvidas sobre privacidade podem ser enviadas para <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
+  <section lang="pt" id="pt">
+    <div class="card">
+      <h1>POLÍTICA DE PRIVACIDADE</h1>
+      <div class="date">Última atualização: 2 de outubro de 2026</div>
+      <h2>FINALIDADE</h2>
+      <p>O StackUp Hold'em Academy é um aplicativo educacional de aprendizado e treinamento de poker. Ele não oferece apostas com dinheiro real, depósitos, saques, carteira ou distribuição de prêmios.</p>
+      <h2>ACESSO E DADOS PESSOAIS</h2>
+      <p>A versão Premium atual não exige cadastro ou login obrigatório para estudar. O aplicativo não solicita localização, contatos, câmera, microfone ou dados financeiros para o funcionamento normal.</p>
+      <h2>PROGRESSO, HISTÓRICO E EVOLUÇÃO</h2>
+      <p>Respostas, progresso, histórico de treinos, XP, metas semanais, revisão inteligente, simulados e preferências são armazenados localmente no aparelho para permitir continuidade do estudo.</p>
+      <h2>ACADEMY COACH</h2>
+      <p>Quando o usuário configura o Academy Coach, o número de WhatsApp e o consentimento ficam armazenados localmente. Se uma sincronização de conta for habilitada futuramente, esses dados somente serão sincronizados após ação e consentimento do próprio usuário.</p>
+      <h2>PLANOS E PAGAMENTOS</h2>
+      <p>O Premium contém a estrutura visual dos planos Free, Mensal, Semestral e Anual e do Coach PLUS. O frontend web atual não processa cartão nem cobra diretamente o usuário. Uma eventual cobrança pela loja dependerá da ativação específica desse recurso.</p>
+      <h2>SERVIÇOS DE TERCEIROS</h2>
+      <p>O conteúdo web pode ser servido pelo GitHub Pages e a tipografia pode ser carregada pelo Google Fonts. Esses provedores podem processar dados técnicos de conexão necessários para entregar seus serviços.</p>
+      <h2>ANÚNCIOS E ANALYTICS</h2>
+      <p>O Academy não vende dados pessoais e o Premium atual não contém SDK de publicidade. Eventos internos usados para funcionamento da interface não identificam o usuário para anunciantes.</p>
+      <h2>APAGAR DADOS DESTE APARELHO</h2>
+      <p>Em <strong>PERFIL → SOBRE E PRIVACIDADE</strong>, o usuário pode apagar progresso, histórico, metas e preferências locais do Academy. A limpeza é limitada às chaves do Academy e não usa uma limpeza global do armazenamento do domínio.</p>
+      <h2>EXCLUSÃO DE CONTA</h2>
+      <p>Caso exista futuramente uma conta sincronizada, o usuário pode solicitar sua exclusão em <strong>PERFIL → SOLICITAR EXCLUSÃO DA CONTA</strong> ou pelo e-mail <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
+      <h2>RETENÇÃO E SEGURANÇA</h2>
+      <p>Os dados locais permanecem no aparelho até serem apagados pelo usuário, pelo navegador ou pelo próprio aplicativo. Conexões externas utilizadas pelo app usam HTTPS.</p>
+      <h2>PÚBLICO</h2>
+      <p>O aplicativo é destinado a maiores de 18 anos e apresenta poker exclusivamente sob perspectiva educacional e de treinamento.</p>
+      <h2>CONTATO</h2>
+      <p>Dúvidas sobre privacidade podem ser enviadas para <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
+    </div>
   </section>
-  <a class="back" href="./">VOLTAR AO APLICATIVO</a>
+
+  <section lang="en" id="en">
+    <div class="card">
+      <h1>PRIVACY POLICY</h1>
+      <div class="date">Last updated: October 2, 2026</div>
+      <h2>PURPOSE</h2>
+      <p>StackUp Hold'em Academy is an educational poker learning and training app. It does not offer real-money gambling, deposits, withdrawals, wallets or prize distribution.</p>
+      <h2>ACCESS AND PERSONAL DATA</h2>
+      <p>The current Premium version does not require mandatory registration or sign-in to study. The app does not request location, contacts, camera, microphone or financial data for normal operation.</p>
+      <h2>PROGRESS, HISTORY AND EVOLUTION</h2>
+      <p>Answers, progress, training history, XP, weekly goals, smart review, exams and preferences are stored locally on the device so study can continue over time.</p>
+      <h2>ACADEMY COACH</h2>
+      <p>When Academy Coach is configured, the WhatsApp number and consent are stored locally. If account synchronization is enabled in the future, this data will only be synchronized after the user's action and consent.</p>
+      <h2>PLANS AND PAYMENTS</h2>
+      <p>Premium contains the visual structure for Free, Monthly, Semiannual and Annual plans and Coach PLUS. The current web frontend does not process cards or directly charge users. Any store billing depends on that feature being explicitly enabled.</p>
+      <h2>THIRD-PARTY SERVICES</h2>
+      <p>Web content may be served through GitHub Pages and typography may be loaded through Google Fonts. These providers may process technical connection data needed to deliver their services.</p>
+      <h2>ADS AND ANALYTICS</h2>
+      <p>Academy does not sell personal data and the current Premium version contains no advertising SDK. Internal interface events do not identify the user to advertisers.</p>
+      <h2>DELETE DATA FROM THIS DEVICE</h2>
+      <p>Under <strong>PROFILE → ABOUT AND PRIVACY</strong>, the user can delete Academy progress, history, goals and local preferences. The cleanup is scoped to Academy keys and does not globally clear domain storage.</p>
+      <h2>ACCOUNT DELETION</h2>
+      <p>If a synchronized account is enabled in the future, the user may request deletion under <strong>PROFILE → REQUEST ACCOUNT DELETION</strong> or by e-mail at <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
+      <h2>RETENTION AND SECURITY</h2>
+      <p>Local data remains on the device until deleted by the user, browser or app. External connections used by the app use HTTPS.</p>
+      <h2>AUDIENCE</h2>
+      <p>The app is intended for users aged 18 or older and presents poker exclusively from an educational and training perspective.</p>
+      <h2>CONTACT</h2>
+      <p>Privacy questions may be sent to <a href="mailto:skyare.company@gmail.com">skyare.company@gmail.com</a>.</p>
+    </div>
+  </section>
+
+  <a class="back" href="./">VOLTAR / BACK</a>
 </main>
+<script>
+(() => {
+  const saved=(()=>{try{return localStorage.getItem('stackup-language-v1')}catch(_){return null}})();
+  const initial=(location.hash||'').replace('#','')||(saved==='en-US'?'en':'pt');
+  const show=lang=>{
+    if(!['pt','en'].includes(lang))lang='pt';
+    document.querySelectorAll('section[lang]').forEach(s=>s.classList.toggle('on',s.getAttribute('lang')===lang));
+    document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+    document.documentElement.lang=lang==='en'?'en-US':'pt-BR';
+    history.replaceState(null,'','#'+lang);
+  };
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.lang)));
+  show(initial);
+})();
+</script>
 </body>
 </html>
