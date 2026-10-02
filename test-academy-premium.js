@@ -31,10 +31,14 @@ assert('exact Academy ivory and white',theme.includes("one:'#F2EDE2'")&&theme.in
 assert('semantic colors',theme.includes("success:'#82917F'")&&theme.includes("warning:'#B39B72'")&&theme.includes("danger:'#956A66'"));
 assert('Saira Semi Condensed only for Academy UI',index.includes('family=Saira+Semi+Condensed')&&!index.includes('Cormorant+Garamond')&&!index.includes('Love+Ya+Like+A+Sister')&&index.includes('wght@400;600')&&!index.includes('wght@500')&&!index.includes('wght@700')&&!index.includes('wght@800')&&!index.includes('wght@900'));
 assert('Portuguese premium copy is primary',copy.includes("continueLearning:'CONTINUAR APRENDENDO'")&&copy.includes("trainingLab:'LABORATÓRIO DE TREINO'")&&copy.includes("mathPoker:'MATEMÁTICA DO POKER'"));
+assert('advanced study script loads once',(index.match(/src\/screens\/study-tools-screen\.js/g)||[]).length===1);
 assert('PT-BR and EN-US copy',copy.includes("'pt-BR'")&&copy.includes("'en-US'"));
 for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','LearningProgress','CourseSection','LessonRow','PrimaryButton','SecondaryButton','QuizOption','QuizProgress','EvolutionMetric','WeeklyGoal','SectionDivider','BottomNavigation','Modal','BottomSheet','LoadingState','EmptyState','ErrorState']){
   assert('component '+name,components.includes(name));
 }
+assert('premium evolution is completed without replacing Home shell',home.includes('academy-home-hero')&&home.includes('EvolutionService')&&home.includes('villainMe')&&home.includes('podium')&&progress.includes('setWeeklyGoal')&&progress.includes('[30,50,100]'));
+assert('premium Profile includes Coach and privacy completion',profile.includes('academy.coach.v1')&&profile.includes('data-profile-clear-local')&&profile.includes('data-profile-delete-account'));
+assert('premium certificates are consultable',read('src/screens/study-tools-screen.js').includes('data-certificate-stage')&&read('src/screens/study-tools-screen.js').includes('renderCertificateDetail'));
 assert('home is editorial and progress-aware',home.includes('academy-home-hero')&&home.includes('ProgressService')&&home.includes('WeeklyGoal'));
 assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.includes('academy-group-list'));
 assert('Practice tools use real progress',tools.includes('ProgressService')&&tools.includes("personalRanking"));
