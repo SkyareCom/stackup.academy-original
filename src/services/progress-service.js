@@ -42,11 +42,20 @@
   const weekStart=()=>{
     const d=new Date();const day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d.toISOString().slice(0,10);
   };
-  const activity=()=>{const a=read(KEYS.weekly);const start=weekStart();return a.weekStart===start?a:{weekStart:start,goal:25,days:{}}};
+  const activity=()=>{
+    const a=read(KEYS.weekly),start=weekStart(),allowed=[30,50,100];
+    const next=a.weekStart===start?a:{weekStart:start,goal:Number(a.goal)||30,days:{}};
+    next.goal=allowed.includes(Number(next.goal))?Number(next.goal):30;
+    return next;
+  };
   const writeActivity=a=>{try{localStorage.setItem(KEYS.weekly,JSON.stringify(a))}catch(_){}};
   const recordActivity=(count=1)=>{
     if(count<=0)return;const a=activity();const today=new Date().toISOString().slice(0,10);
     a.days[today]=(a.days[today]||0)+count;writeActivity(a);
+  };
+  const setWeeklyGoal=goal=>{
+    const value=Number(goal);if(![30,50,100].includes(value))return false;
+    const a=activity();a.goal=value;writeActivity(a);return true;
   };
   const countStore=(key,raw)=>{
     const s=safeParse(raw,{});
@@ -86,11 +95,11 @@
     return {
       answered,correct,errors:Math.max(0,answered-correct),total,pct:clamp(answered/total*100),
       accuracy:answered?clamp(correct/answered*100):0,streak,
-      weekly:{goal:Number(weekly.goal||25),completed:weekDone,pct:clamp(weekDone/Number(weekly.goal||25)*100)},
+      weekly:{goal:Number(weekly.goal||30),completed:weekDone,pct:clamp(weekDone/Number(weekly.goal||30)*100)},
       sections
     };
   }
   const setLastRoute=route=>{try{localStorage.setItem(KEYS.last,JSON.stringify(route))}catch(_){}};
   const getLastRoute=()=>read(KEYS.last);
-  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity};
+  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity,setWeeklyGoal};
 })();
