@@ -55,12 +55,12 @@
       s.weight=WEIGHTS[k];s.xp=s.correct*s.weight;s.accuracy=pct(s.correct,s.answered);
       xp+=s.xp;answered+=s.answered;correct+=s.correct;
     }
-    const weakest=Object.entries(sections)
-      .filter(([,s])=>s.answered>0)
-      .sort((a,b)=>a[1].accuracy-b[1].accuracy)
-      .slice(0,3)
-      .map(([key,s])=>({key,...s}));
-    return {xp,answered,correct,accuracy:pct(correct,answered),category:categoryFor(xp),sections,weakest};
+    const ranked=Object.entries(sections).filter(([,s])=>s.answered>0);
+    const weakest=ranked.slice().sort((a,b)=>a[1].accuracy-b[1].accuracy||a[1].answered-b[1].answered).slice(0,3).map(([key,s])=>({key,...s}));
+    const podium=ranked.slice().sort((a,b)=>b[1].accuracy-a[1].accuracy||b[1].correct-a[1].correct).slice(0,3).map(([key,s],i)=>({place:i+1,key,...s}));
+    const errors=Math.max(0,answered-correct);
+    const selfBattle={hero:correct,villain:errors,heroPct:pct(correct,answered),villainPct:pct(errors,answered)};
+    return {xp,answered,correct,errors,accuracy:pct(correct,answered),category:categoryFor(xp),sections,weakest,podium,selfBattle};
   }
   window.EvolutionService={WEIGHTS,CATEGORIES,snapshot,categoryFor};
 })();
