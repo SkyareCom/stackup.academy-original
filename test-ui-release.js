@@ -41,6 +41,8 @@ assert('exact Premium history sessions preserve question ids',fs.readFileSync('s
 assert('history resumes exact Premium training state',fs.readFileSync('src/services/training-history-service.js','utf8').includes('resumeFor')&&fs.readFileSync('practice-advanced.js','utf8').includes("RESUME_KEY='academy.resume.v1'")&&fs.readFileSync('src/screens/practice-tools-screen.js','utf8').includes("sessionStorage.setItem('academy.resume.v1'"));
 assert('Academy commercial plans are correct',billing.includes("id:'monthly'")&&billing.includes("R$ 39,90")&&billing.includes("id:'semiannual'")&&billing.includes("R$ 179,90")&&billing.includes("id:'annual'")&&billing.includes("R$ 229,90")&&billing.includes("R$ 34,90"));
 assert('training surfaces are darkened',theme.includes('.p3x-quiz-banner')&&theme.includes('.fi-spot')&&theme.includes('background:var(--academy-surface)!important'));
+assert('top-level footer tabs support horizontal swipe',bottomNav.includes("touchstart")&&bottomNav.includes("touchmove")&&bottomNav.includes("touchend")&&bottomNav.includes("Math.abs(data.dx)<60")&&bottomNav.includes("st.type==='stage'")&&bottomNav.includes("st.type==='academy-profile'"));
+assert('nested screens are excluded from footer swipe',bottomNav.includes("return null")&&!bottomNav.includes("st.type==='lesson')return"));
 assert('bottom navigation has five columns',bottomNav.includes('grid-template-columns:repeat(5,minmax(0,1fr))'));
 assert('premium components expose AcademyBackground',components.includes('AcademyBackground')&&components.includes('WeeklyGoal')&&components.includes('BottomSheet'));
 assert('progress reset is explicit only',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange'));
