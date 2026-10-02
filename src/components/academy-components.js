@@ -58,8 +58,9 @@
   const BottomSheet=content=>`<div class="academy-modal-backdrop" data-academy-sheet-backdrop><div class="academy-sheet" role="dialog" aria-modal="true">${content}</div></div>`;
   const LoadingState=(text='Carregando…')=>`<div class="academy-state" role="status">${esc(text)}</div>`;
   const EmptyState=(text='Nenhum conteúdo disponível.')=>`<div class="academy-state">${esc(text)}</div>`;
+  const BottomNavigation=()=>document.querySelector('.academy-bottom-nav');
   const ErrorState=(text='Não foi possível carregar esta área.')=>`<div class="academy-state" role="alert">${esc(text)}</div>`;
 
-  window.AcademyComponents={AcademyBackground,AcademyHeader,EditorialHero,LearningProgress,CourseSection,LessonRow,PrimaryButton,SecondaryButton,QuizOption,QuizProgress,EvolutionMetric,WeeklyGoal,SectionDivider,Modal,BottomSheet,LoadingState,EmptyState,ErrorState};
+  window.AcademyComponents={AcademyBackground,AcademyHeader,EditorialHero,LearningProgress,CourseSection,LessonRow,PrimaryButton,SecondaryButton,QuizOption,QuizProgress,EvolutionMetric,WeeklyGoal,SectionDivider,Modal,BottomSheet,LoadingState,EmptyState,BottomNavigation,ErrorState};
   AcademyHeader();
 })();
