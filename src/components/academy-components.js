@@ -26,7 +26,7 @@
       .academy-metric small{display:block;margin-top:4px;color:var(--academy-muted);font-size:12px}
       .academy-weekly{padding:15px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}
       .academy-weekly-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:10px}
-      .academy-weekly-top strong{font-size:12px;letter-spacing:.08em}.academy-weekly-top b{font-size:12px}.academy-weekly-top span{font-size:12px;color:var(--academy-muted)}
+      .academy-weekly-top strong{font-size:12px;letter-spacing:.08em}.academy-weekly-top b{font-size:12px}.academy-weekly-top span{font-size:12px;color:var(--academy-muted)}.academy-weekly-goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.academy-weekly-goals button{min-height:36px;padding:6px;border:1px solid var(--academy-line);border-radius:10px;background:transparent;color:var(--academy-ivory);font:600 12px/1 'Saira Semi Condensed',sans-serif}.academy-weekly-goals button.active{background:var(--academy-ivory);color:var(--academy-bg)}
       .academy-row{width:100%;display:flex;align-items:center;gap:12px;padding:16px 0;border:0;border-top:1px solid var(--academy-line);background:transparent;color:var(--academy-ivory);text-align:left;cursor:pointer}
       .academy-row:first-child{border-top:0}.academy-row-num{flex:0 0 28px;color:var(--academy-silver);font-size:12px;letter-spacing:.08em}
       .academy-row-copy{flex:1}.academy-row-copy strong{display:block;font-size:12px;line-height:1.15}.academy-row-copy span{display:block;margin-top:3px;color:var(--academy-muted);font-size:12px;line-height:1.35}
@@ -52,7 +52,7 @@
   const QuizOption=({label,text,attrs=''})=>`<button type="button" class="academy-secondary academy-quiz-option" ${attrs}><strong>${esc(label)}</strong> ${esc(text)}</button>`;
   const QuizProgress=({current,total})=>`<div class="academy-kicker">${String(current).padStart(2,'0')} / ${String(total).padStart(2,'0')}</div>`;
   const EvolutionMetric=({label,value,note='',pct=null})=>`<div class="academy-metric"><div class="academy-metric-row"><strong>${esc(label)}</strong><b>${esc(value)}</b></div>${note?`<small>${esc(note)}</small>`:''}${pct===null?'':LearningProgress(pct)}</div>`;
-  const WeeklyGoal=({completed,goal,pct})=>`<div class="academy-weekly"><div class="academy-weekly-top"><div><div class="academy-kicker">${t('weeklyGoal','META SEMANAL')}</div><strong>${completed} / ${goal} <span>${t('questions','QUESTÕES')}</span></strong></div><b>${Math.round(pct)}%</b></div>${LearningProgress(pct)}</div>`;
+  const WeeklyGoal=({completed,goal,pct})=>`<div class="academy-weekly"><div class="academy-weekly-top"><div><div class="academy-kicker">${t('weeklyGoal','META SEMANAL')}</div><strong>${completed} / ${goal} <span>${t('questions','QUESTÕES')}</span></strong></div><b>${Math.round(pct)}%</b></div>${LearningProgress(pct)}<div class="academy-weekly-goals">${[30,50,100].map(v=>`<button type="button" class="${Number(goal)===v?'active':''}" data-weekly-goal="${v}">${v}</button>`).join('')}</div></div>`;
   const SectionDivider=()=>'<div class="academy-divider" aria-hidden="true"></div>';
   const Modal=content=>`<div class="academy-modal-backdrop" data-academy-modal><div class="academy-modal" role="dialog" aria-modal="true">${content}</div></div>`;
   const BottomSheet=content=>`<div class="academy-modal-backdrop" data-academy-sheet-backdrop><div class="academy-sheet" role="dialog" aria-modal="true">${content}</div></div>`;
