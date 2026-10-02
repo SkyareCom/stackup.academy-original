@@ -41,6 +41,7 @@ assert('all three learning stages use photo headers',stageScreen.includes("key==
 assert('Profile keeps the same header height',profileScreen.includes('height:176px;min-height:176px;max-height:176px'));
 assert('Academy commercial plans are correct',billing.includes("id:'monthly'")&&billing.includes("R$ 39,90")&&billing.includes("id:'semiannual'")&&billing.includes("R$ 179,90")&&billing.includes("id:'annual'")&&billing.includes("R$ 229,90")&&billing.includes("R$ 34,90"));
 assert('training surfaces are darkened',theme.includes('.p3x-quiz-banner')&&theme.includes('.fi-spot')&&theme.includes('background:var(--academy-surface)!important'));
+assert('smart review reinforces missed questions',studyTools.includes("REVIEW_KEY='academy.smart-review.v1'")&&studyTools.includes('wrongQuestionIds')&&studyTools.includes('reviewCandidates')&&studyTools.includes('7*day')&&studyTools.includes('data-review-answer'));
 assert('timed exam draws from full Academy bank',studyTools.includes('StackupFundamentalsSpotBank')&&studyTools.includes('StackupModalitiesSpotBank')&&studyTools.includes('StackupMixedGamesSpotBank')&&studyTools.includes('StackupPracticeAdvancedBank')&&studyTools.includes('12*60*1000'));
 assert('evolution has Hero Villain and podium',evolution.includes('selfBattle')&&evolution.includes('podium'));
 assert('weekly goals are 30 50 100',fs.readFileSync('src/services/progress-service.js','utf8').includes('allowed=[30,50,100]'));
