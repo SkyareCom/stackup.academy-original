@@ -17,8 +17,8 @@
       --type-small:clamp(11px,3.3vw,13px);
       --type-meta:clamp(10px,3vw,11px);
       --type-micro:10px;
-      --type-display-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-      --type-ui-family:'Inter',Arial,sans-serif;
+      --type-display-family:'Overlock',system-ui,sans-serif;
+      --type-ui-family:'Overlock',system-ui,sans-serif;
       font-family:var(--type-ui-family)!important;
     }
 
