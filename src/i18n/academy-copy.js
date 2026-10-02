@@ -4,15 +4,15 @@
       home:'HOME',base:'BASE',modalities:'MODALIDADES',practice:'PRÁTICA',profile:'PERFIL',
       learn3:'APRENDA A JOGAR POKER EM 3 ETAPAS',buildBase:'CONSTRUA SUA BASE.',
       heroSub:'Aprenda. Pratique. Evolua.',continue:'CONTINUAR APRENDENDO',start:'COMEÇAR',
-      continueLearning:'CONTINUE LEARNING',threeSteps:'3 ETAPAS PRINCIPAIS',myEvolution:'MINHA EVOLUÇÃO',
+      continueLearning:'CONTINUAR APRENDENDO',threeSteps:'3 ETAPAS PRINCIPAIS',myEvolution:'MINHA EVOLUÇÃO',
       overallProgress:'PROGRESSO GERAL',answered:'QUESTÕES RESPONDIDAS',correct:'ACERTOS',errors:'ERROS',
       streak:'SEQUÊNCIA',weeklyGoal:'META SEMANAL',performance:'DESEMPENHO POR SEÇÃO',
       shortcuts:'ATALHOS',plans:'PLANOS',otherApps:'OUTROS APPS',language:'IDIOMA',
       free:'ACADEMY FREE',edge:'ACADEMY EDGE',full:'ACADEMY FULL',
       currentPlan:'PLANO ATUAL',prepared:'ESTRUTURA PREPARADA',ecosystem:'ECOSSISTEMA STACKUP',
       grinderCopy:'Pronto para transformar conhecimento em treino?',knowGrinder:'CONHEÇA O GRINDER',
-      trainingLab:'TRAINING LAB',back:'VOLTAR',next:'PRÓXIMO',review:'REVISAR',confirm:'CONFIRMAR',
-      questions:'QUESTÕES',accuracy:'APROVEITAMENTO',lastSection:'ÚLTIMA SEÇÃO',nextStep:'PRÓXIMA ETAPA',focusDecision:'FOCO · DECISÃO · REPETIÇÃO',hands:'MÃOS',gameStructure:'ESTRUTURA DO JOGO',terminologyProfiles:'TERMINOLOGIA E PERFIS',formats:'FORMATOS',rulesConduct:'REGRAS E CONDUTA',profileCopy:'Preferências, plano do Academy e acesso ao ecossistema.',mainNav:'Navegação principal',personalRanking:'RANKING PESSOAL',history:'HISTÓRICO',exercises:'EXERCÍCIOS',practiceTools:'FERRAMENTAS DE PRÁTICA',selfRankingCopy:'Seu desempenho pessoal com base nos treinos já realizados.',historyCopy:'Resumo consolidado do progresso salvo neste dispositivo.',exercisesCopy:'Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.',simulator:'SIMULADOR',quiz:'QUIZ',mathPoker:'MATH OF POKER',simulatorCopy:'Treine decisões e regras das modalidades existentes.',quizCopy:'Revise conceitos e retenção.',mathPokerCopy:'Treine os cálculos já disponíveis.'
+      trainingLab:'LABORATÓRIO DE TREINO',back:'VOLTAR',next:'PRÓXIMO',review:'REVISAR',confirm:'CONFIRMAR',
+      questions:'QUESTÕES',accuracy:'APROVEITAMENTO',lastSection:'ÚLTIMA SEÇÃO',nextStep:'PRÓXIMA ETAPA',focusDecision:'FOCO · DECISÃO · REPETIÇÃO',hands:'MÃOS',gameStructure:'ESTRUTURA DO JOGO',terminologyProfiles:'TERMINOLOGIA E PERFIS',formats:'FORMATOS',rulesConduct:'REGRAS E CONDUTA',profileCopy:'Preferências, plano do Academy e acesso ao ecossistema.',mainNav:'Navegação principal',personalRanking:'RANKING PESSOAL',history:'HISTÓRICO',exercises:'EXERCÍCIOS',practiceTools:'FERRAMENTAS DE PRÁTICA',selfRankingCopy:'Seu desempenho pessoal com base nos treinos já realizados.',historyCopy:'Resumo consolidado do progresso salvo neste dispositivo.',exercisesCopy:'Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.',simulator:'SIMULADOR',quiz:'QUIZ',mathPoker:'MATEMÁTICA DO POKER',simulatorCopy:'Treine decisões e regras das modalidades existentes.',quizCopy:'Revise conceitos e retenção.',mathPokerCopy:'Treine os cálculos já disponíveis.'
     },
     'en-US':{
       home:'HOME',base:'BASE',modalities:'GAME TYPES',practice:'PRACTICE',profile:'PROFILE',
@@ -29,7 +29,7 @@
       questions:'QUESTIONS',accuracy:'ACCURACY',lastSection:'LAST SECTION',nextStep:'NEXT STEP',focusDecision:'FOCUS · DECISION · REPETITION',hands:'HANDS',gameStructure:'GAME STRUCTURE',terminologyProfiles:'TERMINOLOGY & PROFILES',formats:'FORMATS',rulesConduct:'RULES & CONDUCT',profileCopy:'Preferences, Academy plan and ecosystem access.',mainNav:'Main navigation',personalRanking:'PERSONAL RANKING',history:'HISTORY',exercises:'EXERCISES',practiceTools:'PRACTICE TOOLS',selfRankingCopy:'Your personal performance based on completed training.',historyCopy:'Consolidated summary of progress stored on this device.',exercisesCopy:'Quick access to existing exercises without duplicating content.',simulator:'SIMULATOR',quiz:'QUIZ',mathPoker:'MATH OF POKER',simulatorCopy:'Train decisions and rules from the existing game types.',quizCopy:'Review concepts and retention.',mathPokerCopy:'Practice the calculations already available.'
     }
   };
-  const lang=()=>{try{return localStorage.getItem('stackup-language-v1')||'pt-BR'}catch(_){return 'pt-BR'}};
+  const lang=()=>{try{return localStorage.getItem('stackup-language-v1')==='en-US'?'en-US':'pt-BR'}catch(_){return 'pt-BR'}};
   const t=(key,fallback='')=>copy[lang()]?.[key]??copy['pt-BR'][key]??fallback??key;
   const applyStaticCopy=()=>{const sub=document.querySelector('.brand .sub');if(sub)sub.textContent=t('learn3','APRENDA A JOGAR POKER EM 3 ETAPAS');document.documentElement.lang=lang();};
   window.AcademyI18n={copy,lang,t,applyStaticCopy};applyStaticCopy();
