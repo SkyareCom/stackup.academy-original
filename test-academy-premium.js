@@ -40,9 +40,10 @@ assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.in
 assert('Practice tools use real progress',tools.includes('ProgressService')&&tools.includes("personalRanking"));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
 assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
-assert('Base and Profile have no photo header',stage.includes("key==='modalidades'?")&&stage.includes("key==='pratica'?")&&!profile.includes('AcademyBackground'));
+assert('Base Modalidades Practice use photo headers',stage.includes("key==='fundamentos'?window.academyTheme?.backgrounds?.base")&&stage.includes("key==='modalidades'?")&&stage.includes("key==='pratica'?"));
+assert('Profile header matches stage height',profile.includes('height:176px;min-height:176px;max-height:176px'));
 assert('bottom nav is five-column single-line',nav.includes('repeat(5,minmax(0,1fr))')&&nav.includes('white-space:nowrap'));
-assert('profile exposes Academy-only plans',billing.includes('ACADEMY FREE')&&billing.includes('ACADEMY EDGE')&&billing.includes('ACADEMY FULL'));
+assert('profile exposes Academy commercial plans',billing.includes("name:'FREE'")&&billing.includes("name:'MENSAL'")&&billing.includes("R$ 39,90")&&billing.includes("name:'SEMESTRAL'")&&billing.includes("R$ 179,90")&&billing.includes("name:'ANUAL'")&&billing.includes("R$ 229,90")&&billing.includes("name:'COACH PLUS'")&&billing.includes("R$ 34,90"));
 assert('service interfaces exist',auth.includes('AuthService')&&progress.includes('ProgressService')&&content.includes('ContentService')&&analytics.includes('AnalyticsService')&&billing.includes('BillingService'));
 assert('progress is not auto-deleted',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange')&&!reset.includes('pagehide'));
 assert('NLH spelling is normalized',advanced.includes("key:'NLH'")&&!/\bHNL\b/.test(advanced));
