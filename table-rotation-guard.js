@@ -90,7 +90,7 @@
         background:#211008!important;
         border:1px solid #d4aa58!important;
         color:#f8f0df!important;
-        font-size:12px!important;
+        font-size:12px;
         line-height:1.3!important;
         text-align:center!important;
         opacity:0!important;
@@ -112,8 +112,8 @@
         #root .p3x-table-center .p3x-pot{top:25%!important}
         #root .p3x-live .seat{max-width:30%!important}
         #root .p3x-live .seat-label{min-width:50px!important;padding:5px 6px!important}
-        #root .p3x-seat-stack{font-size:10px!important}
-        #root .p3x-action-bubble.p3x-table-message{font-size:12px!important;min-height:44px!important}
+        #root .p3x-seat-stack{font-size:12px}
+        #root .p3x-action-bubble.p3x-table-message{font-size:12px;min-height:44px!important}
       }
     `;
     document.head.appendChild(style);
