@@ -11,6 +11,8 @@ permissions:
   pages: write
   id-token: write
 
+# Always trigger a fresh run after a failed Pages deployment; rerunning the same
+# job can leave duplicate github-pages artifacts in a single workflow run.
 concurrency:
   group: pages
   cancel-in-progress: true
