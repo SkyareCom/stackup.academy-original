@@ -11,7 +11,7 @@
       .academy-history-list{border-top:1px solid var(--academy-line)}
       .academy-history-row{min-height:68px;padding:14px 0;border-bottom:1px solid var(--academy-line);display:flex;align-items:center;justify-content:space-between;gap:12px}
       .academy-history-row strong,.academy-history-row span{display:block}.academy-history-row span{margin-top:4px;color:var(--academy-muted)}
-      .academy-history-row b{white-space:nowrap}.academy-history-row-actions{display:flex;gap:8px;margin-top:8px}.academy-history-row-actions button{min-height:34px;padding:6px 9px}.academy-history-actions{margin-top:20px}.academy-history-actions button{width:100%}
+      .academy-history-row b{white-space:nowrap}.academy-history-row-actions{display:flex;gap:8px;margin-top:8px}.academy-history-row-actions button{min-height:34px;padding:6px 9px}.academy-history-actions{margin-top:20px}.academy-history-actions button{width:100%}.academy-history-draft{margin-bottom:20px;padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}.academy-history-draft strong,.academy-history-draft span{display:block}.academy-history-draft span{margin-top:4px;color:var(--academy-muted)}.academy-history-draft-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
     `;document.head.appendChild(s);
   }
 
@@ -30,11 +30,14 @@
       title=t('history','HISTÓRICO');
       description=t('historyCopy','Treinos salvos por seção e sessão.');
       const H=window.TrainingHistoryService?.summary?.()||{total:0,answered:0,correct:0};
+      const P=window.TrainingHistoryService?.pendingSummary?.()||{total:0,answered:0,correct:0};
+      const mode=window.TrainingPreferenceService?.getMode?.()||'auto';
       const runs=window.TrainingHistoryService?.list?.({limit:100})||[];
       const rows=runs.length
         ?runs.map(r=>`<div class="academy-history-row"><div><strong>${esc(r.label)}</strong><span>${fmt(r.updatedAt)} · ${Number(r.deltaAnswered||0)} ${t('answeredShort','respondidas').toLowerCase()}</span><div class="academy-history-row-actions"><button type="button" class="academy-secondary" data-history-retrain="${esc(r.id)}">${t('trainAgain','TREINAR NOVAMENTE')}</button><button type="button" class="academy-secondary" data-history-delete="${esc(r.id)}">${t('delete','APAGAR')}</button></div></div><b>${Number(r.deltaCorrect||0)}/${Number(r.deltaAnswered||0)}</b></div>`).join('')
         :`<div class="academy-state">${t('historyEmpty','Nenhum treino salvo no histórico ainda.')}</div>`;
-      body=`<div class="academy-history-summary"><div><b>${H.total}</b><span>${t('sessions','SESSÕES')}</span></div><div><b>${H.answered}</b><span>${t('answeredShort','RESPONDIDAS')}</span></div><div><b>${H.correct}</b><span>${t('correct','ACERTOS')}</span></div></div><div class="academy-history-list">${rows}</div><div class="academy-history-actions">${C().SecondaryButton(t('clearHistory','APAGAR HISTÓRICO'),'data-clear-academy-history')}</div>`;
+      const draft=mode==='manual'?(`<div class="academy-history-draft"><strong>${t('pendingSession','SESSÃO EM RASCUNHO')}</strong><span>${P.answered} ${t('answeredShort','respondidas').toLowerCase()} · ${P.correct} ${t('correct','acertos').toLowerCase()}</span><div class="academy-history-draft-actions">${C().PrimaryButton(t('saveSession','SALVAR SESSÃO'),'data-save-history-draft')}${C().SecondaryButton(t('discardSession','DESCARTAR'),'data-discard-history-draft')}</div></div>`):'';
+      body=`${draft}<div class="academy-history-summary"><div><b>${H.total}</b><span>${t('sessions','SESSÕES')}</span></div><div><b>${H.answered}</b><span>${t('answeredShort','RESPONDIDAS')}</span></div><div><b>${H.correct}</b><span>${t('correct','ACERTOS')}</span></div></div><div class="academy-history-list">${rows}</div><div class="academy-history-actions">${C().SecondaryButton(t('clearHistory','APAGAR HISTÓRICO'),'data-clear-academy-history')}</div>`;
     }else{
       title=t('exercises','EXERCÍCIOS');
       description=t('exercisesCopy','Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.');
