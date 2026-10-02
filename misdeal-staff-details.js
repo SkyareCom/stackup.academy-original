@@ -6,19 +6,19 @@
     s.id=STYLE_ID;
     s.textContent=`
       .rule-grid{display:grid;gap:12px}
-      .rule-card{padding:15px 16px;border-radius:17px;background:var(--c2,#e7dcc2);border:1px solid #a87c324d}
-      .rule-card h3{margin:0 0 7px;font-size:21px;color:var(--gd,#08372d);text-transform:uppercase}
-      .rule-card p{margin:0;color:var(--m,#725f4d);font-size:16px;line-height:1.5}
-      .rule-card p+p{margin-top:8px}.rule-card strong{color:var(--ink,#25170f)}
-      .rule-note{background:#e6d8b9;border-color:#c99539}
-      .rule-alert{background:#ead8c5;border-color:#a86b3c}
+      .rule-card{padding:15px 16px;border-radius:17px;background:var(--c2,#e6dfd3);border:1px solid #8f8f8f4d}
+      .rule-card h3{margin:0 0 7px;font-size:21px;color:var(--gd,#202020);text-transform:uppercase}
+      .rule-card p{margin:0;color:var(--m,#676767);font-size:16px;line-height:1.5}
+      .rule-card p+p{margin-top:8px}.rule-card strong{color:var(--ink,#151515)}
+      .rule-note{background:#d8d0bf;border-color:#9a9a9a}
+      .rule-alert{background:#e2dbcf;border-color:#a86b3c}
       .rule-seq{display:grid;gap:8px;margin-top:9px}
-      .rule-step{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;border-radius:13px;background:#f4ecd9;border:1px solid #a87c3255;color:#725f4d;font-size:15px;line-height:1.4}
-      .rule-n{width:28px;height:28px;flex:none;border-radius:9px;background:#211008;color:#d4aa58;display:grid;place-items:center;font-size:14px}
+      .rule-step{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;border-radius:13px;background:#f3eee4;border:1px solid #8f8f8f55;color:#676767;font-size:15px;line-height:1.4}
+      .rule-n{width:28px;height:28px;flex:none;border-radius:9px;background:#070707;color:#d8d0bf;display:grid;place-items:center;font-size:14px}
       .staff-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-      .staff-card{padding:13px;border-radius:15px;background:#f4ecd9;border:1px solid #a87c3255}
-      .staff-card strong{display:block;color:#08372d;font-size:17px;text-transform:uppercase;margin-bottom:4px}
-      .staff-card span{display:block;color:#725f4d;font-size:14px;line-height:1.4}
+      .staff-card{padding:13px;border-radius:15px;background:#f3eee4;border:1px solid #8f8f8f55}
+      .staff-card strong{display:block;color:#202020;font-size:17px;text-transform:uppercase;margin-bottom:4px}
+      .staff-card span{display:block;color:#676767;font-size:14px;line-height:1.4}
       @media(max-width:390px){.staff-grid{grid-template-columns:1fr}.rule-card h3{font-size:19px}.rule-card p{font-size:15px}}
     `;
     document.head.appendChild(s);
