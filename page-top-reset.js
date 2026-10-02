@@ -47,8 +47,9 @@
     return Boolean(target.closest(
       'button.card.topic,button.card.stage,a.card.topic,a.card.stage,'+
       '.card.topic[role="button"],.card.stage[role="button"],'+
-      '[data-language],[data-stage],[data-topic],'+
-      '#backBtn,#homeBtn,#brand,.navbtn'
+      '[data-language],[data-stage],[data-topic],[data-academy-lesson],[data-practice-tool],[data-tool-lesson],'+
+      '[data-home-stage],[data-home-continue],[data-home-shortcut],[data-academy-nav],'+
+      '#backBtn,#homeBtn,#brand,.navbtn,.academy-row,.academy-nav-item'
     ));
   }
 
