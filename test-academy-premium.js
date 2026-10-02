@@ -61,6 +61,7 @@ assert('service interfaces exist',auth.includes('AuthService')&&progress.include
 assert('production auth bridge is optional and native-aware',authProduction.includes('StackUpProductionAuth')&&authProduction.includes('requestGoogleSignIn')&&authProduction.includes('requestBiometricUnlock'));
 assert('production billing bridge is native-aware',billingProduction.includes('StackUpBilling')&&billingProduction.includes('academy:billingchange')&&billing.includes('requestSubscription'));
 assert('production evolution weights are preserved',evolutionService.includes('fundamentals:10')&&evolutionService.includes('modalities:15')&&evolutionService.includes('quiz:20')&&evolutionService.includes('math:25')&&evolutionService.includes('sim:30'));
+assert('Coach config is limited to included plans',profile.includes("['semiannual','annual'].includes(current)")&&profile.includes('data-save-coach')&&authProduction.includes('saveAcademyCoachPreference'));
 assert('Profile marks ecosystem apps coming soon',profile.includes('GRINDER')&&profile.includes('HEROES')&&profile.includes('REVOLUTION')&&profile.includes('WRAPS')&&profile.includes('D ACTION')&&profile.includes("comingSoon"));
 assert('progress is not auto-deleted',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange')&&!reset.includes('pagehide'));
 assert('NLH spelling is normalized',advanced.includes("key:'NLH'")&&!/\bHNL\b/.test(advanced));
