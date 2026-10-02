@@ -225,9 +225,20 @@
     const S=window.ProgressService?.snapshot?.()||{sections:{}};
     const rows=['fundamentals','modalities','practice'].map(key=>{
       const s=S.sections?.[key]||{answered:0,correct:0,total:0,pct:0},accuracy=s.answered?Math.round(s.correct/s.answered*100):0,qualified=s.pct>=80&&accuracy>=80;
-      return '<div class="academy-certificate"><strong>'+stageName(key)+'</strong><span>'+Math.round(s.pct||0)+'% '+t('progress','PROGRESSO').toLowerCase()+' · '+accuracy+'% '+t('accuracy','APROVEITAMENTO').toLowerCase()+'</span><span>'+(qualified?t('certificateEarned','CERTIFICADO CONQUISTADO'):t('certificateRule','Necessário 80% de progresso e 80% de acertos.'))+'</span></div>';
+      return '<div class="academy-certificate"><strong>'+stageName(key)+'</strong><span>'+Math.round(s.pct||0)+'% '+t('progress','PROGRESSO').toLowerCase()+' · '+accuracy+'% '+t('accuracy','APROVEITAMENTO').toLowerCase()+'</span><span>'+(qualified?t('certificateEarned','CERTIFICADO CONQUISTADO'):t('certificateRule','Necessário 80% de progresso e 80% de acertos.'))+'</span>'+(qualified?C().SecondaryButton(t('viewCertificate','VER CERTIFICADO'),'data-certificate-stage="'+key+'"'):'')+'</div>';
     }).join('');
     shell(t('certificates','CERTIFICADOS'),t('certificatesCopy','A conquista é liberada por seção ao atingir os dois critérios.'),'<div class="academy-study-grid">'+rows+'</div>');
+  }
+  function renderCertificateDetail(key){
+    const S=window.ProgressService?.snapshot?.()||{sections:{}},s=S.sections?.[key]||{answered:0,correct:0,pct:0};
+    const accuracy=s.answered?Math.round(s.correct/s.answered*100):0;
+    if(!(s.pct>=80&&accuracy>=80))return renderCertificates();
+    const user=window.AuthService?.getCurrentUser?.(),name=String(user?.user_metadata?.full_name||user?.user_metadata?.name||user?.email?.split('@')?.[0]||t('player','JOGADOR')).toUpperCase();
+    const section=stageName(key),date=new Date().toLocaleDateString(window.AcademyI18n?.lang?.()||'pt-BR');
+    const template=t('certificateText',"certifica que {n} concluiu a seção {s} do StackUp Hold'em Academy com {p}% de acertos em {q} questões.")
+      .replace('{n}',name).replace('{s}',section).replace('{p}',String(accuracy)).replace('{q}',String(s.answered||0));
+    const body='<div class="academy-certificate"><span>STACKUP HOLD\'EM ACADEMY</span><strong>'+t('certificateOf','CERTIFICADO')+' · '+section+'</strong><span>'+esc(template)+'</span><span>'+t('issuedOn','EMITIDO EM')+' · '+date+'</span></div>';
+    shell(t('certificateOf','CERTIFICADO'),section,body);
   }
 
   function renderReport(){
@@ -254,6 +265,7 @@
     const s=e.target.closest('[data-review-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.reviewStage,1);return}
     const ra=e.target.closest('[data-review-answer]');if(ra){e.preventDefault();answerReview(decodeURIComponent(ra.dataset.reviewAnswer));return}
     if(e.target.closest('[data-review-next]')){e.preventDefault();nextReview();return}
+    const cert=e.target.closest('[data-certificate-stage]');if(cert){e.preventDefault();renderCertificateDetail(cert.dataset.certificateStage);return}
     if(e.target.closest('[data-start-exam]')){e.preventDefault();startExam();return}
     const a=e.target.closest('[data-exam-answer]');if(a){e.preventDefault();answerExam(decodeURIComponent(a.dataset.examAnswer));return}
   });
