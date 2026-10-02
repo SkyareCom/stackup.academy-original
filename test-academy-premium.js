@@ -46,6 +46,7 @@ for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','Learning
 assert('villain is first attempt and hero is current',evolution.includes('firstPct')&&evolution.includes('lastPct')&&evolution.includes('villainXp')&&evolution.includes('heroXp')&&home.includes("firstAttempt")&&home.includes("currentPerformance"));
 assert('evolution podium is previous current next category',evolution.includes('previous:previous?')&&evolution.includes('current:{name:current[1]')&&home.includes('E.podium?.previous')&&home.includes('E.podium?.next'));
 assert('Premium habit has 30 50 100 goals and weekly shield',progress.includes('[30,50,100]')&&progress.includes('shieldDaysUsed')&&components.includes('streakShield'));
+assert('Premium Free uses fixed five-question fundamentals',planAccess.includes('FREE_LIMIT=5')&&read('fundamentals-interactive.js').includes('fixedQuestionLimit')&&read('fundamentals-interactive.js').includes('chapterBank')&&read('fundamentals-interactive.js').includes('if(freeMode())return [...spots]'));
 assert('Premium access rules stay prepared while test access remains open',planAccess.includes('TEST_ACCESS=true')&&planAccess.includes('FREE_LIMIT=5')&&planAccess.includes('FREE_FUNDAMENTALS'));
 assert('Premium report compares first attempt to current and keeps XP timeline',study.includes('E.comparison')&&study.includes('xpTimeline'));
 assert('Premium history supports retrain and per-session delete',tools.includes('data-history-retrain')&&tools.includes('data-history-delete'));
