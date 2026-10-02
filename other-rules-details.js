@@ -95,19 +95,19 @@
     s.id=STYLE_ID;
     s.textContent=`
       .rules-grid{display:grid;gap:12px}
-      .rules-section-title{margin:8px 0 0;padding:12px 14px;border-radius:14px;background:var(--academy-bg);color:var(--academy-ivory);border:1px solid var(--academy-ivory);font-size:22px;line-height:1.05;text-transform:uppercase;text-align:center}
+      .rules-section-title{margin:8px 0 0;padding:12px 14px;border-radius:14px;background:var(--academy-bg);color:var(--academy-ivory);border:1px solid var(--academy-ivory);font-size:14px;line-height:1.05;text-transform:uppercase;text-align:center}
       .rules-card{padding:15px 16px;border-radius:17px;background:var(--c2,var(--academy-ivory-2));border:1px solid var(--academy-silver-2)4d}
-      .rules-card h3{margin:0 0 8px;font-size:21px;color:var(--gd,var(--academy-surface-2));text-transform:uppercase}
-      .rules-card p{margin:0;color:var(--m,var(--academy-muted-2));font-size:16px;line-height:1.5}
+      .rules-card h3{margin:0 0 8px;font-size:14px;color:var(--gd,var(--academy-surface-2));text-transform:uppercase}
+      .rules-card p{margin:0;color:var(--m,var(--academy-muted-2));font-size:14px;line-height:1.5}
       .rules-card p+p{margin-top:8px}.rules-card strong{color:var(--ink,var(--academy-bg-3))}
-      .rules-example{margin-top:9px;padding:10px 12px;border-radius:12px;background:var(--academy-bg);color:var(--academy-silver-3);border:1px solid var(--academy-ivory);font-size:15px;line-height:1.45}
+      .rules-example{margin-top:9px;padding:10px 12px;border-radius:12px;background:var(--academy-bg);color:var(--academy-silver-3);border:1px solid var(--academy-ivory);font-size:14px;line-height:1.45}
       .rules-example strong{color:var(--academy-ivory)}
       .rules-note{background:var(--academy-ivory);border-color:#9a9a9a}
       .rules-alert{background:#e2dbcf;border-color:var(--academy-silver-2)}
       .rules-steps{display:grid;gap:8px;margin-top:9px}
-      .rules-step{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;border-radius:13px;background:var(--academy-ivory);border:1px solid var(--academy-silver-2)55;color:var(--academy-muted-2);font-size:15px;line-height:1.4}
+      .rules-step{display:flex;gap:10px;align-items:flex-start;padding:10px 11px;border-radius:13px;background:var(--academy-ivory);border:1px solid var(--academy-silver-2)55;color:var(--academy-muted-2);font-size:14px;line-height:1.4}
       .rules-n{width:28px;height:28px;flex:none;border-radius:9px;background:var(--academy-bg);color:var(--academy-ivory);display:grid;place-items:center;font-size:14px}
-      @media(max-width:390px){.rules-section-title{font-size:20px}.rules-card h3{font-size:19px}.rules-card p{font-size:15px}}
+      @media(max-width:390px){.rules-section-title{font-size:14px}.rules-card h3{font-size:14px}.rules-card p{font-size:14px}}
     `;
     document.head.appendChild(s);
   }
