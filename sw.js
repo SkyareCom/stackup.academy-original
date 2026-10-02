@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v124';
-const SW_VERSION=124;
+const CACHE='stackup-academy-v125';
+const SW_VERSION=125;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -44,7 +44,7 @@ const SCRIPTS=[
   ['practice-module.js',5],
   ['practice-table.js',7],
   ['practice-advanced-bank.js',2],
-  ['practice-advanced.js',7],
+  ['practice-advanced.js',8],
   ['table-rotation-guard.js',5],
   ['math-card-structure.js',2],
   ['practice-math-odds.js',6],
@@ -57,10 +57,10 @@ const SCRIPTS=[
   ['academy-loader.js',12],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',11],
+  ['src/i18n/academy-copy.js',12],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-preference-service.js',1],
-  ['src/services/training-history-service.js',3],
+  ['src/services/training-history-service.js',4],
   ['src/services/evolution-service.js',3],
   ['src/services/progress-service.js',5],
   ['src/services/auth-service.js',1],
@@ -73,7 +73,7 @@ const SCRIPTS=[
   ['src/screens/home-screen.js',7],
   ['src/screens/stage-screen.js',10],
   ['src/screens/profile-screen.js',9],
-  ['src/screens/practice-tools-screen.js',7],
+  ['src/screens/practice-tools-screen.js',8],
   ['src/screens/study-tools-screen.js',3],
   ['src/hooks/academy-events.js',2],
   ['src/navigation/bottom-navigation.js',6],
