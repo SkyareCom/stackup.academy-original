@@ -19,7 +19,7 @@
     `;document.head.appendChild(s);
   }
   const app=document.querySelector('.app');if(!app)return;
-  const nav=document.createElement('nav');nav.className='academy-bottom-nav';nav.setAttribute('aria-label','Navegação principal');
+  const nav=document.createElement('nav');nav.className='academy-bottom-nav';nav.setAttribute('aria-label',t('mainNav','Navegação principal'));
   const items=[
     ['home','home',t('home','HOME')],['fundamentos','base',t('base','BASE')],['modalidades','modalities',t('modalities','MODALIDADES')],
     ['pratica','practice',t('practice','PRÁTICA')],['profile','profile',t('profile','PERFIL')]
