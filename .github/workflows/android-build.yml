@@ -6,6 +6,12 @@ on:
       - main
     paths:
       - 'android/**'
+      - 'src/**'
+      - '*.js'
+      - 'index.html'
+      - 'privacy.html'
+      - 'manifest.webmanifest'
+      - 'sw.js'
       - '.github/workflows/android-build.yml'
       - 'scripts/security-guard.js'
   workflow_dispatch:
