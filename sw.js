@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v116';
-const SW_VERSION=116;
+const CACHE='stackup-academy-v117';
+const SW_VERSION=117;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -9,7 +9,7 @@ const ASSETS=[
   './modalities-depth-details.js','./mixed-games-module.js','./practice-module.js','./practice-table.js','./practice-advanced-bank.js',
   './practice-advanced.js','./table-rotation-guard.js','./math-card-structure.js','./practice-math-odds.js','./portuguese-corrections.js','./cover-layout.js','./release-compliance.js',
   './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./typography-standard.js','./icon-192.png','./icon-512.png',
-  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/content/academy-course-map.js','./src/services/training-history-service.js','./src/services/evolution-service.js','./src/services/progress-service.js','./auth-production.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./billing-production.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
+  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/content/academy-course-map.js','./src/services/training-history-service.js','./src/services/evolution-service.js','./src/services/progress-service.js','./auth-production.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./billing-production.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/screens/study-tools-screen.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
 ];
 const SCRIPTS=[
   ['session-reset.js',3],
@@ -21,7 +21,7 @@ const SCRIPTS=[
   ['i18n-en-us-words-extra-1.js',1],
   ['i18n-en-us-words-extra-2.js',1],
   ['i18n-en-us-words-extra-3.js',1],
-  ['i18n-en-us-words-extra-4.js',2],
+  ['i18n-en-us-words-extra-4.js',3],
   ['i18n-en-us.js',6],
   ['positions-table.js',10],
   ['fundamentals-details.js',6],
@@ -57,7 +57,7 @@ const SCRIPTS=[
   ['academy-loader.js',11],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',7],
+  ['src/i18n/academy-copy.js',8],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-history-service.js',1],
   ['src/services/evolution-service.js',1],
@@ -70,7 +70,8 @@ const SCRIPTS=[
   ['billing-production.js',1],
   ['src/components/academy-components.js',5],
   ['src/components/editorial-lesson-adapter.js',3],
-  ['src/screens/home-screen.js',6],
+  ['src/screens/study-tools-screen.js',1],
+  ['src/screens/home-screen.js',7],
   ['src/screens/stage-screen.js',9],
   ['src/screens/profile-screen.js',6],
   ['src/screens/practice-tools-screen.js',5],
