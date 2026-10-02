@@ -13,6 +13,8 @@ const profile=read('src/screens/profile-screen.js');
 const tools=read('src/screens/practice-tools-screen.js');
 const nav=read('src/navigation/bottom-navigation.js');
 const progress=read('src/services/progress-service.js');
+const trainingPref=read('src/services/training-preference-service.js');
+const trainingHistory=read('src/services/training-history-service.js');
 const evolution=read('src/services/evolution-service.js');
 const planAccess=read('src/services/plan-access-service.js');
 const study=read('src/screens/study-tools-screen.js');
@@ -47,6 +49,9 @@ assert('Premium habit has 30 50 100 goals and weekly shield',progress.includes('
 assert('Premium access rules stay prepared while test access remains open',planAccess.includes('TEST_ACCESS=true')&&planAccess.includes('FREE_LIMIT=5')&&planAccess.includes('FREE_FUNDAMENTALS'));
 assert('Premium report compares first attempt to current and keeps XP timeline',study.includes('E.comparison')&&study.includes('xpTimeline'));
 assert('Premium history supports retrain and per-session delete',tools.includes('data-history-retrain')&&tools.includes('data-history-delete'));
+assert('Premium supports automatic and manual history saving',trainingPref.includes("historyMode")&&trainingPref.includes("DRAFT_KEY='academy.hist.draft.v1'")&&profile.includes('data-history-mode="auto"')&&profile.includes('data-history-mode="manual"'));
+assert('Premium manual history has save and discard controls',trainingHistory.includes('savePending')&&trainingHistory.includes('discardPending')&&tools.includes('data-save-history-draft')&&tools.includes('data-discard-history-draft'));
+assert('Premium training preference loads before history service',index.indexOf('src/services/training-preference-service.js')<index.indexOf('src/services/training-history-service.js'));
 assert('Premium privacy has no legacy green or handwritten font',!privacy.includes('#0e4b3b')&&!privacy.includes('Love+Ya+Like+A+Sister')&&privacy.includes('Saira+Semi+Condensed'));
 assert('premium evolution is completed without replacing Home shell',home.includes('academy-home-hero')&&home.includes('EvolutionService')&&home.includes('villainMe')&&home.includes('podium')&&progress.includes('setWeeklyGoal')&&progress.includes('[30,50,100]'));
 assert('premium Profile includes Coach and privacy completion',profile.includes('academy.coach.v1')&&profile.includes('data-profile-clear-local')&&profile.includes('data-profile-delete-account'));
