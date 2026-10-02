@@ -15,11 +15,11 @@
       ['other-rules-details.js',4],
       ['fundamentals-interactive-bank.js',1],
       ['fundamentals-visual-layer.js',4],
-      ['fundamentals-interactive.js',6],
+      ['fundamentals-interactive.js',7],
       ['fundamentals-progress-panel.js',5]
     ],
     modalidades:[
-      ['modalities-module.js',3],
+      ['modalities-module.js',4],
       ['modalities-depth-details.js',3],
       ['mixed-games-module.js',5]
     ],
@@ -82,7 +82,7 @@
     else idleId=setTimeout(run,32);
   }
 
-  load('page-top-reset.js',3).catch(err=>console.error('[STACKUP] Page top reset load failed.',err));
+  load('page-top-reset.js',4).catch(err=>console.error('[STACKUP] Page top reset load failed.',err));
   new MutationObserver(schedule).observe(root,{childList:true});
   window.addEventListener('popstate',schedule,{passive:true});
   schedule();
