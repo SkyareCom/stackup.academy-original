@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v109';
-const SW_VERSION=109;
+const CACHE='stackup-academy-v110';
+const SW_VERSION=110;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -53,9 +53,9 @@ const SCRIPTS=[
   ['release-compliance.js',1],
   ['academy-visual-system.js',7],
   ['page-top-reset.js',4],
-  ['typography-standard.js',8],
+  ['typography-standard.js',9],
   ['academy-loader.js',11],
-  ['src/theme/academy-theme.js',4],
+  ['src/theme/academy-theme.js',5],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',4],
   ['src/content/academy-course-map.js',1],
@@ -71,7 +71,7 @@ const SCRIPTS=[
   ['src/screens/profile-screen.js',2],
   ['src/screens/practice-tools-screen.js',3],
   ['src/hooks/academy-events.js',1],
-  ['src/navigation/bottom-navigation.js',3],
+  ['src/navigation/bottom-navigation.js',4],
 ];
 const AUTO_SCRIPTS=new Set([
   'session-reset.js','highlight-card-style.js','fundamentals-learning-flow.js',
