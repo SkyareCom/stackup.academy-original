@@ -27,7 +27,7 @@ assert('Academy semantic tokens exist',theme.includes("success:'#82917F'")&&them
 assert('bottom navigation has five columns',bottomNav.includes('grid-template-columns:repeat(5,minmax(0,1fr))'));
 assert('premium components expose AcademyBackground',components.includes('AcademyBackground')&&components.includes('WeeklyGoal')&&components.includes('BottomSheet'));
 assert('progress reset is explicit only',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange'));
-assert('header-first navigation is enforced',topReset.includes('resetToHeader')&&topReset.includes('scrollIntoView')&&topReset.includes('button.card.topic'));
+assert('header-first navigation is enforced',topReset.includes('resetToHeader')&&topReset.includes('scrollIntoView')&&topReset.includes('[data-academy-lesson]')&&topReset.includes('[data-academy-nav]'));
 assert('header reset survives delayed rendering',topReset.includes('1450')&&topReset.includes('MutationObserver'));
 assert('web app is standalone',manifest.display==='standalone');
 assert('web app stays portrait-first',manifest.orientation==='portrait-primary');
