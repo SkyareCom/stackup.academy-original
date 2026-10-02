@@ -40,7 +40,7 @@
     style.id=STYLE_ID;
     style.textContent=`
       .p3x-math-card>p{margin-top:0!important}
-      .p3x-math-card .formula{margin:8px 0!important;font-size:14px!important;line-height:1.4!important}
+      .p3x-math-card .formula{margin:8px 0!important;font-size:12px;line-height:1.4!important}
       .p3x-math-card .p3x-tip{margin-top:0!important}
     `;
     document.head.appendChild(style);
