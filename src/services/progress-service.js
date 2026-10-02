@@ -39,18 +39,20 @@
     return {answered,correct};
   };
   const clamp=n=>Math.max(0,Math.min(100,Math.round(n||0)));
-  const weekStart=()=>{
-    const d=new Date();const day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d.toISOString().slice(0,10);
-  };
+  const dayKey=d=>{const x=new Date(d),p=n=>String(n).padStart(2,'0');return x.getFullYear()+'-'+p(x.getMonth()+1)+'-'+p(x.getDate())};
+  const weekStartDate=dt=>{const d=new Date(dt);const day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d};
+  const weekStart=()=>dayKey(weekStartDate(new Date()));
   const activity=()=>{
     const a=read(KEYS.weekly),start=weekStart(),allowed=[30,50,100];
-    const next=a.weekStart===start?a:{weekStart:start,goal:Number(a.goal)||30,days:{}};
-    next.goal=allowed.includes(Number(next.goal))?Number(next.goal):30;
+    const next={weekStart:start,goal:Number(a.goal)||50,days:{...(a.days||{})}};
+    next.goal=allowed.includes(Number(next.goal))?Number(next.goal):50;
+    const cutoff=new Date();cutoff.setDate(cutoff.getDate()-450);
+    for(const k of Object.keys(next.days))if(k<dayKey(cutoff))delete next.days[k];
     return next;
   };
   const writeActivity=a=>{try{localStorage.setItem(KEYS.weekly,JSON.stringify(a))}catch(_){}};
   const recordActivity=(count=1)=>{
-    if(count<=0)return;const a=activity();const today=new Date().toISOString().slice(0,10);
+    if(count<=0)return;const a=activity();const today=dayKey(new Date());
     a.days[today]=(a.days[today]||0)+count;writeActivity(a);
   };
   const setWeeklyGoal=goal=>{
@@ -89,13 +91,26 @@
     };
     for(const s of values(sections))s.pct=clamp((s.answered/s.total)*100);
     const answered=f.answered+m.answered+p.answered,correct=f.correct+m.correct+p.correct,total=TOTALS.fundamentals+TOTALS.modalities+TOTALS.practice;
-    const weekly=activity(),weekDone=Object.values(weekly.days||{}).reduce((a,b)=>a+Number(b||0),0);
-    const days=Object.keys(weekly.days||{}).sort().reverse();let streak=0,cursor=new Date();cursor.setHours(0,0,0,0);
-    for(let i=0;i<30;i++){const k=cursor.toISOString().slice(0,10);if((weekly.days||{})[k]>0)streak++;else if(i>0)break;cursor.setDate(cursor.getDate()-1);}
+    const weekly=activity(),now=new Date(),ws=weekStartDate(now);let weekDone=0;
+    for(let i=0;i<7;i++){const d=new Date(ws);d.setDate(ws.getDate()+i);weekDone+=Number((weekly.days||{})[dayKey(d)]||0);}
+    const shield=window.PlanAccessService?.isPaid?.()===true;
+    let cursor=new Date(now);cursor.setHours(0,0,0,0);if(!(weekly.days||{})[dayKey(cursor)])cursor.setDate(cursor.getDate()-1);
+    const usedWeeks=new Set();let streak=0,shieldDaysUsed=0;
+    for(let i=0;i<400;i++){
+      const k=dayKey(cursor);
+      if(Number((weekly.days||{})[k]||0)>0)streak++;
+      else{
+        const wk=dayKey(weekStartDate(cursor));
+        if(shield&&streak>0&&!usedWeeks.has(wk)){usedWeeks.add(wk);shieldDaysUsed++;}
+        else break;
+      }
+      cursor.setDate(cursor.getDate()-1);
+    }
+    const goal=Number(weekly.goal||50);
     return {
       answered,correct,errors:Math.max(0,answered-correct),total,pct:clamp(answered/total*100),
       accuracy:answered?clamp(correct/answered*100):0,streak,
-      weekly:{goal:Number(weekly.goal||30),completed:weekDone,pct:clamp(weekDone/Number(weekly.goal||30)*100)},
+      weekly:{goal,completed:weekDone,pct:clamp(weekDone/goal*100),shield,shieldDaysUsed},
       sections
     };
   }
