@@ -11,6 +11,7 @@ const home=read('src/screens/home-screen.js');
 const stage=read('src/screens/stage-screen.js');
 const profile=read('src/screens/profile-screen.js');
 const tools=read('src/screens/practice-tools-screen.js');
+const studyTools=read('src/screens/study-tools-screen.js');
 const nav=read('src/navigation/bottom-navigation.js');
 const progress=read('src/services/progress-service.js');
 const auth=read('src/services/auth-service.js');
@@ -42,6 +43,7 @@ for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','Learning
 assert('home is editorial and progress-aware',home.includes('academy-home-hero')&&home.includes('ProgressService')&&home.includes('WeeklyGoal'));
 assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.includes('academy-group-list'));
 assert('Practice uses latest four-card 2x2 layout',stage.includes('academy-practice-grid')&&stage.includes('repeat(2,minmax(0,1fr))')&&stage.includes("data-practice-tool=\"history\""));
+assert('advanced study tools are ported',studyTools.includes('SIMULADO CRONOMETRADO')&&studyTools.includes('REVISÃO INTELIGENTE')&&studyTools.includes('CERTIFICADOS')&&studyTools.includes('RELATÓRIO POR COMPETÊNCIA')&&home.includes('data-home-study'));
 assert('Practice history is session-based',tools.includes('TrainingHistoryService')&&historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange'));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
 assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
