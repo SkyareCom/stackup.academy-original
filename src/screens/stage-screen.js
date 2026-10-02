@@ -78,6 +78,7 @@
     const study=e.target.closest('[data-study-tool]');if(study){e.preventDefault();window.AcademyScreens?.studyTool?.(study.dataset.studyTool);return}
     const b=e.target.closest('[data-academy-lesson]');if(!b)return;e.preventDefault();
     const stage=b.dataset.stage,index=Number(b.dataset.academyLesson);
+    if(window.PlanAccessService?.isLocked?.(stage,index)){window.AcademyScreens?.profile?.('plans');return}
     window.ProgressService?.setLastRoute?.({type:'lesson',stage,index});
     window.lesson?.(stage,index,1);
   });
