@@ -29,7 +29,7 @@ assert('exact Academy backgrounds',theme.includes("primary:'#070707'")&&theme.in
 assert('exact Academy surfaces',theme.includes("one:'#1A1A1A'")&&theme.includes("two:'#202020'")&&theme.includes("three:'#282828'"));
 assert('exact Academy ivory and white',theme.includes("one:'#F2EDE2'")&&theme.includes("two:'#F7F3EB'")&&theme.includes("white:'#FAF7F0'"));
 assert('semantic colors',theme.includes("success:'#82917F'")&&theme.includes("warning:'#B39B72'")&&theme.includes("danger:'#956A66'"));
-assert('Overlock only for Academy UI',index.includes('family=Overlock')&&!index.includes('Cormorant+Garamond')&&!index.includes('Love+Ya+Like+A+Sister'));
+assert('Saira Semi Condensed only for Academy UI',index.includes('family=Saira+Semi+Condensed')&&!index.includes('Cormorant+Garamond')&&!index.includes('Love+Ya+Like+A+Sister'));
 assert('PT-BR and EN-US copy',copy.includes("'pt-BR'")&&copy.includes("'en-US'"));
 for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','LearningProgress','CourseSection','LessonRow','PrimaryButton','SecondaryButton','QuizOption','QuizProgress','EvolutionMetric','WeeklyGoal','SectionDivider','BottomNavigation','Modal','BottomSheet','LoadingState','EmptyState','ErrorState']){
   assert('component '+name,components.includes(name));
