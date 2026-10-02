@@ -114,6 +114,72 @@
   };
 
 
+  const storedAttempts=()=>{
+    const out={};
+    const add=(id,correct,at=0)=>{
+      if(!id)return;(out[id]=out[id]||[]).push({correct:!!correct,at:Number(at||0)});
+    };
+    const fundamentals=readLocal('stackup-fundamentals-progress-v1');
+    Object.values(fundamentals||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>add('BASE:'+id,a?.correct===true,a?.updatedAt)));
+    const modalities=readLocal('stackup-modalities-progress-v1');
+    Object.values(modalities||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>add('MODALIDADES:'+id,a?.correct===true,a?.updatedAt)));
+    const mixed=readLocal('stackup-mixed-games-progress-v2');
+    Object.entries(mixed?.answers||{}).forEach(([id,a])=>add('MIXED:'+id,a?.correct===true,a?.updatedAt));
+    const advanced=readLocal('stackup-practice-advanced-v2');
+    for(const [mode,source] of [['sim','SIM'],['quiz','QUIZ'],['math','MATEMÁTICA']]){
+      Object.entries(advanced?.[mode]?.results||{}).forEach(([id,a])=>add(source+':'+id,a?.correct===true||a===true,0));
+    }
+    const review=reviewStore();
+    for(const [id,rec] of Object.entries(review||{}))for(const a of (rec?.attempts||[]))add(id,a?.correct===true,a?.at);
+    return out;
+  };
+  const competencyReport=bank=>{
+    const attempts=storedAttempts(),byId=new Map(bank.map(q=>[q.id,q])),groups={};
+    for(const [id,rows] of Object.entries(attempts)){
+      const q=byId.get(id);if(!q)continue;
+      const key=String(q.skill||q.source||'GERAL'),g=groups[key]||(groups[key]={skill:key,source:q.source,questions:{},attempts:[]});
+      g.questions[id]=g.questions[id]||[];
+      rows.forEach(a=>{g.questions[id].push(a);g.attempts.push(a)});
+    }
+    const result=[];
+    for(const g of Object.values(groups)){
+      const att=g.attempts.slice().sort((a,b)=>Number(b.at||0)-Number(a.at||0));
+      const n=att.length;if(!n)continue;
+      let weight=0,weightedCorrect=0;
+      att.forEach((a,i)=>{const w=Math.pow(.85,i);weight+=w;if(a.correct)weightedCorrect+=w});
+      const weightedAccuracy=Math.round(((weightedCorrect+1)/(weight+2))*100);
+      const correct=att.filter(a=>a.correct).length,accuracy=Math.round(correct/n*100);
+      const persistentErrors=Object.values(g.questions).filter(rows=>rows.length&&!rows[rows.length-1].correct).length;
+      const repeatedErrors=Object.values(g.questions).filter(rows=>rows.filter(a=>!a.correct).length>=2).length;
+      const chronological=att.slice().reverse();let trend=0;
+      if(chronological.length>=6){
+        const half=Math.floor(chronological.length/2),first=chronological.slice(0,half),last=chronological.slice(half);
+        const p1=first.filter(a=>a.correct).length/first.length,p2=last.filter(a=>a.correct).length/last.length;
+        trend=Math.round((p2-p1)*100);
+      }
+      const score=(1-weightedAccuracy/100)*(1+.5*Math.min(persistentErrors,5))*(1+.3*Math.min(repeatedErrors,5))*Math.min(1,n/3)*(trend<-15?1.25:1);
+      result.push({...g,n,correct,accuracy,weightedAccuracy,persistentErrors,repeatedErrors,trend,score});
+    }
+    return result.sort((a,b)=>b.score-a.score||a.weightedAccuracy-b.weightedAccuracy);
+  };
+  async function startCompetencyReview(skill){
+    shell(t('smartReview','REVISÃO INTELIGENTE'),t('reviewPreparing','Preparando reforço direcionado...'),'<div class="academy-state">'+t('loading','CARREGANDO...')+'</div>');
+    try{
+      const bank=await generalQuestionBank(),wrong=wrongQuestionIds(),store=reviewStore();
+      const pool=bank.filter(q=>String(q.skill||q.source)===String(skill));
+      const ordered=[
+        ...pool.filter(q=>wrong.has(q.id)),
+        ...pool.filter(q=>!wrong.has(q.id)&&!store[q.id]),
+        ...pool.filter(q=>!wrong.has(q.id)&&store[q.id]).sort((a,b)=>Number(store[a.id]?.lastAt||0)-Number(store[b.id]?.lastAt||0))
+      ];
+      const seen=new Set(),questions=ordered.filter(q=>!seen.has(q.id)&&(seen.add(q.id),true)).slice(0,10);
+      if(!questions.length)throw new Error(t('noCompetencyQuestions','Não há questões disponíveis para esta competência.'));
+      reviewSession={questions,index:0,correct:0,answered:0,feedback:null,skill:String(skill)};
+      window.AnalyticsService?.track?.('competency_review_started',{skill:String(skill),questions:questions.length});
+      renderReviewQuestion();
+    }catch(error){shell(t('smartReview','REVISÃO INTELIGENTE'),'',C().ErrorState(error?.message||t('reviewLoadError','Não foi possível preparar a revisão.')))}
+  }
+
   function shell(title,description,body){
     const root=document.getElementById('root');if(!root)return;
     document.getElementById('navtools')?.classList.add('show');
@@ -306,15 +372,20 @@
     shell(t('certificateOf','CERTIFICADO'),section,body);
   }
 
-  function renderReport(){
-    const E=window.EvolutionService?.snapshot?.()||{sections:{},comparison:{},log:{}};
-    const rows=Object.entries(E.sections||{}).sort((a,b)=>a[1].accuracy-b[1].accuracy).map(([key,s])=>{
-      const base=E.comparison?.[key],first=base?.firstPct??s.accuracy,current=base?.lastPct??s.accuracy,delta=current-first;
-      return '<div class="academy-skill-row"><div class="academy-skill-head"><strong>'+stageName(key)+'</strong><b>'+current+'%</b></div><small>'+t('firstAttempt','1ª TENTATIVA')+' '+first+'% → '+t('currentPerformance','ATUAL')+' '+current+'% · '+(delta>=0?'+':'')+delta+' pp · '+s.xp+' XP</small></div>';
-    }).join('');
-    const days=Object.entries(E.log||{}).sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);
-    const timeline=days.length?'<div class="academy-xp-timeline"><div class="academy-kicker" style="padding:12px 0 2px">'+t('xpTimeline','XP AO LONGO DOS DIAS')+'</div>'+days.map(([day,xp])=>'<div class="academy-xp-day"><span>'+day.slice(8,10)+'/'+day.slice(5,7)+'</span><div>'+C().LearningProgress(Math.min(100,E.xp?Math.round(Number(xp)/E.xp*100):0))+'</div><b>'+xp+' XP</b></div>').join('')+'</div>':'';
-    shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),t('skillReportCopy','Competências ordenadas da menor para a maior taxa de acerto.'),(rows||C().EmptyState())+timeline);
+  async function renderReport(){
+    shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),t('skillReportCopy','Veja as competências mais fortes e as que precisam de reforço.'),'<div class="academy-state">'+t('loading','CARREGANDO...')+'</div>');
+    try{
+      const bank=await generalQuestionBank(),skills=competencyReport(bank),E=window.EvolutionService?.snapshot?.()||{log:{},xp:0};
+      const rows=skills.length?skills.map(s=>{
+        const trend=(s.trend>=0?'+':'')+s.trend+' pp';
+        const meta=t('currentPerformance','ATUAL')+' '+s.weightedAccuracy+'% · '+s.n+' '+t('answeredShort','respondidas').toLowerCase()+' · '+s.persistentErrors+' '+t('persistentErrors','erros persistentes').toLowerCase()+' · '+t('trend','tendência').toLowerCase()+' '+trend;
+        const action=s.score>0?C().SecondaryButton(t('reinforceCompetency','REFORÇAR COMPETÊNCIA'),'data-competency-review="'+encodeURIComponent(s.skill)+'"'):'';
+        return '<div class="academy-skill-row"><div class="academy-skill-head"><strong>'+esc(s.skill)+'</strong><b>'+s.weightedAccuracy+'%</b></div><small>'+esc(meta)+'</small>'+action+'</div>';
+      }).join(''):C().EmptyState(t('noCompetencyData','Ainda não há dados suficientes por competência.'));
+      const days=Object.entries(E.log||{}).sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);
+      const timeline=days.length?'<div class="academy-xp-timeline"><div class="academy-kicker" style="padding:12px 0 2px">'+t('xpTimeline','XP AO LONGO DOS DIAS')+'</div>'+days.map(([day,xp])=>'<div class="academy-xp-day"><span>'+day.slice(8,10)+'/'+day.slice(5,7)+'</span><div>'+C().LearningProgress(Math.min(100,E.xp?Math.round(Number(xp)/E.xp*100):0))+'</div><b>'+xp+' XP</b></div>').join('')+'</div>':'';
+      shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),t('skillReportDetailedCopy','Competências priorizadas por precisão recente, erros persistentes, repetição e tendência.'),rows+timeline);
+    }catch(error){shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),'',C().ErrorState(error?.message||t('skillReportError','Não foi possível montar o relatório por competência.')))}
   }
 
   function render(kind){
@@ -333,6 +404,7 @@
 
   document.addEventListener('click',e=>{
     const k=e.target.closest('[data-study-kind]');if(k){e.preventDefault();open(k.dataset.studyKind);return}
+    const cr=e.target.closest('[data-competency-review]');if(cr){e.preventDefault();startCompetencyReview(decodeURIComponent(cr.dataset.competencyReview));return}
     const s=e.target.closest('[data-review-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.reviewStage,1);return}
     const hra=e.target.closest('[data-history-retrain-answer]');if(hra){e.preventDefault();answerHistoryRetrain(decodeURIComponent(hra.dataset.historyRetrainAnswer));return}
     if(e.target.closest('[data-history-retrain-next]')){e.preventDefault();nextHistoryRetrain();return}
