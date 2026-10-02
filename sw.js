@@ -9,7 +9,7 @@ const ASSETS=[
   './modalities-depth-details.js','./mixed-games-module.js','./practice-module.js','./practice-table.js','./practice-advanced-bank.js',
   './practice-advanced.js','./table-rotation-guard.js','./math-card-structure.js','./practice-math-odds.js','./portuguese-corrections.js','./cover-layout.js','./release-compliance.js',
   './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./typography-standard.js','./icon-192.png','./icon-512.png',
-  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/content/academy-course-map.js','./src/services/training-preference-service.js','./src/services/training-history-service.js','./src/services/evolution-service.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/services/plan-access-service.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/screens/study-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
+  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/content/academy-course-map.js','./src/services/training-preference-service.js','./src/services/training-history-service.js','./src/services/evolution-service.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/services/plan-access-service.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/components/training-save-bar.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/screens/study-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
 ];
 const SCRIPTS=[
   ['session-reset.js',3],
@@ -57,7 +57,7 @@ const SCRIPTS=[
   ['academy-loader.js',12],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',16],
+  ['src/i18n/academy-copy.js',17],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-preference-service.js',1],
   ['src/services/training-history-service.js',6],
@@ -70,6 +70,7 @@ const SCRIPTS=[
   ['src/services/plan-access-service.js',1],
   ['src/components/academy-components.js',7],
   ['src/components/editorial-lesson-adapter.js',3],
+  ['src/components/training-save-bar.js',1],
   ['src/screens/home-screen.js',8],
   ['src/screens/stage-screen.js',10],
   ['src/screens/profile-screen.js',9],
