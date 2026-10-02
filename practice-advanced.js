@@ -3,6 +3,7 @@
   if(!B) return;
 
   const STORE='stackup-practice-advanced-v2';
+  const RESUME_KEY='academy.resume.v1';
   const POSITIONS=['UTG1','UTG2','MP1','MP2','LJ','HJ','CO','BTN','SB','BB'];
   const POSXY={UTG1:[50,10],UTG2:[70.5,17.6],MP1:[83.3,37.6],MP2:[83.3,62.4],LJ:[70.5,82.4],HJ:[50,90],CO:[29.5,82.4],BTN:[16.7,62.4],SB:[16.7,37.6],BB:[29.5,17.6]};
   let state={sim:{results:{}},quiz:{results:{}},math:{results:{}}};
@@ -12,6 +13,23 @@
   const history={sim:[],quiz:[],math:[]};
   const answered={sim:false,quiz:false,math:false};
   const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(state))}catch(_){}};
+  const takeResume=(mode,bank)=>{
+    let req=null;try{req=JSON.parse(sessionStorage.getItem(RESUME_KEY)||'null')}catch(_){}
+    if(!req||req.mode!==mode)return false;
+    if(mode==='sim'&&req.filter&&SIM_FILTERS.some(f=>f.key===req.filter))state.sim.filter=req.filter;
+    const activeBank=mode==='sim'?simBank():bank;
+    const item=activeBank.find(x=>String(x.id)===String(req.id));
+    try{sessionStorage.removeItem(RESUME_KEY)}catch(_){}
+    if(!item)return false;
+    current[mode]=item;history[mode]=[];answered[mode]=false;
+    state[mode].currentId=item.id;save();
+    return true;
+  };
+  const rememberCurrent=(mode,item)=>{
+    if(!item?.id)return;
+    if(state[mode].currentId===item.id)return;
+    state[mode].currentId=item.id;save();
+  };
   const pct=(a,b)=>b?Math.round(a*100/b):0;
   const esc=s=>String(s??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
   const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toUpperCase();
@@ -182,23 +200,27 @@
   function renderMode(mode){
     const shell=shellFor(mode);if(!shell)return;
     if(mode==='sim'){
-      const bank=simBank();
+      let bank=simBank();
+      if(!current.sim)takeResume('sim',bank);
+      bank=simBank();
       if(!current.sim||!bank.some(x=>x.id===current.sim.id))current.sim=pick('sim',bank);
-      const s=current.sim;
+      const s=current.sim;rememberCurrent('sim',s);
       shell.innerHTML=`${simFilterBar()}${counter('sim',bank.length,bank)}<div class="p3x-kicker">${esc(activeSimFilter().label)} · ${esc(s.game)} · SPOT ${esc(s.id)} · MÃO SIMULADA</div>${liveTable(s)}<div class="p3x-panel"><h3>SUA DECISÃO</h3>${optionBlock(s)}<div class="p3x-nav"><button class="p3x-btn" data-prev>ANTERIOR</button><button class="p3x-btn" data-redo>REFAZER MÃO</button><button class="p3x-btn" data-next>PRÓXIMA MÃO</button></div></div>`;
       shell.querySelectorAll('[data-sim-filter]').forEach(btn=>btn.addEventListener('click',()=>{
         const key=btn.dataset.simFilter;if(key===state.sim.filter)return;
-        state.sim.filter=key;save();current.sim=null;history.sim=[];answered.sim=false;renderMode('sim');
+        state.sim.filter=key;state.sim.currentId='';save();current.sim=null;history.sim=[];answered.sim=false;renderMode('sim');
       }));
       bindExercise(shell,'sim',bank,bank.length,s);requestAnimationFrame(()=>animateHand(shell,s));
     }else if(mode==='quiz'){
+      if(!current.quiz)takeResume('quiz',B.quiz);
       if(!current.quiz)current.quiz=pick('quiz',B.quiz);
-      const q=current.quiz;
+      const q=current.quiz;rememberCurrent('quiz',q);
       shell.innerHTML=`${counter('quiz',B.quiz.length)}<div class="p3x-quiz-banner"><strong>${B.quiz.length} PERGUNTAS ATIVAS</strong><span>Banco geral · fundamentos + modalidades + conceitos</span></div><div class="p3x-panel"><span class="p3x-badge">${esc(q.topic||'GERAL')} · ${esc(q.id)}</span>${optionBlock(q)}<div class="p3x-nav"><button class="p3x-btn" data-prev>ANTERIOR</button><button class="p3x-btn" data-redo>REFAZER</button><button class="p3x-btn" data-next>PRÓXIMA</button></div></div>`;
       bindExercise(shell,'quiz',B.quiz,B.quiz.length);
     }else{
+      if(!current.math)takeResume('math',B.math);
       if(!current.math)current.math=pick('math',B.math);
-      const m=current.math;
+      const m=current.math;rememberCurrent('math',m);
       shell.innerHTML=`<div class="p3x-math-grid">${B.mathTheory.map(x=>`<div class="p3x-math-card"><h3>${esc(x.title)}</h3><p><strong>PARA QUE SERVE:</strong> ${esc(x.use)}</p><div class="formula">${esc(x.formula)}</div><p class="p3x-tip"><strong>DICA / ATALHO:</strong> ${esc(x.tip)}</p></div>`).join('')}</div><div class="p3x-panel"><h3>PRÁTICA DE CÁLCULO</h3>${counter('math',B.math.length)}<span class="p3x-badge">${esc(m.topic)} · ${esc(m.id)}</span>${optionBlock(m)}<div class="p3x-nav"><button class="p3x-btn" data-prev>ANTERIOR</button><button class="p3x-btn" data-redo>REFAZER</button><button class="p3x-btn" data-next>PRÓXIMO</button></div></div>`;
       bindExercise(shell,'math',B.math,B.math.length);
     }
