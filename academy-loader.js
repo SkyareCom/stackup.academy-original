@@ -15,7 +15,7 @@
       ['other-rules-details.js',4],
       ['fundamentals-interactive-bank.js',1],
       ['fundamentals-visual-layer.js',4],
-      ['fundamentals-interactive.js',7],
+      ['fundamentals-interactive.js',9],
       ['fundamentals-progress-panel.js',5]
     ],
     modalidades:[
