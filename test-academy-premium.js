@@ -48,6 +48,7 @@ assert('evolution podium is previous current next category',evolution.includes('
 assert('Premium habit has 30 50 100 goals and weekly shield',progress.includes('[30,50,100]')&&progress.includes('shieldDaysUsed')&&components.includes('streakShield'));
 assert('Premium Free uses fixed five-question fundamentals',planAccess.includes('FREE_LIMIT=5')&&read('fundamentals-interactive.js').includes('fixedQuestionLimit')&&read('fundamentals-interactive.js').includes('chapterBank')&&read('fundamentals-interactive.js').includes('if(freeMode())return [...spots]'));
 assert('Premium access rules stay prepared while test access remains open',planAccess.includes('TEST_ACCESS=true')&&planAccess.includes('FREE_LIMIT=5')&&planAccess.includes('FREE_FUNDAMENTALS'));
+assert('Premium weakness engine uses repeated real attempts',trainingHistory.includes('changedQuestionAttempts')&&trainingHistory.includes('questionAttempts')&&study.includes('historyRuns')&&study.includes('boxFromAttempts'));
 assert('Premium report ranks real competencies',study.includes('competencyReport')&&study.includes('weightedAccuracy')&&study.includes('persistentErrors')&&study.includes('repeatedErrors')&&study.includes('data-competency-review'));
 assert('Premium Home links evolution to smart review',home.includes('data-home-review')&&study.includes('reviewSummary'));
 assert('Premium smart review keeps spaced repetition',study.includes('REVIEW_INTERVAL_DAYS=[0,1,2,4,8,16]')&&study.includes('dueAt')&&study.includes('reviewBox'));
