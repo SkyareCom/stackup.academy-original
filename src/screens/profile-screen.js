@@ -13,9 +13,17 @@
       .academy-cross-sell p{margin:6px 0 14px;color:var(--academy-muted);font-size:12px;line-height:1.45}
       .academy-apps-grid{display:grid;gap:12px}.academy-app-card{padding:16px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
       .academy-app-card strong,.academy-app-card span{display:block}.academy-app-card p{margin:5px 0 0;color:var(--academy-muted);font-size:12px;line-height:1.4}.academy-soon-tag{flex:0 0 auto;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase}
-      .academy-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.academy-lang-toggle button.active{background:var(--academy-ivory);color:var(--academy-bg);border-color:var(--academy-ivory)}
+      .academy-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.academy-lang-toggle button.active{background:var(--academy-ivory);color:var(--academy-bg);border-color:var(--academy-ivory)}.academy-coach-box{padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}.academy-coach-box p{margin:0 0 12px;color:var(--academy-muted)}.academy-coach-box label{display:block;margin:0 0 6px;font-weight:600;text-transform:uppercase}.academy-coach-box input[type="tel"]{width:100%;min-height:44px;padding:10px 12px;margin-bottom:12px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);color:var(--academy-ivory);font:400 12px 'Saira Semi Condensed',system-ui,sans-serif}.academy-coach-consent{display:flex!important;align-items:flex-start;gap:10px;margin:12px 0!important;text-transform:none!important;font-weight:400!important}.academy-coach-consent input{margin-top:2px}.academy-coach-box button{width:100%}.academy-privacy-actions{display:grid;gap:12px}.academy-privacy-actions button,.academy-privacy-actions a{width:100%;min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none}
     `;document.head.appendChild(s);
   }
+
+  const COACH_KEY='academy.coach.v1';
+  const readCoach=()=>{try{return JSON.parse(localStorage.getItem(COACH_KEY)||'{}')||{}}catch(_){return {}}};
+  const coachSection=current=>{
+    if(!['semiannual','annual'].includes(current))return '';
+    const pref=readCoach(),number=esc(pref.number||''),checked=pref.optIn===true?'checked':'';
+    return `<section class="academy-profile-section" id="profile-coach">${C().CourseSection({title:t('academyCoach','ACADEMY COACH'),content:`<div class="academy-coach-box"><p>${t('coachIncludedCopy','Seu plano inclui até 2 mensagens do Coach por semana, sem custo adicional.')}</p><label for="academy-coach-phone">${t('coachPhone','WHATSAPP COM CÓDIGO DO PAÍS')}</label><input id="academy-coach-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+55 11 91234-5678" value="${number}"><label class="academy-coach-consent"><input type="checkbox" data-coach-consent ${checked}><span>${t('coachConsent','Autorizo o Academy Coach a enviar até 2 mensagens por semana pelo WhatsApp.')}</span></label>${C().PrimaryButton(t('saveCoach','SALVAR CONFIGURAÇÃO'),'data-save-coach')}</div>`})}</section>`;
+  };
 
   function render(focus=''){
     const root=document.getElementById('root');if(!root)return;
@@ -32,6 +40,8 @@
         ['WRAPS','Treinamento de Pot-Limit Omaha'],
         ['D ACTION','Aperfeiçoamento em Pot-Limit Omaha']
       ].map(([name,desc])=>`<div class="academy-app-card"><div><strong>${name}</strong><p>${desc}</p></div><span class="academy-soon-tag">${t('comingSoon','EM BREVE')}</span></div>`).join('')}</div>`})}</section>
+      ${coachSection(current)}
+      <section class="academy-profile-section" id="profile-privacy">${CC.CourseSection({title:t('aboutPrivacy','SOBRE E PRIVACIDADE'),content:`<div class="academy-privacy-actions"><a class="academy-secondary" href="./privacy.html#pt">${t('privacyPolicy','POLÍTICA DE PRIVACIDADE')}</a><button type="button" class="academy-secondary" data-profile-clear-local>${t('deleteLocalData','APAGAR DADOS DESTE APARELHO')}</button><button type="button" class="academy-secondary" data-profile-delete-account>${t('requestAccountDeletion','SOLICITAR EXCLUSÃO DA CONTA')}</button></div>`})}</section>
     </section>`;
     window.AnalyticsService?.screen?.('profile');
     if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
@@ -43,7 +53,38 @@
   window.AcademyScreens=window.AcademyScreens||{};window.AcademyScreens.profile=open;window.AcademyScreens.renderProfile=render;
 
   document.addEventListener('click',e=>{
+    const save=e.target.closest('[data-save-coach]');
+    if(save){
+      e.preventDefault();
+      const number=String(document.getElementById('academy-coach-phone')?.value||'').replace(/[\s()\-]/g,'');
+      const optIn=!!document.querySelector('[data-coach-consent]')?.checked;
+      if(!/^\+[1-9][0-9]{7,14}$/.test(number)){alert(t('coachInvalid','Informe um número válido com código do país.'));return}
+      if(!optIn){alert(t('coachConsentRequired','Confirme a autorização para receber as mensagens do Coach.'));return}
+      const pref={number,optIn:true,optInAt:new Date().toISOString(),frequency:'included_2_week'};
+      try{localStorage.setItem(COACH_KEY,JSON.stringify(pref))}catch(_){}
+      const sync=window.StackUpProductionAuth?.saveAcademyCoachPreference?.(pref);
+      if(sync&&typeof sync.then==='function'){
+        sync.then(r=>alert(r?.synced?t('coachSaved','Configuração do Academy Coach salva.'):t('coachSavedLocal','Configuração salva neste aparelho.')))
+            .catch(err=>alert(err?.message||t('coachSaveError','Não foi possível sincronizar a configuração do Academy Coach.')));
+      }else alert(t('coachSavedLocal','Configuração salva neste aparelho.'));
+      return;
+    }
     const l=e.target.closest('[data-profile-lang]');if(l){const code=l.dataset.profileLang;try{localStorage.setItem('stackup-language-v1',code)}catch(_){};document.documentElement.lang=code;location.reload();return}
+    const clear=e.target.closest('[data-profile-clear-local]');
+    if(clear){
+      e.preventDefault();
+      if(!confirm(t('deleteLocalConfirm','Apagar progresso, histórico, preferências e sessão local deste Academy?')))return;
+      const exact=new Set(['stackup-fundamentals-progress-v1','stackup-modalities-progress-v1','stackup-mixed-games-progress-v2','stackup-practice-progress-v1','stackup-practice-advanced-v2','stackup-language-v1','stackup-academy-weekly-v1','stackup-academy-last-route-v1','academy.hist.v1','academy.plan.v1','academy.coach.v1','academy.smart-review.v1','academy.exam.last.v1']);
+      try{for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&(exact.has(key)||key.startsWith('stackup-academy-')))localStorage.removeItem(key)}}catch(_){}
+      alert(t('localDataDeleted','Dados locais do Academy apagados deste aparelho.'));location.reload();return;
+    }
+    const del=e.target.closest('[data-profile-delete-account]');
+    if(del){
+      e.preventDefault();
+      const subject=encodeURIComponent(t('accountDeletionSubject','Excluir minha conta - Academy'));
+      const body=encodeURIComponent(t('accountDeletionBody','Solicito a exclusão da minha conta e dos dados sincronizados do StackUp Hold\'em Academy.'));
+      location.href='mailto:skyare.company@gmail.com?subject='+subject+'&body='+body;return;
+    }
   });
   const old=window.onpopstate;
   window.onpopstate=e=>{if(e.state?.type==='academy-profile'){render(e.state.focus||'');return}old?.(e)};
