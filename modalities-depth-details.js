@@ -75,11 +75,11 @@
     s.id='stackup-modalities-depth-style';
     s.textContent=`
       .m2-depth-wrap{margin-top:16px}
-      .m2-depth-title{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:#2a160d;color:#d4aa58;border:1px solid #d4aa58;font-size:21px!important;line-height:1.15;text-transform:uppercase}
+      .m2-depth-title{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:#151515;color:#d8d0bf;border:1px solid #d8d0bf;font-size:21px!important;line-height:1.15;text-transform:uppercase}
       .m2-depth-grid{display:grid;gap:12px}
-      .m2-depth-card{padding:15px 16px;border-radius:17px;background:#e7dcc2;border:1px solid #a87c324d}
-      .m2-depth-card h3{margin:0 0 7px;color:#08372d;font-size:21px!important;line-height:1.15;text-transform:uppercase}
-      .m2-depth-card p{margin:0;color:#725f4d;font-size:16px!important;line-height:1.5}
+      .m2-depth-card{padding:15px 16px;border-radius:17px;background:#e6dfd3;border:1px solid #8f8f8f4d}
+      .m2-depth-card h3{margin:0 0 7px;color:#202020;font-size:21px!important;line-height:1.15;text-transform:uppercase}
+      .m2-depth-card p{margin:0;color:#676767;font-size:16px!important;line-height:1.5}
     `;
     document.head.appendChild(s);
   }
