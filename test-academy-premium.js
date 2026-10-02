@@ -17,6 +17,10 @@ const auth=read('src/services/auth-service.js');
 const billing=read('src/services/billing-service.js');
 const content=read('src/services/content-service.js');
 const analytics=read('src/services/analytics-service.js');
+const historyService=read('src/services/training-history-service.js');
+const evolutionService=read('src/services/evolution-service.js');
+const authProduction=read('auth-production.js');
+const billingProduction=read('billing-production.js');
 const reset=read('session-reset.js');
 const advanced=read('practice-advanced.js');
 const photos=read('src/assets/PHOTO-SOURCES.md');
@@ -37,7 +41,8 @@ for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','Learning
 }
 assert('home is editorial and progress-aware',home.includes('academy-home-hero')&&home.includes('ProgressService')&&home.includes('WeeklyGoal'));
 assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.includes('academy-group-list'));
-assert('Practice tools use real progress',tools.includes('ProgressService')&&tools.includes("personalRanking"));
+assert('Practice uses latest four-card 2x2 layout',stage.includes('academy-practice-grid')&&stage.includes('repeat(2,minmax(0,1fr))')&&stage.includes("data-practice-tool=\"history\""));
+assert('Practice history is session-based',tools.includes('TrainingHistoryService')&&historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange'));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
 assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
 assert('stage header content cannot shift vertically',stage.includes('academy-stage-hero-grid')&&stage.includes('grid-template-rows:18px 18px 54px')&&!stage.includes("action:key==='pratica'"));
@@ -46,6 +51,10 @@ assert('Profile header matches stage height',profile.includes('height:176px;min-
 assert('bottom nav is five-column single-line',nav.includes('repeat(5,minmax(0,1fr))')&&nav.includes('white-space:nowrap'));
 assert('profile exposes Academy commercial plans',billing.includes("name:'FREE'")&&billing.includes("name:'MENSAL'")&&billing.includes("R$ 39,90")&&billing.includes("name:'SEMESTRAL'")&&billing.includes("R$ 179,90")&&billing.includes("name:'ANUAL'")&&billing.includes("R$ 229,90")&&billing.includes("name:'COACH PLUS'")&&billing.includes("R$ 34,90"));
 assert('service interfaces exist',auth.includes('AuthService')&&progress.includes('ProgressService')&&content.includes('ContentService')&&analytics.includes('AnalyticsService')&&billing.includes('BillingService'));
+assert('production auth bridge is optional and native-aware',authProduction.includes('StackUpProductionAuth')&&authProduction.includes('requestGoogleSignIn')&&authProduction.includes('requestBiometricUnlock'));
+assert('production billing bridge is native-aware',billingProduction.includes('StackUpBilling')&&billingProduction.includes('requestSubscription'));
+assert('production evolution weights are preserved',evolutionService.includes('fundamentals:10')&&evolutionService.includes('modalities:15')&&evolutionService.includes('quiz:20')&&evolutionService.includes('math:25')&&evolutionService.includes('sim:30'));
+assert('Profile marks ecosystem apps coming soon',profile.includes('GRINDER')&&profile.includes('HEROES')&&profile.includes('REVOLUTION')&&profile.includes('WRAPS')&&profile.includes('D ACTION')&&profile.includes("comingSoon"));
 assert('progress is not auto-deleted',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange')&&!reset.includes('pagehide'));
 assert('NLH spelling is normalized',advanced.includes("key:'NLH'")&&!/\bHNL\b/.test(advanced));
 assert('real photos documented',photos.includes('Unsplash')&&photos.includes('images.unsplash.com/photo-'));
