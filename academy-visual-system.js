@@ -13,10 +13,10 @@
     .sub{margin-top:5px!important;font-size:12px;line-height:1.25!important;font-weight:600!important;letter-spacing:.1em!important;color:var(--academy-silver-2)!important;text-transform:uppercase}
     .navtools{display:none;gap:8px;padding:9px 14px 0;background:var(--academy-bg)}.navtools.show{display:flex}
     .navbtn{flex:1;min-height:40px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase}
-    .navicon{font-size:12px;line-height:1}.screen{padding:20px 16px calc(30px + env(safe-area-inset-bottom))}
-    .list{display:grid;gap:10px}.card{width:100%;min-width:0}
+    .navicon{font-size:12px;line-height:1}.screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))}
+    .list{display:grid;gap:12px}.card{width:100%;min-width:0}
     .card.stage,.card.topic{border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);box-shadow:none}
-    .card.stage{padding:17px;text-align:center}.card.topic{display:flex;align-items:center;gap:12px;padding:13px;text-align:left;min-height:76px}
+    .card.stage{padding:16px;text-align:center}.card.topic{display:flex;align-items:center;gap:12px;padding:14px 12px;text-align:left;min-height:72px}
     .kicker,.eyebrow,.badge{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--academy-silver-2)}
     .stitle{font-size:12px;font-weight:600;line-height:1.06;text-transform:uppercase}.desc,.tnote,.head p,.lead{color:var(--academy-muted);font-size:12px;line-height:1.5}
     .foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding-top:10px;border-top:1px solid var(--academy-line);font-size:12px;color:var(--academy-muted);text-transform:uppercase}
