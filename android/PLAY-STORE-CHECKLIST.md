@@ -1,44 +1,34 @@
-# Google Play release checklist
+# Google Play release checklist — Academy 2.1.7 / 218
 
-## Completed in repository
+## Repository state
+- package `com.skyare.stackupacademy`;
+- native WebView launcher, no TWA;
+- official origin `https://skyarecom.github.io/stackup.academy-original/`;
+- target/compile SDK 36;
+- bundled modular web assets;
+- build 218 cache recovery;
+- INTERNET only and cleartext disabled;
+- Android backup/data transfer disabled;
+- Billing 9.1.0 with `academy_access`;
+- Google + biometric account infrastructure prepared;
+- CI security guard and immutable Action SHAs;
+- API 36 + API 34 emulator smoke tests;
+- Data Safety audit document present.
 
-- Android project under `/android`.
-- Application ID: `com.skyare.stackupacademy`.
-- `compileSdk` / `targetSdk`: 36.
-- Version: 1.0.0 / versionCode 1.
-- TWA start URL configured.
-- Android Browser Helper updated to 2.7.3.
-- Main manifest hardened for production: no cleartext traffic and no Android backup.
-- Privacy policy available in the web app.
-- CI runs Android release lint.
-- CI builds release AAB and installable debug APK.
-- CI supports release signing without storing keys in Git.
-- CI validates AAB integrity and generates SHA-256 checksum.
-- CI smoke-tests the debug APK on an Android emulator.
-- Initial Play Store title and short description stored under `android/store-listing/pt-BR/`.
-- Academy UI uses the Love Ya Like A Sister Google font globally, with card/suit glyph exceptions only where required.
-- Academy palette is locked to dark green, emerald, gold, parchment/beige and dark brown.
-- Main and content cards share centralized border, radius, shadow, padding and spacing tokens.
-- Mobile layout has global horizontal-overflow protection and responsive typography.
-- Topic titles and descriptions are allowed to wrap instead of being cut with ellipsis.
-- Card navigation, Back and Main Menu force the next page to start with the full Academy header visible.
-- Pages deployment now runs a dedicated Play release UI consistency guard before publishing.
+## Before Play production
+1. Confirm package is `com.skyare.stackupacademy`.
+2. Keep Play App Signing enabled and protect the upload key.
+3. Verify the four signing secrets and `signed=true` in `RELEASE-INFO.txt`.
+4. Upload build 218 to Internal/Closed Testing before Production.
+5. Confirm subscription product `academy_access` and base plans `monthly`, `six-month`, `annual`.
+6. Complete privacy, content rating, target audience, app access and ads declarations.
+7. Re-run Data Safety from the exact AAB.
+8. Verify Google OAuth production SHA-1/SHA-256.
+9. Review the Play pre-launch report.
+10. Confirm Store Listing text/media in all supported locales.
 
-## Required outside the repository before production upload
-
-1. Create the Play Console app record using package `com.skyare.stackupacademy`.
-2. Enable Play App Signing.
-3. Create and securely back up the Android upload key.
-4. Configure the signing credentials in the CI secrets and confirm `signed=true` in the generated `RELEASE-INFO.txt`.
-5. Upload the signed AAB to Internal Testing first.
-6. Obtain the final Play App Signing certificate SHA-256 fingerprint.
-7. Replace the placeholder in `android/digital-asset-links/assetlinks.json.template`.
-8. Publish the final asset links file at `https://skyarecom.github.io/.well-known/assetlinks.json` or migrate the Academy to a custom domain and publish it at that domain root.
-9. Verify the release-installed app opens as a validated TWA, not a Custom Tab.
-10. Complete Data Safety, privacy policy URL, target audience, content rating and app access declarations in Play Console.
-11. Prepare final Store Listing media: 512x512 store icon, 1024x500 feature graphic and phone screenshots.
-12. Complete the testing track required by the developer account before requesting production access.
-
-## Product positioning
-
-StackUp Hold'em Academy is an educational poker learning and training application. It does not offer real-money wagering, deposits, withdrawals, prizes, gambling services or gambling transactions.
+Expected release:
+- versionName: 2.1.7
+- versionCode: 218
+- targetSdk: 36
+- shell: native WebView
