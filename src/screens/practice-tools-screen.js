@@ -11,7 +11,7 @@
       .academy-history-list{border-top:1px solid var(--academy-line)}
       .academy-history-row{min-height:68px;padding:14px 0;border-bottom:1px solid var(--academy-line);display:flex;align-items:center;justify-content:space-between;gap:12px}
       .academy-history-row strong,.academy-history-row span{display:block}.academy-history-row span{margin-top:4px;color:var(--academy-muted)}
-      .academy-history-row b{white-space:nowrap}.academy-history-actions{margin-top:20px}.academy-history-actions button{width:100%}
+      .academy-history-row b{white-space:nowrap}.academy-history-row-actions{display:flex;gap:8px;margin-top:8px}.academy-history-row-actions button{min-height:34px;padding:6px 9px}.academy-history-actions{margin-top:20px}.academy-history-actions button{width:100%}
     `;document.head.appendChild(s);
   }
 
@@ -32,7 +32,7 @@
       const H=window.TrainingHistoryService?.summary?.()||{total:0,answered:0,correct:0};
       const runs=window.TrainingHistoryService?.list?.({limit:100})||[];
       const rows=runs.length
-        ?runs.map(r=>`<div class="academy-history-row"><div><strong>${esc(r.label)}</strong><span>${fmt(r.updatedAt)} · ${Number(r.deltaAnswered||0)} ${t('answeredShort','respondidas').toLowerCase()}</span></div><b>${Number(r.deltaCorrect||0)}/${Number(r.deltaAnswered||0)}</b></div>`).join('')
+        ?runs.map(r=>`<div class="academy-history-row"><div><strong>${esc(r.label)}</strong><span>${fmt(r.updatedAt)} · ${Number(r.deltaAnswered||0)} ${t('answeredShort','respondidas').toLowerCase()}</span><div class="academy-history-row-actions"><button type="button" class="academy-secondary" data-history-retrain="${esc(r.id)}">${t('trainAgain','TREINAR NOVAMENTE')}</button><button type="button" class="academy-secondary" data-history-delete="${esc(r.id)}">${t('delete','APAGAR')}</button></div></div><b>${Number(r.deltaCorrect||0)}/${Number(r.deltaAnswered||0)}</b></div>`).join('')
         :`<div class="academy-state">${t('historyEmpty','Nenhum treino salvo no histórico ainda.')}</div>`;
       body=`<div class="academy-history-summary"><div><b>${H.total}</b><span>${t('sessions','SESSÕES')}</span></div><div><b>${H.answered}</b><span>${t('answeredShort','RESPONDIDAS')}</span></div><div><b>${H.correct}</b><span>${t('correct','ACERTOS')}</span></div></div><div class="academy-history-list">${rows}</div><div class="academy-history-actions">${C().SecondaryButton(t('clearHistory','APAGAR HISTÓRICO'),'data-clear-academy-history')}</div>`;
     }else{
@@ -48,6 +48,18 @@
   window.AcademyScreens.practiceTool=render;
 
   document.addEventListener('click',e=>{
+    const del=e.target.closest('[data-history-delete]');
+    if(del){e.preventDefault();if(confirm(t('deleteSessionConfirm','Apagar esta sessão do histórico?'))){window.TrainingHistoryService?.remove?.(del.dataset.historyDelete);render('history')}return}
+    const retrain=e.target.closest('[data-history-retrain]');
+    if(retrain){
+      e.preventDefault();const run=window.TrainingHistoryService?.list?.({limit:250})?.find?.(r=>r.id===retrain.dataset.historyRetrain);
+      if(run?.kind==='sim'){window.lesson?.('pratica',0,1);return}
+      if(run?.kind==='quiz'){window.lesson?.('pratica',1,1);return}
+      if(run?.kind==='math'){window.lesson?.('pratica',2,1);return}
+      if(run?.section==='fundamentals'){window.stage?.('fundamentos',1);return}
+      if(run?.section==='modalities'){window.stage?.('modalidades',1);return}
+      window.stage?.('pratica',1);return;
+    }
     const clear=e.target.closest('[data-clear-academy-history]');
     if(clear){
       e.preventDefault();
