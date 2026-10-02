@@ -22,7 +22,7 @@
       .fi-stat span{display:block;color:var(--academy-silver-3);font-size:10px;letter-spacing:.05em;text-transform:uppercase;margin-top:5px;white-space:nowrap}
       .fi-stat small{display:block;color:var(--academy-muted);font-size:10px;margin-top:2px}
       .fi-body{padding:14px}
-      .fi-spot{background:var(--c,#f2ead8);border:1px solid var(--gold2,var(--academy-warning));border-radius:17px;color:var(--ink,var(--academy-bg-3));overflow:hidden}
+      .fi-spot{background:var(--c,var(--academy-ivory));border:1px solid var(--gold2,var(--academy-warning));border-radius:17px;color:var(--ink,var(--academy-bg-3));overflow:hidden}
       .fi-spotbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;background:var(--academy-ivory-2);border-bottom:1px solid var(--academy-warning)44}
       .fi-spotbar span{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--academy-muted-2)}
       .fi-type{padding:5px 7px!important;border-radius:8px;background:var(--academy-bg)!important;color:var(--academy-ivory)!important;border:1px solid var(--academy-ivory)55}
