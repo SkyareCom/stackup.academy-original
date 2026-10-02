@@ -38,6 +38,9 @@ for(const name of ['AcademyBackground','AcademyHeader','EditorialHero','Learning
 assert('home is editorial and progress-aware',home.includes('academy-home-hero')&&home.includes('ProgressService')&&home.includes('WeeklyGoal'));
 assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.includes('academy-group-list'));
 assert('Practice tools use real progress',tools.includes('ProgressService')&&tools.includes("personalRanking"));
+assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
+assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
+assert('Base and Profile have no photo header',stage.includes("key==='modalidades'?")&&stage.includes("key==='pratica'?")&&!profile.includes('AcademyBackground'));
 assert('bottom nav is five-column single-line',nav.includes('repeat(5,minmax(0,1fr))')&&nav.includes('white-space:nowrap'));
 assert('profile exposes Academy-only plans',billing.includes('ACADEMY FREE')&&billing.includes('ACADEMY EDGE')&&billing.includes('ACADEMY FULL'));
 assert('service interfaces exist',auth.includes('AuthService')&&progress.includes('ProgressService')&&content.includes('ContentService')&&analytics.includes('AnalyticsService')&&billing.includes('BillingService'));
