@@ -44,6 +44,8 @@ assert('training surfaces are darkened',theme.includes('.p3x-quiz-banner')&&them
 assert('timed exam draws from full Academy bank',studyTools.includes('StackupFundamentalsSpotBank')&&studyTools.includes('StackupModalitiesSpotBank')&&studyTools.includes('StackupMixedGamesSpotBank')&&studyTools.includes('StackupPracticeAdvancedBank')&&studyTools.includes('12*60*1000'));
 assert('evolution has Hero Villain and podium',evolution.includes('selfBattle')&&evolution.includes('podium'));
 assert('weekly goals are 30 50 100',fs.readFileSync('src/services/progress-service.js','utf8').includes('allowed=[30,50,100]'));
+assert('Academy Coach is entitlement-gated',profileScreen.includes("['semiannual','annual'].includes(current)")&&profileScreen.includes('data-save-coach')&&profileScreen.includes("COACH_KEY='academy.coach.v1'"));
+assert('production auth can sync Coach preference',fs.readFileSync('auth-production.js','utf8').includes('saveAcademyCoachPreference')&&fs.readFileSync('auth-production.js','utf8').includes("academy_coach_frequency:'included_2_week'"));
 assert('Profile deletion is Academy-scoped',profileScreen.includes('data-profile-clear-local')&&!profileScreen.includes('localStorage.clear()'));
 assert('bottom navigation has five columns',bottomNav.includes('grid-template-columns:repeat(5,minmax(0,1fr))'));
 assert('premium components expose AcademyBackground',components.includes('AcademyBackground')&&components.includes('WeeklyGoal')&&components.includes('BottomSheet'));
