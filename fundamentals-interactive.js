@@ -1,5 +1,12 @@
 (() => {
   const BANK=()=>window.StackupFundamentalsSpotBank||{};
+  const freeMode=()=>window.PlanAccessService?.TEST_ACCESS===false&&window.PlanAccessService?.isPaid?.()===false;
+  const chapterBank=chapter=>{
+    const rows=BANK()[chapter]||[];
+    if(!freeMode())return rows;
+    const limit=Math.max(1,Number(window.PlanAccessService?.fixedQuestionLimit?.()||5));
+    return rows.slice(0,limit);
+  };
   const STORAGE='stackup-fundamentals-progress-v1';
   const runtimes={};
   const TYPE_LABEL={choice:'ESCOLHA',binary:'CERTO / ERRADO',sequence:'COLOQUE EM ORDEM'};
@@ -60,18 +67,28 @@
   function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;}
   function seededShuffle(a,seedText){let seed=0;for(let i=0;i<seedText.length;i++)seed=(seed*31+seedText.charCodeAt(i))>>>0;const x=[...a];for(let i=x.length-1;i>0;i--){seed=(1664525*seed+1013904223)>>>0;const j=seed%(i+1);[x[i],x[j]]=[x[j],x[i]];}return x;}
   function balancedShuffle(spots){const groups={choice:shuffle(spots.filter(s=>s.type==='choice')),binary:shuffle(spots.filter(s=>s.type==='binary')),sequence:shuffle(spots.filter(s=>s.type==='sequence'))};const out=[];let last='';while(groups.choice.length||groups.binary.length||groups.sequence.length){let available=Object.keys(groups).filter(k=>groups[k].length&&k!==last);if(!available.length)available=Object.keys(groups).filter(k=>groups[k].length);const type=available[Math.floor(Math.random()*available.length)];out.push(groups[type].shift());last=type;}return out;}
-  function buildQueue(chapter){const spots=BANK()[chapter]||[];const answers=chapterProgress(chapter).answers||{};const unseen=spots.filter(s=>!answers[s.id]);const seen=spots.filter(s=>answers[s.id]);return [...balancedShuffle(unseen),...balancedShuffle(seen)];}
+  function buildQueue(chapter){
+    const spots=chapterBank(chapter),answers=chapterProgress(chapter).answers||{};
+    if(freeMode())return [...spots];
+    const unseen=spots.filter(s=>!answers[s.id]),seen=spots.filter(s=>answers[s.id]);
+    return [...balancedShuffle(unseen),...balancedShuffle(seen)];
+  }
   function runtime(chapter){if(!runtimes[chapter])runtimes[chapter]={chapter,queue:buildQueue(chapter),history:[],cursor:-1,redo:false,seq:[]};return runtimes[chapter];}
-  function nextSpot(rt){if(rt.cursor<rt.history.length-1){rt.cursor++;rt.redo=false;rt.seq=[];return;}let spot=rt.queue.shift();if(!spot){rt.queue=balancedShuffle(BANK()[rt.chapter]||[]);spot=rt.queue.shift();}if(spot){rt.history.push(spot.id);rt.cursor=rt.history.length-1;rt.redo=false;rt.seq=[];}}
-  function currentSpot(rt){const id=rt.history[rt.cursor];return (BANK()[rt.chapter]||[]).find(s=>s.id===id);}
-  function chapterTotal(chapter){return Math.max(1,(BANK()[chapter]||[]).length||50);}
-  function statData(chapter){const answers=chapterProgress(chapter).answers||{};const vals=Object.values(answers);const realized=vals.length;const correct=vals.filter(x=>x.correct).length;const total=chapterTotal(chapter);return {correct,realized,total,correctPct:realized?Math.round(correct/realized*100):0,realizedPct:Math.min(100,Math.round(realized/total*100))};}
+  function nextSpot(rt){if(rt.cursor<rt.history.length-1){rt.cursor++;rt.redo=false;rt.seq=[];return;}let spot=rt.queue.shift();if(!spot){rt.queue=freeMode()?[...chapterBank(rt.chapter)]:balancedShuffle(chapterBank(rt.chapter));spot=rt.queue.shift();}if(spot){rt.history.push(spot.id);rt.cursor=rt.history.length-1;rt.redo=false;rt.seq=[];}}
+  function currentSpot(rt){const id=rt.history[rt.cursor];return chapterBank(rt.chapter).find(s=>s.id===id);}
+  function chapterTotal(chapter){return Math.max(1,chapterBank(chapter).length||50);}
+  function statData(chapter){
+    const answers=chapterProgress(chapter).answers||{},allowed=new Set(chapterBank(chapter).map(x=>x.id));
+    const vals=Object.entries(answers).filter(([id])=>allowed.has(id)).map(([,v])=>v);
+    const realized=vals.length,correct=vals.filter(x=>x.correct).length,total=chapterTotal(chapter);
+    return {correct,realized,total,correctPct:realized?Math.round(correct/realized*100):0,realizedPct:Math.min(100,Math.round(realized/total*100))};
+  }
   const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   function sameAnswer(a,b){return Array.isArray(a)&&Array.isArray(b)?a.length===b.length&&a.every((v,i)=>v===b[i]):a===b;}
 
   function renderShell(shell,chapter){
     const rt=runtime(chapter);if(rt.cursor<0)nextSpot(rt);const spot=currentSpot(rt);if(!spot)return;
-    const stats=statData(chapter);const total=stats.total;const progress=chapterProgress(chapter).answers||{};const saved=progress[spot.id];const locked=!!saved&&!rt.redo;const pos=(BANK()[chapter]||[]).findIndex(s=>s.id===spot.id)+1;let optionHtml='';
+    const stats=statData(chapter);const total=stats.total;const progress=chapterProgress(chapter).answers||{};const saved=progress[spot.id];const locked=!!saved&&!rt.redo;const pos=chapterBank(chapter).findIndex(s=>s.id===spot.id)+1;let optionHtml='';
     if(spot.type==='choice'||spot.type==='binary'){
       const opts=seededShuffle(spot.options,spot.id+'-options');
       optionHtml=opts.map(o=>{let cls='fi-option';if(locked){if(o===spot.answer)cls+=' fi-correct';if(saved.selected===o&&o!==spot.answer)cls+=' fi-wrong';if(saved.selected===o)cls+=' fi-picked';}return `<button class="${cls}" data-answer="${esc(o)}" ${locked?'disabled':''}>${esc(o)}</button>`;}).join('');
