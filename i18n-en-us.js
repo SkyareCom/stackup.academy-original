@@ -44,7 +44,7 @@
     terceira:'third',matematica:'mathematics'
   });
 
-  function language(){try{return localStorage.getItem(STORAGE)||'pt-BR';}catch(_){return 'pt-BR';}}
+  function language(){try{return localStorage.getItem(STORAGE)==='en-US'?'en-US':'pt-BR';}catch(_){return 'pt-BR';}}
   function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
   function matchCase(source,target){
     if(source===source.toUpperCase())return target.toUpperCase();
