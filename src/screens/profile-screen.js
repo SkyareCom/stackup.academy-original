@@ -74,7 +74,7 @@
     if(clear){
       e.preventDefault();
       if(!confirm(t('deleteLocalConfirm','Apagar progresso, histórico, preferências e sessão local deste Academy?')))return;
-      const exact=new Set(['stackup-fundamentals-progress-v1','stackup-modalities-progress-v1','stackup-mixed-games-progress-v2','stackup-practice-progress-v1','stackup-practice-advanced-v2','stackup-language-v1','stackup-academy-weekly-v1','stackup-academy-last-route-v1','academy.hist.v1','academy.plan.v1','academy.coach.v1','academy.smart-review.v1','academy.exam.last.v1']);
+      const exact=new Set(['stackup-fundamentals-progress-v1','stackup-modalities-progress-v1','stackup-mixed-games-progress-v2','stackup-practice-progress-v1','stackup-practice-advanced-v2','stackup-language-v1','stackup-academy-weekly-v1','stackup-academy-last-route-v1','academy.hist.v1','academy.plan.v1','academy.coach.v1','academy.smart-review.v1','academy.exam.last.v1','academy.events.v1']);
       try{for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&(exact.has(key)||key.startsWith('stackup-academy-')))localStorage.removeItem(key)}}catch(_){}
       alert(t('localDataDeleted','Dados locais do Academy apagados deste aparelho.'));location.reload();return;
     }
