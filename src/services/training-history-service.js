@@ -46,6 +46,19 @@
     return out;
   };
 
+  const resumeFor=(key,raw,kind)=>{
+    if(key!=='stackup-practice-advanced-v2')return null;
+    const s=safeParse(raw,{});
+    const mode=kind==='sim'||kind==='quiz'||kind==='math'?kind:null;
+    if(!mode)return null;
+    const slot=s?.[mode]||{};
+    const id=String(slot.currentId||'').trim();
+    if(!id)return null;
+    const resume={stage:'pratica',lesson:mode==='sim'?0:mode==='quiz'?1:2,mode,id};
+    if(mode==='sim'&&slot.filter)resume.filter=String(slot.filter);
+    return resume;
+  };
+
   const descriptors=(key,raw)=>{
     const store=safeParse(raw,{});
     if(key==='stackup-fundamentals-progress-v1')return [{section:'fundamentals',kind:'fundamentals',label:'BASE',...answerStats(store)}];
@@ -88,13 +101,15 @@
         last.errors=Math.max(0,next.answered-next.correct);
         last.deltaAnswered=(last.deltaAnswered||0)+Math.max(0,da);
         last.deltaCorrect=(last.deltaCorrect||0)+Math.max(0,dc);
+        const resume=resumeFor(key,afterRaw,next.kind);if(resume)last.resume=resume;
       }else{
         state.runs.unshift({
           id:'AH-'+now.toString(36)+'-'+Math.random().toString(36).slice(2,7),
           section:next.section,kind:next.kind,label:next.label,
           startedAt:now,updatedAt:now,
           answered:next.answered,correct:next.correct,errors:Math.max(0,next.answered-next.correct),
-          deltaAnswered:Math.max(0,da),deltaCorrect:Math.max(0,dc)
+          deltaAnswered:Math.max(0,da),deltaCorrect:Math.max(0,dc),
+          resume:resumeFor(key,afterRaw,next.kind)
         });
       }
     }
