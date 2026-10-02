@@ -87,20 +87,20 @@
   const style=document.createElement('style');
   style.id='stackup-practice-style';
   style.textContent=`
-    .p3-shell{margin-top:18px;border:1px solid #a87c3270;background:#efe4cd;border-radius:18px;padding:15px;color:#25170f}
+    .p3-shell{margin-top:18px;border:1px solid #8f8f8f70;background:#eee8dc;border-radius:18px;padding:15px;color:#151515}
     .p3-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:12px}
-    .p3-head h3{margin:0;color:#08372d;text-transform:uppercase;font-size:21px}
-    .p3-meta{font-size:12px;color:#725f4d;text-transform:uppercase;text-align:right}
+    .p3-head h3{margin:0;color:#202020;text-transform:uppercase;font-size:21px}
+    .p3-meta{font-size:12px;color:#676767;text-transform:uppercase;text-align:right}
     .p3-progress{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 14px}
-    .p3-stat{background:#2a160d;color:#f8f0df;border:1px solid #d4aa58;border-radius:12px;padding:9px;text-align:center}
-    .p3-stat b{display:block;color:#d4aa58;font-size:18px}.p3-stat span{font-size:11px;text-transform:uppercase}
-    .p3-context{background:#211008;color:#d4aa58;border-radius:12px;padding:10px 12px;font-size:12px;text-transform:uppercase;margin-bottom:10px}
-    .p3-q{font-size:18px;line-height:1.4;margin:0 0 12px;color:#25170f}
-    .p3-options{display:grid;gap:8px}.p3-option,.p3-btn{border:1px solid #a87c32;border-radius:12px;background:#f8f0df;color:#25170f;padding:11px 12px;text-align:left;cursor:pointer}
+    .p3-stat{background:#151515;color:#f3eee4;border:1px solid #d8d0bf;border-radius:12px;padding:9px;text-align:center}
+    .p3-stat b{display:block;color:#d8d0bf;font-size:18px}.p3-stat span{font-size:11px;text-transform:uppercase}
+    .p3-context{background:#070707;color:#d8d0bf;border-radius:12px;padding:10px 12px;font-size:12px;text-transform:uppercase;margin-bottom:10px}
+    .p3-q{font-size:18px;line-height:1.4;margin:0 0 12px;color:#151515}
+    .p3-options{display:grid;gap:8px}.p3-option,.p3-btn{border:1px solid #8f8f8f;border-radius:12px;background:#f3eee4;color:#151515;padding:11px 12px;text-align:left;cursor:pointer}
     .p3-option:active,.p3-btn:active{transform:scale(.99)}.p3-option[disabled]{opacity:.72;cursor:default}
-    .p3-result{margin-top:12px;border-radius:12px;padding:12px;background:#2a160d;color:#f8f0df;line-height:1.45}
-    .p3-result strong{color:#d4aa58;text-transform:uppercase}.p3-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.p3-btn{text-align:center;text-transform:uppercase;font-size:12px;background:#211008;color:#d4aa58}
-    .p3-math-grid{display:grid;gap:9px}.p3-math-card{background:#f8f0df;border:1px solid #a87c3255;border-radius:14px;padding:12px}.p3-math-card h4{margin:0 0 7px;color:#08372d;font-size:18px;text-transform:uppercase}.p3-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}.p3-input{width:100%;border:1px solid #a87c32;border-radius:10px;padding:10px;background:#fffdf7;color:#25170f;font:inherit}.p3-calc{margin-top:9px;width:100%;border:1px solid #d4aa58;border-radius:10px;padding:10px;background:#211008;color:#d4aa58;font:inherit;text-transform:uppercase}.p3-output{margin-top:9px;color:#725f4d;font-size:14px;line-height:1.45}.p3-note{font-size:13px;color:#725f4d;line-height:1.45;margin-top:10px}
+    .p3-result{margin-top:12px;border-radius:12px;padding:12px;background:#151515;color:#f3eee4;line-height:1.45}
+    .p3-result strong{color:#d8d0bf;text-transform:uppercase}.p3-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.p3-btn{text-align:center;text-transform:uppercase;font-size:12px;background:#070707;color:#d8d0bf}
+    .p3-math-grid{display:grid;gap:9px}.p3-math-card{background:#f3eee4;border:1px solid #8f8f8f55;border-radius:14px;padding:12px}.p3-math-card h4{margin:0 0 7px;color:#202020;font-size:18px;text-transform:uppercase}.p3-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}.p3-input{width:100%;border:1px solid #8f8f8f;border-radius:10px;padding:10px;background:#f7f3eb;color:#151515;font:inherit}.p3-calc{margin-top:9px;width:100%;border:1px solid #d8d0bf;border-radius:10px;padding:10px;background:#070707;color:#d8d0bf;font:inherit;text-transform:uppercase}.p3-output{margin-top:9px;color:#676767;font-size:14px;line-height:1.45}.p3-note{font-size:13px;color:#676767;line-height:1.45;margin-top:10px}
   `;
   if(!document.getElementById(style.id))document.head.appendChild(style);
 
