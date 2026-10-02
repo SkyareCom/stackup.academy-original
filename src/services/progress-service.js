@@ -72,7 +72,7 @@
   function snapshot(){
     const f=answerStats(read(KEYS.fundamentals));
     const mBase=answerStats(read(KEYS.modalities)),mix=mixedStats(),m={answered:mBase.answered+mix.answered,correct:mBase.correct+mix.correct};
-    const pCore=practiceCoreStats(),pAdv=advancedStats(),p={answered:pCore.answered+pAdv.answered,correct:pCore.correct+pAdv.correct};
+    const pCore=practiceCoreStats(),pAdv=advancedStats();const practiceAnswered=pCore.answered+pAdv.answered;const p={answered:practiceAnswered,correct:Math.min(practiceAnswered,pCore.correct+pAdv.correct)};
     const sections={
       fundamentals:{...f,total:TOTALS.fundamentals},
       modalities:{...m,total:TOTALS.modalities},
