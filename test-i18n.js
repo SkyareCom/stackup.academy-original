@@ -36,7 +36,7 @@ check('zero high-confidence Portuguese residue after EN-US translation',residue.
 
 const index=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 check('logo preserved',index.includes('src="./header-logo-transparent.png?v=1"'));
-check('Overlock Academy typography preserved',index.includes('family=Overlock')&&!index.includes('Love+Ya+Like+A+Sister')&&!index.includes('Cormorant+Garamond'));
+check('Saira Semi Condensed Academy typography preserved',index.includes('family=Saira+Semi+Condensed')&&!index.includes('Love+Ya+Like+A+Sister')&&!index.includes('Cormorant+Garamond'));
 const positions=fs.readFileSync(path.join(ROOT,'positions-table.js'),'utf8');
 check('positions lesson centered',positions.includes('align-items:center')&&positions.includes('margin:14px auto 0'));
 check('positions English content direct',positions.includes('are the forced-bet positions.')&&positions.includes('EARLY POSITIONS')&&positions.includes('MIDDLE POSITIONS')&&positions.includes('LATE POSITIONS'));
