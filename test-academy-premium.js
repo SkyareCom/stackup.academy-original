@@ -40,6 +40,7 @@ assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.in
 assert('Practice tools use real progress',tools.includes('ProgressService')&&tools.includes("personalRanking"));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
 assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
+assert('stage header content cannot shift vertically',stage.includes('academy-stage-hero-grid')&&stage.includes('grid-template-rows:18px 18px 54px')&&!stage.includes("action:key==='pratica'"));
 assert('Base Modalidades Practice use photo headers',stage.includes("key==='fundamentos'?window.academyTheme?.backgrounds?.base")&&stage.includes("key==='modalidades'?")&&stage.includes("key==='pratica'?"));
 assert('Profile header matches stage height',profile.includes('height:176px;min-height:176px;max-height:176px'));
 assert('bottom nav is five-column single-line',nav.includes('repeat(5,minmax(0,1fr))')&&nav.includes('white-space:nowrap'));
