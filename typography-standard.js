@@ -3,8 +3,8 @@
   if(document.getElementById(STYLE_ID))return;
   const s=document.createElement('style');s.id=STYLE_ID;s.textContent=`
     :root{
-      --type-brand:clamp(16px,5vw,20px);--type-screen:clamp(18px,5.8vw,22px);--type-section:clamp(14px,4.6vw,18px);
-      --type-body:clamp(12px,3.9vw,14px);--type-button:clamp(11px,3.6vw,14px);--type-caption:clamp(9px,3vw,11px);
+      --type-brand:20px;--type-screen:22px;--type-section:16px;
+      --type-body:12px;--type-button:12px;--type-caption:10px;
     }
     html,body,body *{font-family:'Saira Semi Condensed',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important}
     .rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}
