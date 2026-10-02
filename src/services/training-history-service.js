@@ -46,6 +46,31 @@
     return out;
   };
 
+  const answerMap=(key,raw,kind)=>{
+    const store=safeParse(raw,{}),out={};
+    const put=(prefix,id,value)=>{if(id!=null&&id!=='')out[prefix+String(id)]=value};
+    if(key==='stackup-fundamentals-progress-v1'){
+      for(const section of values(store))for(const [id,a] of Object.entries(section?.answers||{}))put('BASE:',id,a?.correct===true);
+    }else if(key==='stackup-modalities-progress-v1'){
+      for(const section of values(store))for(const [id,a] of Object.entries(section?.answers||{}))put('MODALIDADES:',id,a?.correct===true);
+    }else if(key==='stackup-mixed-games-progress-v2'){
+      for(const [id,a] of Object.entries(store?.answers||{}))put('MIXED:',id,a?.correct===true);
+    }else if(key==='stackup-practice-progress-v1'){
+      const prefix=kind==='sim'?'SIM:':'QUIZ:';
+      for(const id of Object.keys(store?.[kind]?.seen||{}))put(prefix,id,true);
+    }else if(key==='stackup-practice-advanced-v2'){
+      const prefix=kind==='sim'?'SIM:':kind==='math'?'MATEMÁTICA:':'QUIZ:';
+      for(const [id,a] of Object.entries(store?.[kind]?.results||{}))put(prefix,id,a?.correct===true||a===true);
+    }
+    return out;
+  };
+  const changedQuestionIds=(key,beforeRaw,afterRaw,kind)=>{
+    const before=answerMap(key,beforeRaw,kind),after=answerMap(key,afterRaw,kind),ids=[];
+    for(const [id,value] of Object.entries(after))if(!(id in before)||before[id]!==value)ids.push(id);
+    return ids;
+  };
+  const mergeIds=(a,b)=>[...new Set([...(Array.isArray(a)?a:[]),...(Array.isArray(b)?b:[])])].slice(0,500);
+
   const resumeFor=(key,raw,kind)=>{
     if(key!=='stackup-practice-advanced-v2')return null;
     const s=safeParse(raw,{});
@@ -91,7 +116,8 @@
       const prev=before.find(x=>x.kind===next.kind&&x.section===next.section)||{answered:0,correct:0};
       const da=next.answered-prev.answered;
       const dc=next.correct-prev.correct;
-      if(da<=0&&dc<=0)continue;
+      const questionIds=changedQuestionIds(key,beforeRaw,afterRaw,next.kind);
+      if(da<=0&&dc<=0&&!questionIds.length)continue;
       const last=state.runs[0];
       const canMerge=last&&last.section===next.section&&last.kind===next.kind&&(now-last.updatedAt)<=WINDOW_MS;
       if(canMerge){
@@ -101,6 +127,7 @@
         last.errors=Math.max(0,next.answered-next.correct);
         last.deltaAnswered=(last.deltaAnswered||0)+Math.max(0,da);
         last.deltaCorrect=(last.deltaCorrect||0)+Math.max(0,dc);
+        last.questionIds=mergeIds(last.questionIds,questionIds);
         const resume=resumeFor(key,afterRaw,next.kind);if(resume)last.resume=resume;
       }else{
         state.runs.unshift({
@@ -155,6 +182,7 @@
     window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
     return true;
   }
+  function get(id){return (read().runs||[]).find(r=>r.id===id)||null}
   function remove(id){
     const s=read();s.runs=(s.runs||[]).filter(r=>r.id!==id);write(s);return true;
   }
@@ -164,5 +192,5 @@
     return true;
   }
 
-  window.TrainingHistoryService={KEY,list,summary,pendingSummary,savePending,discardPending,remove,clear,recordStorageChange};
+  window.TrainingHistoryService={KEY,list,get,summary,pendingSummary,savePending,discardPending,remove,clear,recordStorageChange};
 })();
