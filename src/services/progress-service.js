@@ -73,7 +73,7 @@
       let before=0,beforeRaw=null,track=false;
       try{track=this===localStorage&&[KEYS.fundamentals,KEYS.modalities,KEYS.mixed,KEYS.practice,KEYS.advanced].includes(key);if(track){beforeRaw=this.getItem(key);before=countStore(key,beforeRaw);}}catch(_){}
       const result=nativeSet.call(this,key,value);
-      if(track){try{const after=countStore(key,value);if(after>before)recordActivity(after-before);window.TrainingHistoryService?.recordStorageChange?.(key,beforeRaw,value);}catch(_){}}
+      if(track){try{const after=countStore(key,value);if(after>before)recordActivity(after-before);window.TrainingHistoryService?.recordStorageChange?.(key,beforeRaw,value);window.EvolutionService?.recordStorageChange?.(key,beforeRaw,value);}catch(_){}}
       return result;
     };
   }
