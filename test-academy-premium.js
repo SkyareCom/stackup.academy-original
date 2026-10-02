@@ -55,6 +55,7 @@ assert('Premium manual history has save and discard controls',trainingHistory.in
 assert('Premium training preference loads before history service',index.indexOf('src/services/training-preference-service.js')<index.indexOf('src/services/training-history-service.js'));
 assert('Premium privacy has no legacy green or handwritten font',!privacy.includes('#0e4b3b')&&!privacy.includes('Love+Ya+Like+A+Sister')&&privacy.includes('Saira+Semi+Condensed'));
 assert('premium evolution is completed without replacing Home shell',home.includes('academy-home-hero')&&home.includes('EvolutionService')&&home.includes('villainMe')&&home.includes('podium')&&progress.includes('setWeeklyGoal')&&progress.includes('[30,50,100]'));
+assert('Premium Profile exposes access data without requiring login',profile.includes('accessSection')&&profile.includes("directAccess")&&profile.includes('data-profile-signout'));
 assert('premium Profile includes Coach and privacy completion',profile.includes('academy.coach.v1')&&profile.includes('data-profile-clear-local')&&profile.includes('data-profile-delete-account'));
 assert('premium certificates are consultable',read('src/screens/study-tools-screen.js').includes('data-certificate-stage')&&read('src/screens/study-tools-screen.js').includes('renderCertificateDetail'));
 assert('home is editorial and progress-aware',home.includes('academy-home-hero')&&home.includes('ProgressService')&&home.includes('WeeklyGoal'));
