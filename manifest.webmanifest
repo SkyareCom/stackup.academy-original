@@ -9,8 +9,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#211008",
-  "theme_color": "#0e4b3b",
+  "background_color": "#070707",
+  "theme_color": "#070707",
   "categories": ["education"],
   "prefer_related_applications": false,
   "icons": [
