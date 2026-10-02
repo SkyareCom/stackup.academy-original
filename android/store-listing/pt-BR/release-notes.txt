@@ -1,1 +1,6 @@
-Primeira versao do StackUp Hold'em Academy para Android. Inclui trilhas de aprendizado, simulador, quiz, matematica do poker e treino por modalidades.
+Versão 2.1.5
+• Nova tipografia interna Saira Semi Condensed
+• Cards e títulos com alinhamento visual padronizado
+• Descrições dos cards limitadas a duas linhas
+• Rodapé com textos centralizados e melhor legibilidade
+• Melhorias de estabilidade, cache e limpeza de componentes legados
