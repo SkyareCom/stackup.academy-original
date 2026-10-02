@@ -242,6 +242,32 @@
     lesson.dataset.p3x='1';lesson.classList.add('p3x-active');setTheory(lesson,mode);
     if(host)host.remove();host=document.createElement('div');host.className='p3x-shell';host.dataset.p3x=mode;lesson.appendChild(host);renderMode(mode);
   }
+  function reloadSavedState(){
+    let fresh={sim:{results:{}},quiz:{results:{}},math:{results:{}}};
+    try{fresh={...fresh,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(_){}
+    ['sim','quiz','math'].forEach(k=>{if(!fresh[k])fresh[k]={results:{}};if(!fresh[k].results)fresh[k].results={}});
+    if(!SIM_FILTERS.some(f=>f.key===fresh.sim.filter))fresh.sim.filter='NLH';
+    state=fresh;
+    ['sim','quiz','math'].forEach(k=>{current[k]=null;history[k]=[];answered[k]=false});
+    return true;
+  }
+  function activeMode(){
+    const lesson=document.querySelector('#root .card.lesson'),h=lesson?.querySelector('h2');
+    return h?modeFor(h.textContent):null;
+  }
+  function startNewSession(mode){
+    if(!['sim','quiz','math'].includes(mode))return false;
+    reloadSavedState();
+    renderMode(mode);
+    window.AnalyticsService?.track?.('training_new_session',{mode});
+    return true;
+  }
+  window.addEventListener('academy:manualdiscard',()=>{
+    const mode=activeMode();
+    reloadSavedState();
+    if(mode)requestAnimationFrame(()=>renderMode(mode));
+  });
+
   const root=document.getElementById('root');if(root)new MutationObserver(()=>requestAnimationFrame(apply)).observe(root,{childList:true});apply();
-  window.StackupPracticeAdvanced={allocation:B.allocation,reset:()=>{localStorage.removeItem(STORE);location.reload()}};
+  window.StackupPracticeAdvanced={allocation:B.allocation,newSession:startNewSession,reloadFromSaved:reloadSavedState,reset:()=>{localStorage.removeItem(STORE);location.reload()}};
 })();
