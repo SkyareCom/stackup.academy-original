@@ -48,6 +48,7 @@ assert('Practice uses latest four-card 2x2 layout',stage.includes('academy-pract
 assert('advanced study tools are ported',studyTools.includes('SIMULADO CRONOMETRADO')&&studyTools.includes('REVISÃO INTELIGENTE')&&studyTools.includes('CERTIFICADOS')&&studyTools.includes('RELATÓRIO POR COMPETÊNCIA')&&home.includes('data-home-study'));
 assert('Practice history is session-based',tools.includes('TrainingHistoryService')&&historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange'));
 assert('advanced study exposes all four production tools',study.includes('smartReview')&&study.includes('timedExam')&&study.includes('certificates')&&study.includes('skillReport'));
+assert('smart review is spaced reinforcement',study.includes("REVIEW_KEY='academy.smart-review.v1'")&&study.includes('wrongQuestionIds')&&study.includes('7*day')&&study.includes('data-review-next'));
 assert('advanced exam uses the full Academy bank',study.includes('StackupFundamentalsSpotBank')&&study.includes('StackupModalitiesSpotBank')&&study.includes('StackupMixedGamesSpotBank'));
 assert('evolution includes self battle and podium',evolution.includes('selfBattle')&&evolution.includes('podium'));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
