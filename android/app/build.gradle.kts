@@ -25,17 +25,14 @@ val syncAcademyWebAssets = tasks.register<Sync>("syncAcademyWebAssets") {
             "privacy.html",
             "manifest.webmanifest",
             "sw.js",
-            "auth-production.js",
-            "billing-production.js"
+            "*.js",
+            "*.png",
+            "src/**"
         )
-    }
-    from(repoRoot.resolve("icons")) {
-        into("icons")
-        include(
-            "icon-192.png",
-            "icon-512.png",
-            "icon-maskable-192.png",
-            "icon-maskable-512.png"
+        exclude(
+            "test-*.js",
+            "android/**",
+            ".github/**"
         )
     }
 }
