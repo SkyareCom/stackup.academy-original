@@ -4,7 +4,7 @@
   const navtools=document.getElementById('navtools');
 
   function getLanguage(){
-    try{return localStorage.getItem(STORAGE)||'pt-BR';}catch(_){return 'pt-BR';}
+    try{return localStorage.getItem(STORAGE)==='en-US'?'en-US':'pt-BR';}catch(_){return 'pt-BR';}
   }
 
   function languageLabel(code){
