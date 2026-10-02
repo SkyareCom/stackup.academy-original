@@ -4,7 +4,7 @@
 
   const style=document.createElement('style');
   style.id=STYLE_ID;
-  style.textContent=String.raw\`
+  style.textContent=`
     :root{
       --type-display:clamp(32px,9.4vw,42px);
       --type-stage:clamp(28px,8vw,36px);
@@ -82,6 +82,6 @@
     h1,h2,h3,h4,.name,.sub,.stitle,.ttitle,.rname,.lead,.desc,.tnote,.rnote,p,li,button,span{
       overflow-wrap:break-word;word-break:normal;
     }
-  \`;
+  `;
   document.head.appendChild(style);
 })();
