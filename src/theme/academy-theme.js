@@ -18,6 +18,7 @@
     spacing:{xs:'4px',sm:'8px',md:'12px',lg:'16px',xl:'20px',xxl:'24px',xxxl:'32px',huge:'40px'},
     radius:{sm:'8px',md:'12px',lg:'16px',xl:'20px',pill:'999px'},
     backgrounds:{
+      base:'https://images.unsplash.com/photo-1709540233692-23b65e46ac80?auto=format&fit=crop&w=1200&q=68',
       home:'https://images.unsplash.com/photo-1709540233692-23b65e46ac80?auto=format&fit=crop&w=1200&q=68',
       modalities:'https://images.unsplash.com/photo-1631203935571-466cae74e641?auto=format&fit=crop&w=1200&q=68',
       practice:'https://images.unsplash.com/photo-1670251400844-26c200b75a0f?auto=format&fit=crop&w=1200&q=68'
@@ -58,6 +59,14 @@
         #root .card,#root .block,#root .rrow,#root .detail-card,#root .m2-card,#root .p3-shell,#root .p3x-panel,#root .p3x-math-card,#root .p3m-group{box-shadow:none!important}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{border-color:var(--academy-success)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{border-color:var(--academy-danger)!important}
+    #root .fi-shell,#root .fi-question,#root .fi-option,#root .m2-shell,#root .m2-card,#root .m2-option,#root .mg-shell,#root .mg-card,#root .mg-option,#root .p3-shell,#root .p3-panel,#root .p3-option,#root .p3-math-card,#root .p3x-panel,#root .p3x-opt,#root .p3x-math-card,#root .p3m-group{
+      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-line-strong)!important;
+    }
+    #root .fi-question,#root .m2-question,#root .mg-question,#root .p3-q,#root .p3x-question,#root .p3x-panel p,#root .p3x-math-card p{color:var(--academy-ivory)!important}
+    #root .fi-option,#root .m2-option,#root .mg-option,#root .p3-option,#root .p3x-opt{min-height:48px!important}
+    #root .fi-option:disabled,#root .m2-option:disabled,#root .mg-option:disabled,#root .p3-option:disabled,#root .p3x-opt:disabled{opacity:.72}
+    #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{background:var(--academy-surface-2)!important}
+    #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{background:var(--academy-surface-2)!important}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
   `;
   document.head.appendChild(style);
