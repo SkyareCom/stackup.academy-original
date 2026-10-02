@@ -21,11 +21,26 @@
       .academy-practice-card strong{font-size:12px;font-weight:600;text-transform:uppercase;line-height:1.2}
       .academy-practice-card small{font-size:12px;font-weight:400;color:var(--academy-muted);line-height:1.35}
       .academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+      .academy-access-preview{display:grid;gap:14px;padding:18px}.academy-access-preview h2,.academy-access-preview p{margin:0}.academy-access-preview p{color:var(--academy-muted);line-height:1.5}
+      .academy-access-options{display:grid;gap:8px}.academy-access-options button{width:100%;text-align:left}.academy-access-options button.correct{border-color:var(--academy-success)!important}.academy-access-options button.wrong{border-color:var(--academy-danger)!important}
+      .academy-access-feedback{padding:12px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);color:var(--academy-muted);line-height:1.5}.academy-access-actions{display:grid;gap:8px}.academy-access-actions button{width:100%}
     `;document.head.appendChild(s);
   }
 
   const groupsFor=(key,items)=>window.AcademyCourseMap?.getGroups?.(key,items)||[{labelKey:key==='pratica'?'trainingLab':'modalities',indexes:items.map((_,i)=>i)}];
   const labelFor=key=>key==='fundamentos'?t('base','BASE'):key==='modalidades'?t('modalities','MODALIDADES'):t('practice','PRÁTICA');
+  let accessPreview=null;
+  const closeAccessPreview=()=>{document.querySelector('[data-academy-access-preview-modal]')?.remove();accessPreview=null};
+  const showLockedPreview=(stage,index)=>{
+    const sample=window.PlanAccessService?.sampleFor?.(stage,index);
+    if(!sample){window.AcademyScreens?.profile?.('plans');return}
+    accessPreview=sample;
+    const CC=C(),options=sample.options.map(o=>`<button type="button" class="academy-secondary" data-access-sample-answer="${encodeURIComponent(o)}">${esc(o)}</button>`).join('');
+    const body=`<div class="academy-access-preview"><div class="academy-kicker">${t('premiumSample','AMOSTRA PREMIUM')}</div><h2>${esc(sample.title||t('premiumContent','CONTEÚDO PREMIUM'))}</h2><p>${t('premiumSampleCopy','Experimente uma questão deste conteúdo. A resposta não altera seu progresso.')}</p><div class="academy-access-feedback"><strong>${t('sampleQuestion','QUESTÃO DEMONSTRATIVA')}</strong><br>${esc(sample.question)}</div><div class="academy-access-options">${options}</div><div class="academy-access-feedback" data-access-sample-feedback hidden></div><div class="academy-access-actions">${CC.PrimaryButton(t('seePlans','VER PLANOS'),'data-access-preview-plans')}${CC.SecondaryButton(t('continueFree','CONTINUAR NO FREE'),'data-access-preview-close')}</div></div>`;
+    document.body.insertAdjacentHTML('beforeend',CC.Modal(body).replace('data-academy-modal','data-academy-modal data-academy-access-preview-modal'));
+    window.AnalyticsService?.track?.('premium_sample_viewed',{stage,index,title:sample.title||''});
+  };
+
 
   function renderStage(key,pushState=false){
     const root=document.getElementById('root'),s=window.ContentService?.getStage?.(key);if(!root||!s)return;
@@ -74,11 +89,39 @@
 
   window.stage=(key,p=0)=>renderStage(key,!!p);
   document.addEventListener('click',e=>{
-    const tool=e.target.closest('[data-practice-tool]');if(tool){e.preventDefault();window.AcademyScreens?.practiceTool?.(tool.dataset.practiceTool);return}
-    const study=e.target.closest('[data-study-tool]');if(study){e.preventDefault();window.AcademyScreens?.studyTool?.(study.dataset.studyTool);return}
+    const close=e.target.closest('[data-access-preview-close]');if(close){e.preventDefault();closeAccessPreview();return}
+    const plans=e.target.closest('[data-access-preview-plans]');if(plans){e.preventDefault();closeAccessPreview();window.AcademyScreens?.profile?.('plans');return}
+    const answer=e.target.closest('[data-access-sample-answer]');
+    if(answer&&accessPreview){
+      e.preventDefault();
+      const selected=decodeURIComponent(answer.dataset.accessSampleAnswer||''),correct=selected===accessPreview.answer;
+      document.querySelectorAll('[data-access-sample-answer]').forEach(btn=>{
+        btn.disabled=true;
+        const value=decodeURIComponent(btn.dataset.accessSampleAnswer||'');
+        if(value===accessPreview.answer)btn.classList.add('correct');
+        else if(value===selected)btn.classList.add('wrong');
+      });
+      const feedback=document.querySelector('[data-access-sample-feedback]');
+      if(feedback){feedback.hidden=false;feedback.innerHTML='<strong>'+(correct?t('correct','ACERTO'):t('review','REVISAR'))+'</strong>'+(accessPreview.analysis?'<br>'+esc(accessPreview.analysis):'')}
+      window.AnalyticsService?.track?.('premium_sample_answered',{correct});
+      return;
+    }
+    const modal=e.target.closest('[data-academy-access-preview-modal]');if(modal&&e.target===modal){closeAccessPreview();return}
+    const tool=e.target.closest('[data-practice-tool]');
+    if(tool){
+      e.preventDefault();const kind=tool.dataset.practiceTool;
+      if(window.PlanAccessService?.featureLocked?.(kind)){window.AcademyScreens?.profile?.('plans');return}
+      window.AcademyScreens?.practiceTool?.(kind);return
+    }
+    const study=e.target.closest('[data-study-tool]');
+    if(study){
+      e.preventDefault();
+      if(window.PlanAccessService?.featureLocked?.(study.dataset.studyTool)){window.AcademyScreens?.profile?.('plans');return}
+      window.AcademyScreens?.studyTool?.(study.dataset.studyTool);return
+    }
     const b=e.target.closest('[data-academy-lesson]');if(!b)return;e.preventDefault();
     const stage=b.dataset.stage,index=Number(b.dataset.academyLesson);
-    if(window.PlanAccessService?.isLocked?.(stage,index)){window.AcademyScreens?.profile?.('plans');return}
+    if(window.PlanAccessService?.isLocked?.(stage,index)){showLockedPreview(stage,index);return}
     window.ProgressService?.setLastRoute?.({type:'lesson',stage,index});
     window.lesson?.(stage,index,1);
   });
