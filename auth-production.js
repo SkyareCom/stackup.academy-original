@@ -51,6 +51,37 @@
     else if(text)console.info('[ACADEMY AUTH]',text);
   };
 
+  api.saveAcademyCoachPreference=async preference=>{
+    const session=await activeSession();
+    if(!session?.access_token||!session?.user?.id)return {synced:false,reason:'no_session'};
+    if(!configured())return {synced:false,reason:'not_configured'};
+    const number=String(preference?.number||'').trim();
+    if(!/^\+[1-9][0-9]{7,14}$/.test(number))throw new Error('Número de WhatsApp inválido.');
+    const {url,anonKey}=config(),now=new Date().toISOString(),optIn=preference?.optIn===true;
+    const payload={
+      user_id:session.user.id,
+      whatsapp_number:number,
+      academy_coach_opt_in:optIn,
+      academy_coach_opt_in_at:optIn?(preference?.optInAt||now):null,
+      academy_coach_updated_at:now,
+      academy_coach_frequency:'included_2_week',
+      academy_coach_daily_limit:1,
+      academy_coach_weekly_limit:2,
+      academy_coach_timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
+      updated_at:now
+    };
+    const response=await fetch(url+'/rest/v1/profiles?on_conflict=user_id',{
+      method:'POST',
+      headers:{'Content-Type':'application/json',apikey:anonKey,Authorization:'Bearer '+session.access_token,Prefer:'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify(payload)
+    });
+    if(!response.ok){
+      let data={};try{data=await response.json()}catch(_){}
+      throw new Error(data.message||data.error||'Não foi possível salvar a configuração do Academy Coach.');
+    }
+    return {synced:true};
+  };
+
   api.isConfigured=configured;
   api.config=config;
   api.loadSession=loadSession;
