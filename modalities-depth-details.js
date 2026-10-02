@@ -75,11 +75,11 @@
     s.id='stackup-modalities-depth-style';
     s.textContent=`
       .m2-depth-wrap{margin-top:16px}
-      .m2-depth-title{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:var(--academy-bg-3);color:var(--academy-ivory);border:1px solid var(--academy-ivory);font-size:14px!important;line-height:1.15;text-transform:uppercase}
+      .m2-depth-title{margin:0 0 10px;padding:12px 14px;border-radius:12px;background:var(--academy-bg-3);color:var(--academy-ivory);border:1px solid var(--academy-ivory);font-size:12px;line-height:1.15;text-transform:uppercase}
       .m2-depth-grid{display:grid;gap:12px}
       .m2-depth-card{padding:15px 16px;border-radius:17px;background:var(--academy-ivory-2);border:1px solid var(--academy-silver-2)4d}
-      .m2-depth-card h3{margin:0 0 7px;color:var(--academy-surface-2);font-size:14px!important;line-height:1.15;text-transform:uppercase}
-      .m2-depth-card p{margin:0;color:var(--academy-muted-2);font-size:14px!important;line-height:1.5}
+      .m2-depth-card h3{margin:0 0 7px;color:var(--academy-surface-2);font-size:12px;line-height:1.15;text-transform:uppercase}
+      .m2-depth-card p{margin:0;color:var(--academy-muted-2);font-size:12px;line-height:1.5}
     `;
     document.head.appendChild(s);
   }
