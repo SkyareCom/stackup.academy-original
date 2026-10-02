@@ -34,6 +34,7 @@ assert('stage titles have fixed vertical slots',stageScreen.includes('academy-st
 assert('section starts share one structure',stageScreen.includes('min-height:176px')&&profileScreen.includes('min-height:176px')&&stageScreen.includes('academy-section-intro')&&profileScreen.includes('academy-section-intro'));
 assert('all three learning stages use photo headers',stageScreen.includes("key==='fundamentos'?window.academyTheme?.backgrounds?.base")&&stageScreen.includes("key==='modalidades'?")&&stageScreen.includes("key==='pratica'?"));
 assert('Profile keeps the same header height',profileScreen.includes('height:176px;min-height:176px;max-height:176px'));
+assert('history resumes exact Premium training state',fs.readFileSync('src/services/training-history-service.js','utf8').includes('resumeFor')&&fs.readFileSync('practice-advanced.js','utf8').includes("RESUME_KEY='academy.resume.v1'")&&fs.readFileSync('src/screens/practice-tools-screen.js','utf8').includes("sessionStorage.setItem('academy.resume.v1'"));
 assert('Academy commercial plans are correct',billing.includes("id:'monthly'")&&billing.includes("R$ 39,90")&&billing.includes("id:'semiannual'")&&billing.includes("R$ 179,90")&&billing.includes("id:'annual'")&&billing.includes("R$ 229,90")&&billing.includes("R$ 34,90"));
 assert('training surfaces are darkened',theme.includes('.p3x-quiz-banner')&&theme.includes('.fi-spot')&&theme.includes('background:var(--academy-surface)!important'));
 assert('bottom navigation has five columns',bottomNav.includes('grid-template-columns:repeat(5,minmax(0,1fr))'));
