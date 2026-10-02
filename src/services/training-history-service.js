@@ -136,6 +136,7 @@
           startedAt:now,updatedAt:now,
           answered:next.answered,correct:next.correct,errors:Math.max(0,next.answered-next.correct),
           deltaAnswered:Math.max(0,da),deltaCorrect:Math.max(0,dc),
+          questionIds:mergeIds([],questionIds),
           resume:resumeFor(key,afterRaw,next.kind)
         });
       }
