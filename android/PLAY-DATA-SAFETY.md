@@ -1,39 +1,71 @@
-# Google Play Data Safety — build 2.1.7 / 218
+# Google Play Data Safety — release preparation
 
-This is a release-audit checklist; Play Console declarations must be completed from the exact release candidate.
+This file is a release checklist, not a substitute for the declarations made in Play Console.
 
-## Android permissions
-The package requests only:
+## Current Android shell
+
+The Android package requests only:
+
 - `android.permission.INTERNET`
 
-It does not request contacts, location, microphone, camera, storage, SMS, phone, advertising ID or background-location permissions.
+The shell does not request contacts, location, microphone, camera, storage, SMS, phone, advertising ID, or background location permissions.
 
-Android backup is disabled. Android 12+ data extraction rules exclude application data from cloud backup and device-to-device transfer.
+Android backup is disabled and Android 12+ data extraction rules exclude application data from cloud backup and device-to-device transfer.
 
-## Services in the build
-- Google Credential Manager can obtain a Google ID token.
-- `auth-production.js` can exchange that token with Supabase Auth.
-- Supabase session data is stored locally under `stackup.supabase.session.v1`.
-- BiometricPrompt only unlocks an existing authenticated session.
-- Google Play Billing Library 9.1.0 manages the `academy_access` subscription.
-- Billing base plans are `monthly`, `six-month` and `annual`.
-- Study progress, training history, preferences and evolution data are stored locally unless a future sync service is explicitly enabled.
+## Current production services present in the build
 
-## WhatsApp / Coach
-WhatsApp OTP is not an active login path. Coach message delivery is separate and must not be declared active until its provider is configured and tested.
+The Android build currently contains an active Supabase project URL and publishable client key.
+
+Implemented paths:
+
+- Google Credential Manager obtains a Google ID token.
+- `auth-production.js` exchanges that token with Supabase Auth when Google sign-in is used.
+- Supabase access/refresh session data is stored locally under `stackup.supabase.session.v1`.
+- Android BiometricPrompt only unlocks an existing authenticated session; raw biometric templates are never available to the app or Supabase.
+- Academy Coach can sync the authenticated user's WhatsApp number, opt-in, frequency, limits and time zone to `public.profiles`.
+- `public.profiles` has RLS enabled and ownership policies restrict SELECT/INSERT/UPDATE/DELETE to `auth.uid() = user_id`.
+
+The current closed-test web build uses `TEST_ACCESS=true`, so testers can enter without creating an account and billing remains disabled. Data Safety declarations must nevertheless be reviewed again from the exact release candidate before production, especially if `TEST_ACCESS` is disabled.
+
+## WhatsApp login status
+
+WhatsApp/phone OTP is documented as a target authentication method, but it is **not yet wired into the current `auth-production.js` login flow**. Do not declare WhatsApp OTP/Twilio as active until it is actually enabled and tested.
+
+Academy Coach is separate from login: its phone/consent preference may already be stored in Supabase for an authenticated user, while message delivery itself must not be described as active until a messaging provider is configured.
+
+## Purchases
+
+The web app currently displays plan information but closed-test billing is disabled. When Google Play subscriptions are enabled, update the Data Safety and Payments declarations based on the exact Billing implementation.
 
 ## Data categories to review before production
-- name/email when Google sign-in is used;
-- Supabase account/session identifiers;
-- local training/progress/history/preferences;
-- Google Play subscription status;
-- technical connection data processed by hosting/auth/billing providers.
+
+At minimum review:
+
+- name and email from Google identity, when Google sign-in is enabled;
+- Supabase user/account identifiers and authentication session data;
+- WhatsApp phone number, opt-in, selected Coach frequency and time zone when Academy Coach is configured;
+- local study progress/history/preferences (currently local to the device);
+- purchase/subscription status once Google Play Billing is enabled;
+- technical connection data processed by hosting/auth providers.
+
+## Account deletion
+
+The app now distinguishes:
+
+1. **Delete data from this device** — clears Academy/Wraps local data and the local Supabase session token.
+2. **Request account deletion** — opens a deletion request addressed to `skyarecompany@gmail.com` for removal of the Supabase account and synced profile data.
+
+The external privacy/deletion page must expose the same process and be used in the Play Console account-deletion field.
 
 ## Release gate
-Before production, re-check:
-- permissions and dependencies;
-- auth providers actually enabled;
-- Google Play Billing products/base plans;
-- privacy policy and deletion flow;
-- analytics/crash SDKs, if added;
-- exact production AAB behavior.
+
+Do not submit the Data Safety form from assumptions. Complete it from the exact production release candidate after checking:
+
+- Android permissions and dependencies;
+- web scripts/services actually reachable in production;
+- authentication providers enabled in Supabase;
+- RLS and table grants;
+- Academy Coach messaging provider, if activated;
+- analytics/crash SDKs;
+- Google Play Billing;
+- privacy policy and both local/cloud deletion paths.
