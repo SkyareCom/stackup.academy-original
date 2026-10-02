@@ -7,19 +7,19 @@
     s.textContent=`
       .tp-grid{display:grid;gap:12px}
       .tp-card{padding:15px 16px;border-radius:17px;background:var(--c2,var(--academy-ivory-2));border:1px solid var(--academy-silver-2)4d}
-      .tp-card h3{margin:0 0 8px;font-size:21px;color:var(--gd,var(--academy-surface-2));text-transform:uppercase}
-      .tp-card p{margin:0;color:var(--m,var(--academy-muted-2));font-size:16px;line-height:1.5}
+      .tp-card h3{margin:0 0 8px;font-size:14px;color:var(--gd,var(--academy-surface-2));text-transform:uppercase}
+      .tp-card p{margin:0;color:var(--m,var(--academy-muted-2));font-size:14px;line-height:1.5}
       .tp-card p+p{margin-top:8px}.tp-card strong{color:var(--ink,var(--academy-bg-3))}
       .tp-note{background:var(--academy-ivory);border-color:var(--academy-silver-2)}
       .term-grid,.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:7px}
       .term,.profile{padding:11px 12px;border-radius:14px;background:var(--academy-ivory);border:1px solid var(--academy-silver-2)55}
-      .term strong,.profile strong{display:block;color:var(--academy-surface-2);font-size:16px;text-transform:uppercase;margin-bottom:3px}
+      .term strong,.profile strong{display:block;color:var(--academy-surface-2);font-size:14px;text-transform:uppercase;margin-bottom:3px}
       .term span,.profile span{display:block;color:var(--academy-muted-2);font-size:14px;line-height:1.38}
       .profile-tag{display:inline-block;margin-top:6px;padding:4px 8px;border-radius:999px;background:var(--academy-bg);color:var(--academy-ivory);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
       .axis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
       .axis div{padding:10px;border-radius:12px;background:var(--academy-ivory);border:1px solid var(--academy-silver-2)55;color:var(--academy-muted-2);font-size:14px;line-height:1.4}
-      .axis b{display:block;color:var(--academy-surface-2);font-size:16px;text-transform:uppercase;margin-bottom:3px}
-      @media(max-width:390px){.term-grid,.profile-grid,.axis{grid-template-columns:1fr}.tp-card h3{font-size:19px}.tp-card p{font-size:15px}}
+      .axis b{display:block;color:var(--academy-surface-2);font-size:14px;text-transform:uppercase;margin-bottom:3px}
+      @media(max-width:390px){.term-grid,.profile-grid,.axis{grid-template-columns:1fr}.tp-card h3{font-size:14px}.tp-card p{font-size:14px}}
     `;
     document.head.appendChild(s);
   }
