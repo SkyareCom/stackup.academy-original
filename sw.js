@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v122';
-const SW_VERSION=122;
+const CACHE='stackup-academy-v123';
+const SW_VERSION=123;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -36,7 +36,7 @@ const SCRIPTS=[
   ['fundamentals-learning-flow.js',3],
   ['fundamentals-interactive-bank.js',1],
   ['fundamentals-visual-layer.js',5],
-  ['fundamentals-interactive.js',8],
+  ['fundamentals-interactive.js',9],
   ['fundamentals-progress-panel.js',6],
   ['modalities-module.js',7],
   ['modalities-depth-details.js',5],
@@ -54,7 +54,7 @@ const SCRIPTS=[
   ['academy-visual-system.js',10],
   ['page-top-reset.js',4],
   ['typography-standard.js',11],
-  ['academy-loader.js',11],
+  ['academy-loader.js',12],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',10],
