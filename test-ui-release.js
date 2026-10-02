@@ -30,6 +30,7 @@ assert('Academy exact background token exists',theme.includes("primary:'#070707'
 assert('Academy exact ivory token exists',theme.includes("one:'#F2EDE2'")&&theme.includes("two:'#F7F3EB'"));
 assert('Academy semantic tokens exist',theme.includes("success:'#82917F'")&&theme.includes("warning:'#B39B72'")&&theme.includes("danger:'#956A66'"));
 assert('Portuguese is primary',academyCopy.includes("continueLearning:'CONTINUAR APRENDENDO'")&&academyCopy.includes("trainingLab:'LABORATÓRIO DE TREINO'")&&languageSelector.includes("==='en-US'?'en-US':'pt-BR'"));
+assert('stage titles have fixed vertical slots',stageScreen.includes('academy-stage-hero-grid')&&stageScreen.includes('grid-template-rows:18px 18px 54px')&&!stageScreen.includes("action:key==='pratica'"));
 assert('section starts share one structure',stageScreen.includes('min-height:176px')&&profileScreen.includes('min-height:176px')&&stageScreen.includes('academy-section-intro')&&profileScreen.includes('academy-section-intro'));
 assert('all three learning stages use photo headers',stageScreen.includes("key==='fundamentos'?window.academyTheme?.backgrounds?.base")&&stageScreen.includes("key==='modalidades'?")&&stageScreen.includes("key==='pratica'?"));
 assert('Profile keeps the same header height',profileScreen.includes('height:176px;min-height:176px;max-height:176px'));
