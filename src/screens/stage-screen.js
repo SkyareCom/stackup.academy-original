@@ -5,9 +5,9 @@
 
   if(!document.getElementById('academy-stage-screen-style')){
     const s=document.createElement('style');s.id='academy-stage-screen-style';s.textContent=`
-      .academy-stage-screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-stage-intro{min-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}.academy-stage-intro.photo{min-height:176px;margin:0 -16px 16px;padding:20px 16px;display:flex;align-items:flex-end;border-bottom:1px solid var(--academy-line-strong)}
+      .academy-stage-screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-stage-intro{height:176px;min-height:176px;max-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}.academy-stage-intro.photo{height:176px;min-height:176px;max-height:176px;margin:0 -16px 16px;padding:20px 16px;display:flex;align-items:flex-end;border-bottom:1px solid var(--academy-line-strong)}
       .academy-stage-intro .academy-title{font-size:12px}.academy-stage-intro .academy-copy{max-width:430px}
-      .academy-group{margin-top:20px}.academy-group-title{margin:0 0 2px;font-size:12px;letter-spacing:.16em;color:var(--academy-silver-2);text-transform:uppercase}
+      .academy-group{margin-top:20px}.academy-group-title{margin:0 0 12px;font-size:12px;letter-spacing:.16em;color:var(--academy-silver-2);text-transform:uppercase}
       .academy-group-list{border-bottom:1px solid var(--academy-line)}.academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
     `;document.head.appendChild(s);
   }
@@ -19,7 +19,7 @@
     const root=document.getElementById('root'),s=window.ContentService?.getStage?.(key);if(!root||!s)return;
     document.getElementById('navtools')?.classList.add('show');
     window.ProgressService?.setLastRoute?.({type:'stage',stage:key});
-    const CC=C(),photo=key==='modalidades'?window.academyTheme?.backgrounds?.modalities:key==='pratica'?window.academyTheme?.backgrounds?.practice:'';
+    const CC=C(),photo=key==='fundamentos'?window.academyTheme?.backgrounds?.base:key==='modalidades'?window.academyTheme?.backgrounds?.modalities:key==='pratica'?window.academyTheme?.backgrounds?.practice:'';
     const intro=CC.EditorialHero({kicker:s.e||'',title:labelFor(key),subtitle:s.d||'',action:key==='pratica'?`<span class="academy-training-label">${t('focusDecision','FOCO · DECISÃO · REPETIÇÃO')}</span>`:''});
     const header=photo?CC.AcademyBackground({src:photo,className:'academy-stage-intro academy-section-intro photo',content:intro,alt:''}):`<div class="academy-stage-intro academy-section-intro">${intro}</div>`;
     const groups=groupsFor(key,s.i||[]).map(g=>{
