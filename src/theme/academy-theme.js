@@ -12,7 +12,7 @@
       success:'#82917F',warning:'#B39B72',danger:'#956A66'
     },
     typography:{
-      family:"'Overlock', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      family:"'Saira Semi Condensed', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
       brand:'clamp(16px,5vw,20px)',screen:'clamp(18px,5.8vw,22px)',section:'clamp(14px,4.6vw,18px)',
       body:'clamp(12px,3.9vw,14px)',button:'clamp(11px,3.6vw,14px)',caption:'clamp(9px,3vw,11px)'
     },
@@ -40,7 +40,7 @@
       --academy-muted:#97938B;--academy-muted-2:#77736C;
       --academy-line:rgba(242,237,226,.10);--academy-line-strong:rgba(242,237,226,.18);
       --academy-success:#82917F;--academy-warning:#B39B72;--academy-danger:#956A66;
-      --academy-font:'Overlock',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      --academy-font:'Saira Semi Condensed',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --academy-space-1:4px;--academy-space-2:8px;--academy-space-3:12px;--academy-space-4:16px;
       --academy-space-5:20px;--academy-space-6:24px;--academy-space-7:32px;--academy-space-8:40px;
       --academy-radius-sm:8px;--academy-radius-md:12px;--academy-radius-lg:16px;--academy-radius-xl:20px;
