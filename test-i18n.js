@@ -24,8 +24,7 @@ for(const [pt,en] of Object.entries({protege:'protects',cassino:'casino',duplas:
 for(const token of ['compara-se','divide-se','aplicam-se','descobre-se','usa-se','preserva-se','corrige-se','movem-se','afastar-se','ausenta-se','queima-se','abre-se','escolhem-se','adaptar-se'])check(`reflexive ${token}`,!translate(token).toLocaleLowerCase('pt-BR').includes(token),translate(token));
 check('live hand phrase',translate('mão viva').toLowerCase()==='live hand',translate('mão viva'));check('acts first phrase',translate('quem age primeiro').toLowerCase()==='who acts first',translate('quem age primeiro'));check('poker antes protected',translate('blinds/antes').toLowerCase()==='blinds/antes',translate('blinds/antes'));
 
-const standaloneMultilingual=new Set(['privacy.html','privacy-policy.html']);
-const sourceFiles=fs.readdirSync(ROOT).filter(f=>/\.(?:js|html)$/.test(f)&&!f.startsWith('i18n-en-us')&&!f.startsWith('test-')&&!f.startsWith('audit-')&&!standaloneMultilingual.has(f));
+const sourceFiles=fs.readdirSync(ROOT).filter(f=>/\.(?:js|html)$/.test(f)&&!f.startsWith('i18n-en-us')&&!f.startsWith('test-')&&!f.startsWith('audit-'));
 const unmappedAccented=new Map();for(const file of sourceFiles){const src=fs.readFileSync(path.join(ROOT,file),'utf8');for(const token of src.match(/[\p{L}\p{M}]+(?:[-’'][\p{L}\p{M}]+)*/gu)||[]){const k=token.toLocaleLowerCase('pt-BR');if(/[áàâãéêíóôõúç]/i.test(token)&&!Object.prototype.hasOwnProperty.call(words,k)&&k!=='aã'){if(!unmappedAccented.has(k))unmappedAccented.set(k,new Set());unmappedAccented.get(k).add(file);}}}
 check('all accented Portuguese source words mapped',unmappedAccented.size===0,[...unmappedAccented].map(([w,f])=>`${w} (${[...f].join(',')})`).join('; '));
 
@@ -34,11 +33,6 @@ const portugueseSuffix=/(?:ções|ção|dades|dade|agens|agem|eiros|eiras|eiro|e
 const literal=/('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)/gs;const residue=[];
 for(const file of sourceFiles){const src=fs.readFileSync(path.join(ROOT,file),'utf8');for(const m of src.matchAll(literal)){let raw=m[0].slice(1,-1);if(raw.length>5000)continue;if(raw.includes('{')&&raw.includes('}')&&/[:;]/.test(raw))continue;if(raw.includes('vil[aã]')||raw==='aã')continue;raw=raw.replace(/\\n|\\t/g,' ').replace(/\$\{[^}]*\}/g,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&(?:#\d+|\w+);/g,' ');if(!/[A-Za-zÀ-ÿ]/.test(raw))continue;const sourceTokens=raw.match(/[\p{L}\p{M}]+(?:-[\p{L}\p{M}]+)*/gu)||[];const looksPt=sourceTokens.some(t=>/[áàâãéêíóôõúç]/i.test(t)||ptWords.has(t.toLocaleLowerCase('pt-BR'))||/-se$/iu.test(t));if(!looksPt)continue;const out=translate(raw),tokens=out.match(/[\p{L}\p{M}]+(?:-[\p{L}\p{M}]+)*/gu)||[];const bad=tokens.filter(t=>{const k=t.toLocaleLowerCase('pt-BR');return /[áàâãéêíóôõúç]/i.test(t)||ptWords.has(k)||/-se$/iu.test(t)||portugueseSuffix.test(t);});if(bad.length)residue.push(`${file}: ${[...new Set(bad)].join(', ')} :: ${out.replace(/\s+/g,' ').slice(0,280)}`);}}
 check('zero high-confidence Portuguese residue after EN-US translation',residue.length===0,residue.slice(0,100).join(' | '));
-
-const privacy=fs.readFileSync(path.join(ROOT,'privacy.html'),'utf8');
-check('privacy policy is standalone multilingual',privacy.includes('section lang="pt"')&&privacy.includes('section lang="en"'));
-check('privacy policy keeps Portuguese primary',privacy.includes('<html lang="pt-BR">')&&privacy.includes("saved===\"en-US\"?\"en\":\"pt\""));
-check('privacy policy uses Academy typography',privacy.includes('Saira+Semi+Condensed:wght@400;600')&&!privacy.includes('Love+Ya+Like+A+Sister'));
 
 const index=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
 check('logo preserved',index.includes('src="./header-logo-transparent.png?v=1"'));

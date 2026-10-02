@@ -1,45 +1,46 @@
 # StackUp Hold'em Academy Android
 
-Android production packaging for StackUp Hold'em Academy.
+Android packaging for the StackUp Hold'em Academy web app.
 
 - Application ID: `com.skyare.stackupacademy`
-- Version: `2.1.7` / `versionCode 218`
-- compileSdk / targetSdk: 36
-- minSdk: 24
+- Version: `1.0.0` (`versionCode 1`)
+- `compileSdk`: 36
+- `targetSdk`: 36
+- Minimum Android: API 24
+- Architecture: Trusted Web Activity (TWA)
+- Start URL: `https://skyarecom.github.io/stackup.holdem-academy/`
+- Android Browser Helper: 2.7.3
 - Java: 17
-- Architecture: native Android shell + restricted WebView + bundled modular web assets
-- Official content origin: `https://skyarecom.github.io/stackup.academy-original/`
-
-## Why native WebView
-The production shell does not use a TWA or Custom Tab. It therefore does not depend on Digital Asset Links to launch the application UI.
-
-The app bundles the Academy web release in the AAB/APK for startup/recovery while retaining the official Academy origin and restricted navigation policy.
-
-## Safeguards
-- INTERNET only;
-- cleartext HTTP disabled;
-- mixed content blocked;
-- file/content access restricted;
-- Safe Browsing enabled when supported;
-- one bounded renderer-recovery attempt;
-- cache schema 218;
-- external URLs open outside the app;
-- Android Back uses WebView history before closing.
-
-## Billing
-- Play Billing Library: 9.1.0
-- Product: `academy_access`
-- Base plans: `monthly`, `six-month`, `annual`
-- purchases are acknowledged;
-- active subscriptions are restored.
-
-## Authentication
-Google Credential Manager and BiometricPrompt are integrated with the optional Supabase account layer. The Academy does not require login during the current test phase.
+- Android Gradle Plugin: 9.4.0
 
 ## Build
+
+CI runs release lint, builds the release Android App Bundle and builds an installable debug APK for emulator smoke testing.
+
+Local release build:
+
 `gradle -p android :app:bundleRelease`
 
-Expected bundle:
+Output:
+
 `android/app/build/outputs/bundle/release/app-release.aab`
 
-CI also builds a debug APK `com.skyare.stackupacademy.test218` and smoke-tests API 36 and API 34.
+## Production signing
+
+The release build supports an upload keystore supplied only through environment variables / CI secrets. Keys and passwords must never be committed.
+
+When signing credentials are available, the CI-generated AAB is signed with the upload key and verified with `jarsigner`. The artifact also contains `RELEASE-INFO.txt` and a SHA-256 checksum.
+
+## Digital Asset Links blocker
+
+A verified TWA requires Digital Asset Links at the web origin root:
+
+`https://skyarecom.github.io/.well-known/assetlinks.json`
+
+The Academy is hosted at the project path `https://skyarecom.github.io/stackup.holdem-academy/`, so this repository alone cannot publish that root-level file. Before production, publish the final `assetlinks.json` at the origin root or move the Academy to a custom domain. Use the SHA-256 fingerprint of the final Play App Signing certificate.
+
+Until verification is configured, Android Browser Helper can fall back to a Custom Tab.
+
+## Play Store metadata
+
+Initial Play Store title and short description live under `android/store-listing/pt-BR/`.

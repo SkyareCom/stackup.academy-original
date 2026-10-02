@@ -42,20 +42,11 @@
   const weekStart=()=>{
     const d=new Date();const day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d.toISOString().slice(0,10);
   };
-  const activity=()=>{
-    const a=read(KEYS.weekly),start=weekStart(),allowed=[30,50,100];
-    const state=a.weekStart===start?a:{weekStart:start,goal:30,days:{}};
-    state.goal=allowed.includes(Number(state.goal))?Number(state.goal):30;
-    return state;
-  };
+  const activity=()=>{const a=read(KEYS.weekly);const start=weekStart();return a.weekStart===start?a:{weekStart:start,goal:25,days:{}}};
   const writeActivity=a=>{try{localStorage.setItem(KEYS.weekly,JSON.stringify(a))}catch(_){}};
   const recordActivity=(count=1)=>{
     if(count<=0)return;const a=activity();const today=new Date().toISOString().slice(0,10);
     a.days[today]=(a.days[today]||0)+count;writeActivity(a);
-  };
-  const setWeeklyGoal=goal=>{
-    const allowed=[30,50,100],value=Number(goal);if(!allowed.includes(value))return false;
-    const a=activity();a.goal=value;writeActivity(a);return true;
   };
   const countStore=(key,raw)=>{
     const s=safeParse(raw,{});
@@ -70,10 +61,10 @@
     window.__academyProgressStoragePatch=true;
     const nativeSet=Storage.prototype.setItem;
     Storage.prototype.setItem=function(key,value){
-      let before=0,beforeRaw=null,track=false;
-      try{track=this===localStorage&&[KEYS.fundamentals,KEYS.modalities,KEYS.mixed,KEYS.practice,KEYS.advanced].includes(key);if(track){beforeRaw=this.getItem(key);before=countStore(key,beforeRaw);}}catch(_){}
+      let before=0,track=false;
+      try{track=this===localStorage&&[KEYS.fundamentals,KEYS.modalities,KEYS.mixed,KEYS.practice,KEYS.advanced].includes(key);if(track)before=countStore(key,this.getItem(key));}catch(_){}
       const result=nativeSet.call(this,key,value);
-      if(track){try{const after=countStore(key,value);if(after>before)recordActivity(after-before);window.TrainingHistoryService?.recordStorageChange?.(key,beforeRaw,value);}catch(_){}}
+      if(track){try{const after=countStore(key,value);if(after>before)recordActivity(after-before);}catch(_){}}
       return result;
     };
   }
@@ -101,5 +92,5 @@
   }
   const setLastRoute=route=>{try{localStorage.setItem(KEYS.last,JSON.stringify(route))}catch(_){}};
   const getLastRoute=()=>read(KEYS.last);
-  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity,setWeeklyGoal};
+  window.ProgressService={KEYS,TOTALS,snapshot,setLastRoute,getLastRoute,recordActivity};
 })();

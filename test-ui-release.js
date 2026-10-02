@@ -14,17 +14,12 @@ const academyCopy=fs.readFileSync('src/i18n/academy-copy.js','utf8');
 const stageScreen=fs.readFileSync('src/screens/stage-screen.js','utf8');
 const profileScreen=fs.readFileSync('src/screens/profile-screen.js','utf8');
 const billing=fs.readFileSync('src/services/billing-service.js','utf8');
-const studyTools=fs.readFileSync('src/screens/study-tools-screen.js','utf8');
-const evolution=fs.readFileSync('src/services/evolution-service.js','utf8');
 const languageSelector=fs.readFileSync('language-selector.js','utf8');
 const reset=fs.readFileSync('session-reset.js','utf8');
 const topReset=fs.readFileSync('page-top-reset.js','utf8');
 const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
 const androidGradle=fs.readFileSync('android/app/build.gradle.kts','utf8');
 const androidManifest=fs.readFileSync('android/app/src/main/AndroidManifest.xml','utf8');
-const androidMain=fs.readFileSync('android/app/src/main/java/com/skyare/stackupacademy/MainActivity.java','utf8');
-const historyService=fs.readFileSync('src/services/training-history-service.js','utf8');
-const evolutionService=fs.readFileSync('src/services/evolution-service.js','utf8');
 
 assert('Saira Semi Condensed font import exists',index.includes('family=Saira+Semi+Condensed'));
 assert('global font lock uses Saira Semi Condensed',typography.includes("font-family:'Saira Semi Condensed'"));
@@ -41,13 +36,6 @@ assert('all three learning stages use photo headers',stageScreen.includes("key==
 assert('Profile keeps the same header height',profileScreen.includes('height:176px;min-height:176px;max-height:176px'));
 assert('Academy commercial plans are correct',billing.includes("id:'monthly'")&&billing.includes("R$ 39,90")&&billing.includes("id:'semiannual'")&&billing.includes("R$ 179,90")&&billing.includes("id:'annual'")&&billing.includes("R$ 229,90")&&billing.includes("R$ 34,90"));
 assert('training surfaces are darkened',theme.includes('.p3x-quiz-banner')&&theme.includes('.fi-spot')&&theme.includes('background:var(--academy-surface)!important'));
-assert('smart review reinforces missed questions',studyTools.includes("REVIEW_KEY='academy.smart-review.v1'")&&studyTools.includes('wrongQuestionIds')&&studyTools.includes('reviewCandidates')&&studyTools.includes('7*day')&&studyTools.includes('data-review-answer'));
-assert('timed exam draws from full Academy bank',studyTools.includes('StackupFundamentalsSpotBank')&&studyTools.includes('StackupModalitiesSpotBank')&&studyTools.includes('StackupMixedGamesSpotBank')&&studyTools.includes('StackupPracticeAdvancedBank')&&studyTools.includes('12*60*1000'));
-assert('evolution has Hero Villain and podium',evolution.includes('selfBattle')&&evolution.includes('podium'));
-assert('weekly goals are 30 50 100',fs.readFileSync('src/services/progress-service.js','utf8').includes('allowed=[30,50,100]'));
-assert('Academy Coach is entitlement-gated',profileScreen.includes("['semiannual','annual'].includes(current)")&&profileScreen.includes('data-save-coach')&&profileScreen.includes("COACH_KEY='academy.coach.v1'"));
-assert('production auth can sync Coach preference',fs.readFileSync('auth-production.js','utf8').includes('saveAcademyCoachPreference')&&fs.readFileSync('auth-production.js','utf8').includes("academy_coach_frequency:'included_2_week'"));
-assert('Profile deletion is Academy-scoped',profileScreen.includes('data-profile-clear-local')&&!profileScreen.includes('localStorage.clear()'));
 assert('bottom navigation has five columns',bottomNav.includes('grid-template-columns:repeat(5,minmax(0,1fr))'));
 assert('premium components expose AcademyBackground',components.includes('AcademyBackground')&&components.includes('WeeklyGoal')&&components.includes('BottomSheet'));
 assert('progress reset is explicit only',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange'));
@@ -59,12 +47,7 @@ assert('web theme is Academy black',String(manifest.theme_color).toLowerCase()==
 assert('Android application id is stable',androidGradle.includes('applicationId = "com.skyare.stackupacademy"'));
 assert('Android targets API 36',androidGradle.includes('targetSdk = 36')&&androidGradle.includes('compileSdk = 36'));
 assert('Android blocks cleartext traffic',androidManifest.includes('android:usesCleartextTraffic="false"'));
-assert('Android uses native MainActivity',androidManifest.includes('com.skyare.stackupacademy.MainActivity')&&!androidManifest.includes('com.google.androidbrowserhelper.trusted'));
-assert('Android opens Academy Original',androidMain.includes('https://skyarecom.github.io/stackup.academy-original/')&&androidMain.includes('APP_PATH = "/stackup.academy-original/"'));
-assert('Android release is build 218',androidGradle.includes('versionCode = 218')&&androidGradle.includes('versionName = "2.1.7"')&&androidMain.includes('CACHE_SCHEMA = 218'));
-assert('Practice uses four-card 2x2 layout',stageScreen.includes('academy-practice-grid')&&stageScreen.includes('grid-template-columns:repeat(2,minmax(0,1fr))')&&stageScreen.includes('data-practice-tool="history"'));
-assert('training history service is active',historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange')&&historyService.includes('clear'));
-assert('evolution service uses production XP weights',evolutionService.includes('fundamentals:10')&&evolutionService.includes('modalities:15')&&evolutionService.includes('quiz:20')&&evolutionService.includes('math:25')&&evolutionService.includes('sim:30'));
+assert('Android opens the Academy HTTPS host',androidManifest.includes('android:host="skyarecom.github.io"')&&androidManifest.includes('android:pathPrefix="/stackup.holdem-academy/"'));
 
 if(process.exitCode)process.exit(process.exitCode);
 console.log('Play release UI guard OK');

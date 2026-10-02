@@ -14,14 +14,7 @@
       .academy-stage-hero-grid .academy-copy{margin:0;align-self:start;max-width:430px;line-height:1.5;max-height:54px;overflow:hidden}
       .academy-stage-intro .academy-title{font-size:12px}.academy-stage-intro .academy-copy{max-width:430px}
       .academy-group{margin-top:20px}.academy-group-title{margin:0 0 12px;font-size:12px;letter-spacing:.16em;color:var(--academy-silver-2);text-transform:uppercase}
-      .academy-group-list{border-bottom:1px solid var(--academy-line)}
-      .academy-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-      .academy-practice-card{min-height:152px;padding:16px 10px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-lg);background:var(--academy-surface);color:var(--academy-ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;cursor:pointer}
-      .academy-practice-icon{width:34px;height:34px;display:grid;place-items:center;color:var(--academy-ivory)}
-      .academy-practice-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-      .academy-practice-card strong{display:block;font-size:12px;font-weight:600;text-transform:uppercase;line-height:1.2}
-      .academy-practice-card span:last-child{display:block;font-size:12px;font-weight:400;color:var(--academy-muted);line-height:1.35}
-      .academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+      .academy-group-list{border-bottom:1px solid var(--academy-line)}.academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
     `;document.head.appendChild(s);
   }
 
@@ -35,19 +28,13 @@
     const CC=C(),photo=key==='fundamentos'?window.academyTheme?.backgrounds?.base:key==='modalidades'?window.academyTheme?.backgrounds?.modalities:key==='pratica'?window.academyTheme?.backgrounds?.practice:'';
     const intro=`<div class="academy-hero-content academy-stage-hero-grid"><div class="academy-kicker">${esc(s.e||'')}</div><h1 class="academy-title">${esc(labelFor(key))}</h1><p class="academy-copy">${esc(s.d||'')}</p></div>`;
     const header=photo?CC.AcademyBackground({src:photo,className:'academy-stage-intro academy-section-intro photo',content:intro,alt:''}):`<div class="academy-stage-intro academy-section-intro">${intro}</div>`;
-    const groups=key==='pratica'?'':groupsFor(key,s.i||[]).map(g=>{
+    const groups=groupsFor(key,s.i||[]).map(g=>{
       const rows=g.indexes.filter(i=>s.i[i]).map(i=>{
         const item=s.i[i];return CC.LessonRow({num:String(i+1).padStart(2,'0'),title:item[0],note:item[1],attrs:`data-academy-lesson="${i}" data-stage="${key}"`});
       }).join('');
       return `<section class="academy-group"><h2 class="academy-group-title">${esc(t(g.labelKey,g.labelKey))}</h2><div class="academy-group-list">${rows}</div></section>`;
     }).join('');
-    const icon=(kind)=>({sim:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5.5"/><rect x="7" y="10" width="4" height="5" rx="1"/><rect x="13" y="10" width="4" height="5" rx="1"/></svg>',quiz:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.6 2.4c-.8.4-1.1.9-1.1 1.7v.5"/><path d="M12 17.2h.01"/></svg>',math:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h4M8 15h2M12 15h4M8 18h8"/></svg>',history:'<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5M12 7v5l3 2"/></svg>'}[kind]||'');
-    const practiceTools=key==='pratica'?`<section class="academy-group"><h2 class="academy-group-title">${t('trainingLab','LABORATÓRIO DE TREINO')}</h2><div class="academy-practice-grid">
-      <button class="academy-practice-card" type="button" data-academy-lesson="0" data-stage="pratica"><span class="academy-practice-icon">${icon('sim')}</span><strong>${t('simulator','SIMULADOR')}</strong><span>${t('simulatorCopy','Treine decisões e regras das modalidades existentes.')}</span></button>
-      <button class="academy-practice-card" type="button" data-academy-lesson="1" data-stage="pratica"><span class="academy-practice-icon">${icon('quiz')}</span><strong>${t('quiz','QUIZ')}</strong><span>${t('quizCopy','Revise conceitos e retenção.')}</span></button>
-      <button class="academy-practice-card" type="button" data-academy-lesson="2" data-stage="pratica"><span class="academy-practice-icon">${icon('math')}</span><strong>${t('mathPoker','MATEMÁTICA DO POKER')}</strong><span>${t('mathPokerCopy','Treine os cálculos já disponíveis.')}</span></button>
-      <button class="academy-practice-card" type="button" data-practice-tool="history"><span class="academy-practice-icon">${icon('history')}</span><strong>${t('history','HISTÓRICO')}</strong><span>${t('historyCopy','Treinos salvos por seção e sessão.')}</span></button>
-    </div></section>`:'';
+    const practiceTools=key==='pratica'?`<section class="academy-group"><h2 class="academy-group-title">${t('practiceTools','FERRAMENTAS DE PRÁTICA')}</h2><div class="academy-group-list">${CC.LessonRow({num:'04',title:t('personalRanking','RANKING PESSOAL'),note:t('selfRankingCopy','Seu desempenho pessoal com base nos treinos já realizados.'),attrs:'data-practice-tool="ranking"'})}${CC.LessonRow({num:'05',title:t('history','HISTÓRICO'),note:t('historyCopy','Resumo consolidado do progresso salvo neste dispositivo.'),attrs:'data-practice-tool="history"'})}${CC.LessonRow({num:'06',title:t('exercises','EXERCÍCIOS'),note:t('exercisesCopy','Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.'),attrs:'data-practice-tool="exercises"'})}</div></section>`:'';
     root.innerHTML=`<section class="screen academy-stage-screen"><div class="eyebrow" style="display:none">${esc(s.e||'')}</div>${header}${groups}${practiceTools}</section>`;
     if(pushState)history.pushState({type:'stage',stage:key},'','#stage-'+key);
     window.AnalyticsService?.screen?.(key);

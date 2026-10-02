@@ -147,6 +147,5 @@
   function renderLesson(lesson){const blocks=lesson.querySelector('.blocks');if(blocks&&blocks.dataset.mixed!=='1'){blocks.dataset.mixed='1';blocks.innerHTML=`<div class="mg-theory">${THEORY.map(x=>`<div class="mg-card"><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div>`).join('')}</div>`;}let shell=lesson.querySelector(':scope > .mg-training');if(!shell){shell=document.createElement('section');shell.className='mg-training';lesson.appendChild(shell);renderTraining(shell);}}
   function apply(){addStyles();const lesson=document.querySelector('.card.lesson');if(!lesson)return;const h=lesson.querySelector('h2');if(h?.textContent?.trim()===NAME)renderLesson(lesson);}
   const root=document.getElementById('root');let raf=0;if(root){new MutationObserver(()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(apply);}).observe(root,{childList:true});}apply();
-  window.StackupMixedGamesSpotBank=BANK;
   window.StackupMixedGames={totalSpots:BANK.length,choice:CHOICE.length,binary:BINARY.length,sequence:SEQS.length};
 })();
