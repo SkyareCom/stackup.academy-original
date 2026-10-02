@@ -73,12 +73,15 @@
   const snapshotTracked=s=>{
     const rows=Object.values(s.items||{});
     let firstXp=0,lastXp=0,firstCorrect=0,lastCorrect=0;
+    const sections={};
     for(const r of rows){
-      const w=WEIGHTS[r.section]||0;
-      if(r.first){firstXp+=w;firstCorrect++}
-      if(r.last){lastXp+=w;lastCorrect++}
+      const w=WEIGHTS[r.section]||0,sec=sections[r.section]||(sections[r.section]={count:0,firstCorrect:0,lastCorrect:0,firstXp:0,lastXp:0});
+      sec.count++;
+      if(r.first){firstXp+=w;firstCorrect++;sec.firstCorrect++;sec.firstXp+=w}
+      if(r.last){lastXp+=w;lastCorrect++;sec.lastCorrect++;sec.lastXp+=w}
     }
-    return {count:rows.length,firstXp,lastXp,firstCorrect,lastCorrect,firstPct:pct(firstCorrect,rows.length),lastPct:pct(lastCorrect,rows.length)};
+    for(const sec of Object.values(sections)){sec.firstPct=pct(sec.firstCorrect,sec.count);sec.lastPct=pct(sec.lastCorrect,sec.count);sec.deltaPp=sec.lastPct-sec.firstPct}
+    return {count:rows.length,firstXp,lastXp,firstCorrect,lastCorrect,firstPct:pct(firstCorrect,rows.length),lastPct:pct(lastCorrect,rows.length),sections};
   };
   const seedCurrent=()=>{
     const s=state();
@@ -142,7 +145,7 @@
       tracked:tracked.count
     };
     const podium={previous:cat.previous,current:cat.current,next:cat.next,progress:cat.progress,remaining:cat.next?.remaining||0};
-    return {xp,answered,correct,errors:Math.max(0,answered-correct),accuracy:pct(correct,answered),category:cat,sections,weakest,performancePodium,podium,selfBattle,log:{...state().log}};
+    return {xp,answered,correct,errors:Math.max(0,answered-correct),accuracy:pct(correct,answered),category:cat,sections,weakest,performancePodium,podium,selfBattle,comparison:tracked.sections,log:{...state().log}};
   }
   window.EvolutionService={STORE,WEIGHTS,CATEGORIES,snapshot,categoryFor,recordStorageChange};
 })();
