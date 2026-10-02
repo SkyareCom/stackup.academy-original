@@ -2,7 +2,7 @@
   const t=(k,f='')=>window.AcademyI18n?.t(k,f)||f||k;
   const C=()=>window.AcademyComponents;
   const esc=v=>window.AcademyDOM?.esc(v)||String(v??'');
-  let exam=null,timerId=0,reviewSession=null;
+  let exam=null,timerId=0,reviewSession=null,historySession=null;
   const REVIEW_KEY='academy.smart-review.v1';
   const safeParse=(raw,fallback={})=>{try{return JSON.parse(raw||'')||fallback}catch(_){return fallback}};
   const readLocal=key=>{try{return safeParse(localStorage.getItem(key),{})}catch(_){return {}}};
@@ -61,6 +61,10 @@
     });
     (window.StackupMixedGamesSpotBank||[]).forEach(q=>{const n=normalizeQuestion(q,'MIXED','MIXED GAMES');if(n)out.push(n)});
     const adv=window.StackupPracticeAdvancedBank||{};
+    (adv.sim||[]).forEach(q=>{
+      const enriched={...q,question:(q.context?String(q.context).trim()+' ':'')+String(q.question||''),analysis:q.analysis||q.why||''};
+      const n=normalizeQuestion(enriched,'SIM',[q.game,q.kind].filter(Boolean).join(' · ')||'SIMULADOR');if(n)out.push(n);
+    });
     (adv.quiz||[]).forEach(q=>{const n=normalizeQuestion(q,'QUIZ',q.topic||'QUIZ');if(n)out.push(n)});
     (adv.math||[]).forEach(q=>{const n=normalizeQuestion(q,'MATEMÁTICA',q.topic||'MATEMÁTICA');if(n)out.push(n)});
     const seen=new Set();
@@ -161,6 +165,56 @@
   function nextReview(){
     if(!reviewSession?.feedback)return;
     reviewSession.index++;reviewSession.feedback=null;renderReviewQuestion();
+  }
+
+  async function startHistoryRetrain(run){
+    if(!run)return false;
+    shell(t('retrainSession','REFAZER SESSÃO'),esc(run.label||t('history','HISTÓRICO')),'<div class="academy-state">'+t('loading','CARREGANDO...')+'</div>');
+    try{
+      const bank=await generalQuestionBank(),byId=new Map(bank.map(q=>[q.id,q]));
+      const questions=(run.questionIds||[]).map(id=>byId.get(id)).filter(Boolean);
+      if(!questions.length)return false;
+      historySession={runId:run.id,label:run.label||'',questions,index:0,correct:0,feedback:null};
+      window.AnalyticsService?.track?.('history_retrain_started',{run_id:run.id,questions:questions.length});
+      renderHistoryRetrainQuestion();
+      return true;
+    }catch(error){
+      shell(t('retrainSession','REFAZER SESSÃO'),'',C().ErrorState(error?.message||t('sessionReplayError','Não foi possível reconstruir esta sessão.')));
+      return false;
+    }
+  }
+  function renderHistoryRetrainQuestion(){
+    if(!historySession)return;
+    if(historySession.index>=historySession.questions.length){
+      const total=historySession.questions.length,correct=historySession.correct;
+      const body='<div class="academy-exam-summary"><div><b>'+total+'</b><span>'+t('reviewed','REVISADAS')+'</span></div><div><b>'+correct+'</b><span>'+t('correct','ACERTOS')+'</span></div><div><b>'+(total?Math.round(correct/total*100):0)+'%</b><span>'+t('accuracy','APROVEITAMENTO')+'</span></div></div>'+C().SecondaryButton(t('backToHistory','VOLTAR AO HISTÓRICO'),'data-history-retrain-back');
+      window.AnalyticsService?.track?.('history_retrain_finished',{run_id:historySession.runId,questions:total,correct});
+      shell(t('sessionReplayResult','RESULTADO DA SESSÃO'),t('sessionReplayDone','Sessão refeita sem alterar o progresso original.'),body);
+      return;
+    }
+    const q=historySession.questions[historySession.index],feedback=historySession.feedback;
+    const options=(q.options||[]).map(o=>{
+      const encoded=encodeURIComponent(o),disabled=feedback?'disabled':'';
+      let extra='';
+      if(feedback){if(o===q.answer)extra=' data-review-correct="1"';else if(o===feedback.selected)extra=' data-review-wrong="1"'}
+      return '<button type="button" class="academy-secondary" data-history-retrain-answer="'+encoded+'" '+disabled+extra+'>'+esc(o)+'</button>';
+    }).join('');
+    const note=feedback?'<div class="academy-study-card"><strong>'+(feedback.correct?t('correct','ACERTO'):t('review','REVISAR'))+'</strong><span>'+esc(q.analysis||'')+'</span></div>':'';
+    const next=feedback?C().PrimaryButton(historySession.index===historySession.questions.length-1?t('finish','FINALIZAR'):t('next','PRÓXIMO'),'data-history-retrain-next'):'';
+    const body='<div class="academy-exam-meta"><strong>'+String(historySession.index+1).padStart(2,'0')+' / '+historySession.questions.length+'</strong><strong>'+esc(q.skill||q.source)+'</strong></div><div class="academy-exam-question"><p>'+esc(q.question)+'</p><div class="academy-exam-options">'+options+'</div></div>'+note+next;
+    shell(t('retrainSession','REFAZER SESSÃO'),esc(historySession.label),body);
+  }
+  function answerHistoryRetrain(value){
+    if(!historySession||historySession.feedback)return;
+    const q=historySession.questions[historySession.index];if(!q)return;
+    const correct=value===q.answer;if(correct)historySession.correct++;
+    saveReviewResult(q,correct);
+    window.AnalyticsService?.track?.('history_retrain_answer',{run_id:historySession.runId,question_id:q.id,correct});
+    historySession.feedback={selected:value,correct};renderHistoryRetrainQuestion();
+  }
+  function nextHistoryRetrain(){
+    if(!historySession?.feedback)return;
+    historySession.index++;historySession.feedback=null;renderHistoryRetrainQuestion();
   }
 
   async function startExam(){
@@ -264,10 +318,14 @@
 
   window.AcademyScreens=window.AcademyScreens||{};
   window.AcademyScreens.studyTool=open;
+  window.AcademyScreens.retrainHistory=startHistoryRetrain;
 
   document.addEventListener('click',e=>{
     const k=e.target.closest('[data-study-kind]');if(k){e.preventDefault();open(k.dataset.studyKind);return}
     const s=e.target.closest('[data-review-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.reviewStage,1);return}
+    const hra=e.target.closest('[data-history-retrain-answer]');if(hra){e.preventDefault();answerHistoryRetrain(decodeURIComponent(hra.dataset.historyRetrainAnswer));return}
+    if(e.target.closest('[data-history-retrain-next]')){e.preventDefault();nextHistoryRetrain();return}
+    if(e.target.closest('[data-history-retrain-back]')){e.preventDefault();window.AcademyScreens?.practiceTool?.('history');return}
     const ra=e.target.closest('[data-review-answer]');if(ra){e.preventDefault();answerReview(decodeURIComponent(ra.dataset.reviewAnswer));return}
     if(e.target.closest('[data-review-next]')){e.preventDefault();nextReview();return}
     const cert=e.target.closest('[data-certificate-stage]');if(cert){e.preventDefault();renderCertificateDetail(cert.dataset.certificateStage);return}
