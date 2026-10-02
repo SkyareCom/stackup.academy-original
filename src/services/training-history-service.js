@@ -77,6 +77,9 @@
     return rows;
   };
   const mergeIds=(a,b)=>[...new Set([...(Array.isArray(a)?a:[]),...(Array.isArray(b)?b:[])])].slice(0,500);
+  let forceNewRun=false;
+  const startNewRun=()=>{forceNewRun=true;return true};
+
   const mergeQuestionAttempts=(base,rows)=>{
     const out=base&&typeof base==='object'?{...base}:{};
     for(const row of (Array.isArray(rows)?rows:[])){
@@ -128,7 +131,7 @@
     const before=descriptors(key,beforeRaw),after=descriptors(key,afterRaw);
     if(!after.length)return;
     const state=targetRead();state.runs=Array.isArray(state.runs)?state.runs:[];
-    const now=Date.now();
+    const now=Date.now(),forceBoundary=forceNewRun;let changed=false;
     for(const next of after){
       const prev=before.find(x=>x.kind===next.kind&&x.section===next.section)||{answered:0,correct:0};
       const da=next.answered-prev.answered;
@@ -137,7 +140,8 @@
       const questionAttempts=changedQuestionAttempts(key,beforeRaw,afterRaw,next.kind,now);
       if(da<=0&&dc<=0&&!questionIds.length&&!questionAttempts.length)continue;
       const last=state.runs[0];
-      const canMerge=last&&last.section===next.section&&last.kind===next.kind&&(now-last.updatedAt)<=WINDOW_MS;
+      const canMerge=!forceBoundary&&last&&last.section===next.section&&last.kind===next.kind&&(now-last.updatedAt)<=WINDOW_MS;
+      changed=true;
       if(canMerge){
         last.updatedAt=now;
         last.answered=next.answered;
@@ -163,6 +167,7 @@
     }
     state.runs=state.runs.slice(0,250);
     targetWrite(state);
+    if(changed)forceNewRun=false;
   }
 
   function list({section='',limit=100}={}){
@@ -213,5 +218,5 @@
     return true;
   }
 
-  window.TrainingHistoryService={KEY,list,get,summary,pendingSummary,savePending,discardPending,remove,clear,recordStorageChange};
+  window.TrainingHistoryService={KEY,list,get,summary,pendingSummary,savePending,discardPending,remove,clear,startNewRun,recordStorageChange};
 })();
