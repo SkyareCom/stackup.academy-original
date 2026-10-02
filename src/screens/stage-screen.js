@@ -16,11 +16,11 @@
   const groupsFor=(key,items)=>{
     if(key!=='fundamentos')return[{title:key==='pratica'?t('trainingLab','TRAINING LAB'):t('modalities','MODALIDADES'),indexes:items.map((_,i)=>i)}];
     return[
-      {title:'MÃOS',indexes:[0]},
-      {title:'ESTRUTURA DO JOGO',indexes:[1,2,3,4,5,6,7]},
-      {title:'TERMINOLOGIA E PERFIS',indexes:[8,9]},
-      {title:'FORMATOS',indexes:[10,11]},
-      {title:'REGRAS E CONDUTA',indexes:[12,13]}
+      {title:t('hands','MÃOS'),indexes:[0]},
+      {title:t('gameStructure','ESTRUTURA DO JOGO'),indexes:[1,2,3,4,5,6,7]},
+      {title:t('terminologyProfiles','TERMINOLOGIA E PERFIS'),indexes:[8,9]},
+      {title:t('formats','FORMATOS'),indexes:[10,11]},
+      {title:t('rulesConduct','REGRAS E CONDUTA'),indexes:[12,13]}
     ];
   };
   const labelFor=key=>key==='fundamentos'?t('base','BASE'):key==='modalidades'?t('modalities','MODALIDADES'):t('practice','PRÁTICA');
@@ -30,7 +30,7 @@
     document.getElementById('navtools')?.classList.add('show');
     window.ProgressService?.setLastRoute?.({type:'stage',stage:key});
     const CC=C(),photo=key==='modalidades'?window.academyTheme?.backgrounds?.modalities:key==='pratica'?window.academyTheme?.backgrounds?.practice:'';
-    const intro=CC.EditorialHero({kicker:s.e||'',title:labelFor(key),subtitle:s.d||'',action:key==='pratica'?'<span class="academy-training-label">FOCO · DECISÃO · REPETIÇÃO</span>':''});
+    const intro=CC.EditorialHero({kicker:s.e||'',title:labelFor(key),subtitle:s.d||'',action:key==='pratica'?`<span class="academy-training-label">${t('focusDecision','FOCO · DECISÃO · REPETIÇÃO')}</span>`:''});
     const header=photo?CC.AcademyBackground({src:photo,className:'academy-stage-intro photo',content:intro,alt:''}):`<div class="academy-stage-intro">${intro}</div>`;
     const groups=groupsFor(key,s.i||[]).map(g=>{
       const rows=g.indexes.filter(i=>s.i[i]).map(i=>{
