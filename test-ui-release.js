@@ -19,7 +19,7 @@ const androidManifest=fs.readFileSync('android/app/src/main/AndroidManifest.xml'
 assert('Saira Semi Condensed font import exists',index.includes('family=Saira+Semi+Condensed'));
 assert('global font lock uses Saira Semi Condensed',typography.includes("font-family:'Saira Semi Condensed'"));
 assert('legacy display fonts are removed',!typography.includes('Cormorant')&&!typography.includes('Love Ya Like A Sister'));
-assert('typography stays within Academy mobile scale',typography.includes('--type-screen:clamp(18px,5.8vw,22px)')&&typography.includes('--type-body:clamp(12px,3.9vw,14px)'));
+assert('typography uses Academy fixed scale',typography.includes('--type-screen:22px')&&typography.includes('--type-body:12px')&&typography.includes('--type-caption:10px'));
 assert('horizontal overflow is blocked globally',visual.includes('overflow-x:hidden'));
 assert('Academy exact background token exists',theme.includes("primary:'#070707'")&&theme.includes("secondary:'#0C0C0C'"));
 assert('Academy exact ivory token exists',theme.includes("one:'#F2EDE2'")&&theme.includes("two:'#F7F3EB'"));
