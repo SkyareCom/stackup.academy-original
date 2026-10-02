@@ -52,6 +52,11 @@ jobs:
       - name: Protect Academy typography
         run: node test-typography.js
 
+      - name: Validate Academy layout contract
+        run: |
+          node test-layout-contract.js
+          node test-layout-quality.js
+
       - name: Validate Play release UI
         run: node test-ui-release.js
 
