@@ -109,7 +109,7 @@ jobs:
       - name: Verify production APK uses native WebView launcher
         if: ${{ env.STACKUP_SIGNING_READY == 'true' }}
         run: |
-          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          APK="android/app/build/outputs/apk/release/app-release.apk"
           AAPT="$ANDROID_HOME/build-tools/36.0.0/aapt"
           test -s "$APK"
           "$AAPT" dump badging "$APK" | tee /tmp/stackup-release-badging.txt
@@ -141,6 +141,8 @@ jobs:
           unzip -l "$AAB" | grep -q "base/assets/index.html"
           unzip -l "$AAB" | grep -q "base/assets/auth-production.js"
           unzip -l "$AAB" | grep -q "base/assets/billing-production.js"
+          unzip -l "$AAB" | grep -q "base/assets/src/screens/stage-screen.js"
+          unzip -l "$AAB" | grep -q "base/assets/src/services/training-history-service.js"
           unzip -l "$APK" | grep -q "assets/index.html"
 
       - name: Enable KVM
