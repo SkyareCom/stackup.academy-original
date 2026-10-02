@@ -44,7 +44,7 @@
       --academy-space-1:4px;--academy-space-2:8px;--academy-space-3:12px;--academy-space-4:16px;
       --academy-space-5:20px;--academy-space-6:24px;--academy-space-7:32px;--academy-space-8:40px;
       --academy-radius-sm:8px;--academy-radius-md:12px;--academy-radius-lg:16px;--academy-radius-xl:20px;
-      --academy-motion-fast:160ms;--academy-motion:220ms;
+      --academy-motion-fast:160ms;--academy-motion:220ms;--academy-shadow-soft:rgba(0,0,0,.22);--academy-shadow:rgba(0,0,0,.45);--academy-shadow-heavy:rgba(0,0,0,.70);
       --g:var(--academy-bg-2);--gd:var(--academy-bg);--gs:var(--academy-bg-3);--b:var(--academy-bg);--b2:var(--academy-bg-3);--c:var(--academy-ivory);--c2:var(--academy-ivory-2);--ink:var(--academy-bg-3);--m:var(--academy-muted-2);--gold:var(--academy-ivory);--gold2:var(--academy-silver-2);--w:var(--academy-white);
       --academy-green:var(--academy-bg-2);--academy-green-dark:var(--academy-bg);--academy-emerald:var(--academy-bg-3);--academy-gold:var(--academy-ivory);--academy-gold-dark:var(--academy-silver-2);--academy-parchment:var(--academy-ivory);--academy-parchment-2:var(--academy-ivory-2);--academy-brown:var(--academy-bg);--academy-brown-2:var(--academy-bg-3);--academy-ink:var(--academy-bg-3);
     }
