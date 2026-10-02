@@ -34,7 +34,7 @@
         display:block!important;
         margin:0 0 5px!important;
         color:var(--academy-silver-3)!important;
-        font-size:10px!important;
+        font-size:12px;
         line-height:1.05!important;
         letter-spacing:.06em!important;
         text-transform:uppercase!important;
@@ -43,14 +43,14 @@
       .fi-stat .fi-stat-value{
         display:block!important;
         color:var(--gold,var(--academy-ivory))!important;
-        font-size:14px!important;
+        font-size:12px;
         line-height:1.05!important;
       }
       @media(max-width:390px){
         .fi-stats{margin:10px 9px!important}
         .fi-stat{min-height:64px!important;padding:8px 3px!important}
-        .fi-stat .fi-stat-label{font-size:10px!important}
-        .fi-stat .fi-stat-value{font-size:14px!important}
+        .fi-stat .fi-stat-label{font-size:12px}
+        .fi-stat .fi-stat-value{font-size:12px}
       }
     `;
     document.head.appendChild(s);
