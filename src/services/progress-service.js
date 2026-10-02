@@ -127,7 +127,7 @@
         if(delta>0)window.AnalyticsService?.track?.('training_progress_saved',{store:key,answered_delta:delta,answered_total:after});
         stores++;
       }
-      return {stores,answered};
+      const detail={stores,answered};window.dispatchEvent(new CustomEvent('academy:manualcommit',{detail}));return detail;
     };
 
     discardManualSession=()=>{
@@ -137,7 +137,7 @@
           nativeRemove.call(sessionStorage,draftKey(key));removed++;
         }
       }
-      return removed;
+      window.dispatchEvent(new CustomEvent('academy:manualdiscard',{detail:{removed}}));return removed;
     };
   }
 
