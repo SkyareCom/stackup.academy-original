@@ -18,7 +18,7 @@
       .academy-stage-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
       .academy-stage-card{min-height:120px;padding:14px 5px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer}
       .academy-stage-card span{font-size:12px;color:var(--academy-silver);letter-spacing:.08em}.academy-stage-card strong{margin-top:7px;font-size:12px;line-height:1.05;letter-spacing:0;white-space:nowrap}.academy-stage-card small{margin-top:8px;color:var(--academy-muted);font-size:12px}
-      .academy-evolution{border-top:1px solid var(--academy-line);border-bottom:1px solid var(--academy-line);padding:4px 0}
+      .academy-evolution{border-top:1px solid var(--academy-line);border-bottom:1px solid var(--academy-line);padding:4px 0}.academy-xp-strip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--academy-line);border:1px solid var(--academy-line);margin-bottom:14px}.academy-xp-strip>div{padding:12px;background:var(--academy-bg-2)}.academy-xp-strip strong,.academy-xp-strip span{display:block}.academy-xp-strip span{margin-top:3px;color:var(--academy-muted);text-transform:uppercase}
       .academy-evolution-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--academy-line);border:1px solid var(--academy-line);margin-bottom:14px}
       .academy-evolution-summary>div{background:var(--academy-bg-2);padding:12px 8px;text-align:center}.academy-evolution-summary b{display:block;font-size:12px;color:var(--academy-ivory)}.academy-evolution-summary span{display:block;margin-top:3px;font-size:12px;line-height:1.15;color:var(--academy-muted);text-transform:uppercase}
       .academy-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.academy-shortcut{min-height:74px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:transparent;color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase;padding:8px}
@@ -53,7 +53,7 @@
     const root=document.getElementById('root');if(!root)return;
     document.getElementById('navtools')?.classList.remove('show');
     const S=window.ProgressService?.snapshot?.()||{answered:0,correct:0,errors:0,pct:0,accuracy:0,weekly:{completed:0,goal:25,pct:0},sections:{}};
-    const route=continueRoute(),hasProgress=S.answered>0,CC=C();
+    const route=continueRoute(),hasProgress=S.answered>0,CC=C(),E=window.EvolutionService?.snapshot?.()||{xp:0,category:{name:'INICIANTE',next:null},weakest:[]};
     const stageCards=['fundamentos','modalidades','pratica'].map(key=>{
       const inf=stageInfo(key),section=S.sections?.[key]||{pct:0};return `<button type="button" class="academy-stage-card" data-home-stage="${key}"><span>ETAPA ${inf.num}</span><strong>${esc(inf.label)}</strong><small>${Math.round(section.pct||0)}%</small></button>`;
     }).join('');
@@ -76,7 +76,7 @@
       </section>
       <section class="academy-home-section">${CC.CourseSection({title:t('threeSteps','3 ETAPAS PRINCIPAIS'),content:`<div class="academy-stage-grid">${stageCards}</div>`})}</section>
       <section class="academy-home-section">
-        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-evolution-summary"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div class="academy-evolution">${metrics}</div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div>`})}
+        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-xp-strip"><div><strong>${E.xp} XP</strong><span>${t('evolutionCategory','CATEGORIA')} · ${E.category.name}</span></div><div><strong>${E.category.next?E.category.next.remaining+' XP':'—'}</strong><span>${E.category.next?t('toNextCategory','PARA A PRÓXIMA CATEGORIA'):t('maxCategory','CATEGORIA MÁXIMA')}</span></div></div><div class="academy-evolution-summary"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div class="academy-evolution">${metrics}</div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div>`})}
       </section>
       <section class="academy-home-section">${CC.CourseSection({title:t('shortcuts','ATALHOS'),content:`<div class="academy-shortcuts"><button class="academy-shortcut" data-home-shortcut="profile">${t('profile','PERFIL')}</button><button class="academy-shortcut" data-home-shortcut="plans">${t('plans','PLANOS')}</button><button class="academy-shortcut" data-home-shortcut="apps">${t('otherApps','OUTROS APPS')}</button></div>`})}</section>
     </section>`;
