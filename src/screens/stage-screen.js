@@ -87,6 +87,8 @@
     }
   }
 
+  window.AcademyScreens=window.AcademyScreens||{};
+  window.AcademyScreens.lockedPreview=showLockedPreview;
   window.stage=(key,p=0)=>renderStage(key,!!p);
   document.addEventListener('click',e=>{
     const close=e.target.closest('[data-access-preview-close]');if(close){e.preventDefault();closeAccessPreview();return}
