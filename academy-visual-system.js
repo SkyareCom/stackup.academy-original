@@ -524,8 +524,8 @@
       --academy-ivory:#f3eee4;
       --academy-ivory-2:#d8d0bf;
       --academy-paper:#eee8dc;
-      --academy-display:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-      --academy-ui:'Inter',Arial,sans-serif;
+      --academy-display:'Overlock',system-ui,sans-serif;
+      --academy-ui:'Overlock',system-ui,sans-serif;
     }
 
     html,body,.app{
