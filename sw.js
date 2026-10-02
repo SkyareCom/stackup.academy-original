@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v106';
-const SW_VERSION=106;
+const CACHE='stackup-academy-v107';
+const SW_VERSION=107;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -9,7 +9,7 @@ const ASSETS=[
   './modalities-depth-details.js','./mixed-games-module.js','./practice-module.js','./practice-table.js','./practice-advanced-bank.js',
   './practice-advanced.js','./table-rotation-guard.js','./math-card-structure.js','./practice-math-odds.js','./portuguese-corrections.js','./cover-layout.js','./release-compliance.js',
   './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./typography-standard.js','./icon-192.png','./icon-512.png',
-  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/components/academy-components.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
+  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
 ];
 const SCRIPTS=[
   ['session-reset.js',3],
@@ -55,18 +55,20 @@ const SCRIPTS=[
   ['page-top-reset.js',3],
   ['typography-standard.js',6],
   ['academy-loader.js',9],
-  ['src/theme/academy-theme.js',1],
+  ['src/theme/academy-theme.js',2],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',2],
+  ['src/i18n/academy-copy.js',3],
   ['src/services/progress-service.js',1],
   ['src/services/auth-service.js',1],
   ['src/services/content-service.js',1],
   ['src/services/analytics-service.js',1],
   ['src/services/billing-service.js',1],
   ['src/components/academy-components.js',1],
+  ['src/components/editorial-lesson-adapter.js',1],
   ['src/screens/home-screen.js',2],
-  ['src/screens/stage-screen.js',2],
+  ['src/screens/stage-screen.js',3],
   ['src/screens/profile-screen.js',2],
+  ['src/screens/practice-tools-screen.js',2],
   ['src/hooks/academy-events.js',1],
   ['src/navigation/bottom-navigation.js',2],
 ];
