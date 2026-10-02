@@ -28,10 +28,11 @@
   function render(focus=''){
     const root=document.getElementById('root');if(!root)return;
     document.getElementById('navtools')?.classList.add('show');
-    const CC=C(),plans=window.BillingService?.getPlans?.()||[],addons=window.BillingService?.getAddons?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR';
+    const CC=C(),plans=window.BillingService?.getPlans?.()||[],addons=window.BillingService?.getAddons?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR',historyMode=window.TrainingPreferenceService?.getMode?.()||'auto';
     root.innerHTML=`<section class="screen academy-profile">
       <header class="academy-profile-head academy-section-intro"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
       <section class="academy-profile-section" id="profile-language">${CC.CourseSection({title:t('language','IDIOMA'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${lang==='pt-BR'?'active':''}" data-profile-lang="pt-BR">PT-BR</button><button type="button" class="academy-secondary ${lang==='en-US'?'active':''}" data-profile-lang="en-US">EN-US</button></div>`})}</section>
+      <section class="academy-profile-section" id="profile-history-mode">${CC.CourseSection({title:t('historySaving','SALVAMENTO DO HISTÓRICO'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${historyMode==='auto'?'active':''}" data-history-mode="auto">${t('saveAutomatically','AUTOMÁTICO')}</button><button type="button" class="academy-secondary ${historyMode==='manual'?'active':''}" data-history-mode="manual">${t('saveManually','MANUAL')}</button></div><div class="academy-plan-benefits"><span>— ${historyMode==='auto'?t('autoSaveCopy','Cada sessão entra no histórico automaticamente.'):t('manualSaveCopy','As sessões ficam em rascunho até você salvar pelo Histórico.')}</span></div>`})}</section>
       <section class="academy-profile-section" id="profile-plans">${CC.CourseSection({title:t('plans','PLANOS'),content:`<div class="academy-plan-grid">${plans.map(p=>`<div class="academy-plan ${p.id===current?'current':''}"><div class="academy-plan-top"><strong>${esc(t(p.id,p.name))}</strong><span>${p.id===current?t('currentPlan','PLANO ATUAL'):t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(p.price||'')}</strong><span>${esc(p.period||'')}</span></div><div class="academy-plan-benefits">${(p.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}</div>${addons.map(a=>`<div class="academy-addon"><div class="academy-plan-top"><strong>${esc(t(a.id,a.name))}</strong><span>${t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(a.price||'')}</strong><span>${esc(a.period||'')}</span></div><div class="academy-plan-benefits">${(a.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}`})}</section>
       <section class="academy-profile-section" id="profile-apps">${CC.CourseSection({title:t('otherApps','OUTROS APPS'),content:`<div class="academy-apps-grid">${[
         ['GRINDER',"Treinamento de No-Limit Hold'em"],
@@ -44,7 +45,7 @@
       <section class="academy-profile-section" id="profile-privacy">${CC.CourseSection({title:t('aboutPrivacy','SOBRE E PRIVACIDADE'),content:`<div class="academy-privacy-actions"><a class="academy-secondary" href="./privacy.html#pt">${t('privacyPolicy','POLÍTICA DE PRIVACIDADE')}</a><button type="button" class="academy-secondary" data-profile-clear-local>${t('deleteLocalData','APAGAR DADOS DESTE APARELHO')}</button><button type="button" class="academy-secondary" data-profile-delete-account>${t('requestAccountDeletion','SOLICITAR EXCLUSÃO DA CONTA')}</button></div>`})}</section>
     </section>`;
     window.AnalyticsService?.screen?.('profile');
-    if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
+    if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':focus==='history-mode'?'profile-history-mode':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
   }
   function open(focus=''){
     history.pushState({type:'academy-profile',focus},'','#profile');
@@ -69,12 +70,21 @@
       }else alert(t('coachSavedLocal','Configuração salva neste aparelho.'));
       return;
     }
+    const hm=e.target.closest('[data-history-mode]');
+    if(hm){
+      e.preventDefault();
+      const mode=hm.dataset.historyMode==='manual'?'manual':'auto';
+      if(mode==='auto'&&(window.TrainingHistoryService?.pendingSummary?.().total||0)>0)window.TrainingHistoryService?.savePending?.();
+      window.TrainingPreferenceService?.setMode?.(mode);
+      render('history-mode');
+      return;
+    }
     const l=e.target.closest('[data-profile-lang]');if(l){const code=l.dataset.profileLang;try{localStorage.setItem('stackup-language-v1',code)}catch(_){};document.documentElement.lang=code;location.reload();return}
     const clear=e.target.closest('[data-profile-clear-local]');
     if(clear){
       e.preventDefault();
       if(!confirm(t('deleteLocalConfirm','Apagar progresso, histórico, preferências e sessão local deste Academy?')))return;
-      const exact=new Set(['stackup-fundamentals-progress-v1','stackup-modalities-progress-v1','stackup-mixed-games-progress-v2','stackup-practice-progress-v1','stackup-practice-advanced-v2','stackup-language-v1','stackup-academy-weekly-v1','stackup-academy-last-route-v1','academy.hist.v1','academy.plan.v1','academy.coach.v1','academy.smart-review.v1','academy.exam.last.v1','academy.events.v1']);
+      const exact=new Set(['stackup-fundamentals-progress-v1','stackup-modalities-progress-v1','stackup-mixed-games-progress-v2','stackup-practice-progress-v1','stackup-practice-advanced-v2','stackup-language-v1','stackup-academy-weekly-v1','stackup-academy-last-route-v1','academy.hist.v1','academy.pref.v1','academy.plan.v1','academy.coach.v1','academy.smart-review.v1','academy.exam.last.v1','academy.events.v1']);
       try{for(let i=localStorage.length-1;i>=0;i--){const key=localStorage.key(i);if(key&&(exact.has(key)||key.startsWith('stackup-academy-')))localStorage.removeItem(key)}}catch(_){}
       alert(t('localDataDeleted','Dados locais do Academy apagados deste aparelho.'));location.reload();return;
     }
