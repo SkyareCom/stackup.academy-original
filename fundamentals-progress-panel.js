@@ -13,9 +13,9 @@
         margin:11px 12px!important;
         padding:0!important;
         overflow:hidden!important;
-        border:1px solid #d4aa5860!important;
+        border:1px solid #d8d0bf60!important;
         border-radius:14px!important;
-        background:#2a160d!important;
+        background:#151515!important;
       }
       .fi-stat{
         display:flex!important;
@@ -29,11 +29,11 @@
         background:transparent!important;
         text-align:center!important;
       }
-      .fi-stat+.fi-stat{border-left:1px solid #d4aa5840!important}
+      .fi-stat+.fi-stat{border-left:1px solid #d8d0bf40!important}
       .fi-stat .fi-stat-label{
         display:block!important;
         margin:0 0 5px!important;
-        color:#d8c6ad!important;
+        color:#a7a7a7!important;
         font-size:10px!important;
         line-height:1.05!important;
         letter-spacing:.06em!important;
@@ -42,7 +42,7 @@
       }
       .fi-stat .fi-stat-value{
         display:block!important;
-        color:var(--gold,#d4aa58)!important;
+        color:var(--gold,#d8d0bf)!important;
         font-size:18px!important;
         line-height:1.05!important;
       }
