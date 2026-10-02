@@ -69,7 +69,24 @@
     for(const [id,value] of Object.entries(after))if(!(id in before)||before[id]!==value)ids.push(id);
     return ids;
   };
+  const changedQuestionAttempts=(key,beforeRaw,afterRaw,kind,at)=>{
+    const before=answerMap(key,beforeRaw,kind),after=answerMap(key,afterRaw,kind),rows=[];
+    for(const [id,value] of Object.entries(after)){
+      if(!(id in before)||before[id]!==value)rows.push({id,correct:value===true,at:Number(at||Date.now())});
+    }
+    return rows;
+  };
   const mergeIds=(a,b)=>[...new Set([...(Array.isArray(a)?a:[]),...(Array.isArray(b)?b:[])])].slice(0,500);
+  const mergeQuestionAttempts=(base,rows)=>{
+    const out=base&&typeof base==='object'?{...base}:{};
+    for(const row of (Array.isArray(rows)?rows:[])){
+      if(!row?.id)continue;
+      const list=Array.isArray(out[row.id])?[...out[row.id]]:[];
+      list.push({correct:row.correct===true,at:Number(row.at||Date.now())});
+      out[row.id]=list.slice(-30);
+    }
+    return out;
+  };
 
   const resumeFor=(key,raw,kind)=>{
     if(key!=='stackup-practice-advanced-v2')return null;
@@ -117,7 +134,8 @@
       const da=next.answered-prev.answered;
       const dc=next.correct-prev.correct;
       const questionIds=changedQuestionIds(key,beforeRaw,afterRaw,next.kind);
-      if(da<=0&&dc<=0&&!questionIds.length)continue;
+      const questionAttempts=changedQuestionAttempts(key,beforeRaw,afterRaw,next.kind,now);
+      if(da<=0&&dc<=0&&!questionIds.length&&!questionAttempts.length)continue;
       const last=state.runs[0];
       const canMerge=last&&last.section===next.section&&last.kind===next.kind&&(now-last.updatedAt)<=WINDOW_MS;
       if(canMerge){
@@ -128,6 +146,7 @@
         last.deltaAnswered=(last.deltaAnswered||0)+Math.max(0,da);
         last.deltaCorrect=(last.deltaCorrect||0)+Math.max(0,dc);
         last.questionIds=mergeIds(last.questionIds,questionIds);
+        last.questionAttempts=mergeQuestionAttempts(last.questionAttempts,questionAttempts);
         const resume=resumeFor(key,afterRaw,next.kind);if(resume)last.resume=resume;
       }else{
         state.runs.unshift({
@@ -137,6 +156,7 @@
           answered:next.answered,correct:next.correct,errors:Math.max(0,next.answered-next.correct),
           deltaAnswered:Math.max(0,da),deltaCorrect:Math.max(0,dc),
           questionIds:mergeIds([],questionIds),
+          questionAttempts:mergeQuestionAttempts({},questionAttempts),
           resume:resumeFor(key,afterRaw,next.kind)
         });
       }
