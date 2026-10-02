@@ -12,7 +12,7 @@
       currentPlan:'PLANO ATUAL',prepared:'ESTRUTURA PREPARADA',ecosystem:'ECOSSISTEMA STACKUP',
       grinderCopy:'Pronto para transformar conhecimento em treino?',knowGrinder:'CONHEÇA O GRINDER',
       trainingLab:'TRAINING LAB',back:'VOLTAR',next:'PRÓXIMO',review:'REVISAR',confirm:'CONFIRMAR',
-      questions:'QUESTÕES',accuracy:'APROVEITAMENTO'
+      questions:'QUESTÕES',accuracy:'APROVEITAMENTO',lastSection:'ÚLTIMA SEÇÃO',nextStep:'PRÓXIMA ETAPA',focusDecision:'FOCO · DECISÃO · REPETIÇÃO',hands:'MÃOS',gameStructure:'ESTRUTURA DO JOGO',terminologyProfiles:'TERMINOLOGIA E PERFIS',formats:'FORMATOS',rulesConduct:'REGRAS E CONDUTA',profileCopy:'Preferências, plano do Academy e acesso ao ecossistema.',mainNav:'Navegação principal'
     },
     'en-US':{
       home:'HOME',base:'BASE',modalities:'GAME TYPES',practice:'PRACTICE',profile:'PROFILE',
@@ -26,10 +26,11 @@
       currentPlan:'CURRENT PLAN',prepared:'FRONTEND READY',ecosystem:'STACKUP ECOSYSTEM',
       grinderCopy:'Ready to turn knowledge into training?',knowGrinder:'DISCOVER GRINDER',
       trainingLab:'TRAINING LAB',back:'BACK',next:'NEXT',review:'REVIEW',confirm:'CONFIRM',
-      questions:'QUESTIONS',accuracy:'ACCURACY'
+      questions:'QUESTIONS',accuracy:'ACCURACY',lastSection:'LAST SECTION',nextStep:'NEXT STEP',focusDecision:'FOCUS · DECISION · REPETITION',hands:'HANDS',gameStructure:'GAME STRUCTURE',terminologyProfiles:'TERMINOLOGY & PROFILES',formats:'FORMATS',rulesConduct:'RULES & CONDUCT',profileCopy:'Preferences, Academy plan and ecosystem access.',mainNav:'Main navigation'
     }
   };
   const lang=()=>{try{return localStorage.getItem('stackup-language-v1')||'pt-BR'}catch(_){return 'pt-BR'}};
   const t=(key,fallback='')=>copy[lang()]?.[key]??copy['pt-BR'][key]??fallback??key;
-  window.AcademyI18n={copy,lang,t};
+  const applyStaticCopy=()=>{const sub=document.querySelector('.brand .sub');if(sub)sub.textContent=t('learn3','APRENDA A JOGAR POKER EM 3 ETAPAS');document.documentElement.lang=lang();};
+  window.AcademyI18n={copy,lang,t,applyStaticCopy};applyStaticCopy();
 })();
