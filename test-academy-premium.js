@@ -61,6 +61,7 @@ assert('Base Modalidades Practice use photo headers',stage.includes("key==='fund
 assert('Profile header matches stage height',profile.includes('height:176px;min-height:176px;max-height:176px'));
 assert('bottom nav is five-column single-line',nav.includes('repeat(5,minmax(0,1fr))')&&nav.includes('white-space:nowrap'));
 assert('profile exposes Academy commercial plans',billing.includes("name:'FREE'")&&billing.includes("name:'MENSAL'")&&billing.includes("R$ 39,90")&&billing.includes("name:'SEMESTRAL'")&&billing.includes("R$ 179,90")&&billing.includes("name:'ANUAL'")&&billing.includes("R$ 229,90")&&billing.includes("name:'COACH PLUS'")&&billing.includes("R$ 34,90"));
+assert('interaction analytics are wired without UI changes',read('src/hooks/academy-events.js').includes('study_tool_open')&&read('src/hooks/academy-events.js').includes('history_retrain')&&read('src/services/progress-service.js').includes('training_progress'));
 assert('local analytics queue is capped and device-only',analytics.includes("KEY='academy.events.v1'")&&analytics.includes('LIMIT=1000')&&analytics.includes('localStorage.setItem')&&!analytics.includes('fetch('));
 assert('local data reset clears analytics queue',profile.includes("'academy.events.v1'"));
 assert('service interfaces exist',auth.includes('AuthService')&&progress.includes('ProgressService')&&content.includes('ContentService')&&analytics.includes('AnalyticsService')&&billing.includes('BillingService'));
