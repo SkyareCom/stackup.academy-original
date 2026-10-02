@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v102';
-const SW_VERSION=102;
+const CACHE='stackup-academy-v103';
+const SW_VERSION=103;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -50,9 +50,9 @@ const SCRIPTS=[
   ['portuguese-corrections.js',2],
   ['cover-layout.js',10],
   ['release-compliance.js',1],
-  ['academy-visual-system.js',3],
+  ['academy-visual-system.js',4],
   ['page-top-reset.js',3],
-  ['typography-standard.js',3],
+  ['typography-standard.js',4],
   ['academy-loader.js',9]
 ];
 const AUTO_SCRIPTS=new Set([
@@ -91,7 +91,7 @@ function enhanceHtml(source){
     html=html.replace('</head>','<style id="stackup-header-logo-size">.brandin .logo[data-stackup-logo="1"]{width:80px!important;height:80px!important;flex:0 0 80px!important;object-fit:contain!important;background:transparent!important}</style></head>');
   }
   if(!html.includes('stackup-font-lock')){
-    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Love Ya Like A Sister\',cursive!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
+    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Inter\',Arial,sans-serif!important}.name,.intro h1,.stitle,.head h2,.card.lesson>h2,.ttitle,.rname,.compare h3{font-family:\'Cormorant Garamond\',Georgia,\'Times New Roman\',serif!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
   }
   for(const [name,version] of SCRIPTS){
     if(AUTO_SCRIPTS.has(name)&&!html.includes(name))html=html.replace('</body>',`<script src="./${name}?v=${version}"></script></body>`);
