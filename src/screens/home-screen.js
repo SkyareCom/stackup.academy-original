@@ -21,6 +21,7 @@
       .academy-evolution{border-top:1px solid var(--academy-line);border-bottom:1px solid var(--academy-line);padding:4px 0}.academy-xp-strip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--academy-line);border:1px solid var(--academy-line);margin-bottom:14px}.academy-xp-strip>div{padding:12px;background:var(--academy-bg-2)}.academy-xp-strip strong,.academy-xp-strip span{display:block}.academy-xp-strip span{margin-top:3px;color:var(--academy-muted);text-transform:uppercase}
       .academy-evolution-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--academy-line);border:1px solid var(--academy-line);margin-bottom:14px}
       .academy-evolution-summary>div{background:var(--academy-bg-2);padding:12px 8px;text-align:center}.academy-evolution-summary b{display:block;font-size:12px;color:var(--academy-ivory)}.academy-evolution-summary span{display:block;margin-top:3px;font-size:12px;line-height:1.15;color:var(--academy-muted);text-transform:uppercase}
+      .academy-study-entry{margin-top:14px}.academy-study-entry button{width:100%}
       .academy-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.academy-shortcut{min-height:74px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:transparent;color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase;padding:8px}
       @media(max-width:340px){.academy-home{padding-inline:12px!important}.academy-home-hero{margin-inline:-12px;padding-inline:14px}.academy-stage-grid{gap:5px}.academy-stage-card{padding-inline:4px}.academy-stage-card strong{font-size:12px}.academy-shortcuts{gap:5px}.academy-shortcut{font-size:12px}}
     `;document.head.appendChild(s);
@@ -76,7 +77,7 @@
       </section>
       <section class="academy-home-section">${CC.CourseSection({title:t('threeSteps','3 ETAPAS PRINCIPAIS'),content:`<div class="academy-stage-grid">${stageCards}</div>`})}</section>
       <section class="academy-home-section">
-        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-xp-strip"><div><strong>${E.xp} XP</strong><span>${t('evolutionCategory','CATEGORIA')} · ${E.category.name}</span></div><div><strong>${E.category.next?E.category.next.remaining+' XP':'—'}</strong><span>${E.category.next?t('toNextCategory','PARA A PRÓXIMA CATEGORIA'):t('maxCategory','CATEGORIA MÁXIMA')}</span></div></div><div class="academy-evolution-summary"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div class="academy-evolution">${metrics}</div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div>`})}
+        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-xp-strip"><div><strong>${E.xp} XP</strong><span>${t('evolutionCategory','CATEGORIA')} · ${E.category.name}</span></div><div><strong>${E.category.next?E.category.next.remaining+' XP':'—'}</strong><span>${E.category.next?t('toNextCategory','PARA A PRÓXIMA CATEGORIA'):t('maxCategory','CATEGORIA MÁXIMA')}</span></div></div><div class="academy-evolution-summary"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div class="academy-evolution">${metrics}</div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div><div class="academy-study-entry">${CC.SecondaryButton(t('advancedStudy','ESTUDO AVANÇADO'),'data-home-study')}</div>`})}
       </section>
       <section class="academy-home-section">${CC.CourseSection({title:t('shortcuts','ATALHOS'),content:`<div class="academy-shortcuts"><button class="academy-shortcut" data-home-shortcut="profile">${t('profile','PERFIL')}</button><button class="academy-shortcut" data-home-shortcut="plans">${t('plans','PLANOS')}</button><button class="academy-shortcut" data-home-shortcut="apps">${t('otherApps','OUTROS APPS')}</button></div>`})}</section>
     </section>`;
@@ -87,6 +88,7 @@
   document.addEventListener('click',e=>{
     if(e.target.closest('[data-home-continue]')){e.preventDefault();goContinue();return}
     const s=e.target.closest('[data-home-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.homeStage,1);return}
+    if(e.target.closest('[data-home-study]')){e.preventDefault();window.AcademyScreens?.studyTool?.('hub');return}
     const q=e.target.closest('[data-home-shortcut]');if(q){e.preventDefault();window.AcademyScreens?.profile?.(q.dataset.homeShortcut);return}
   });
   if(history.state?.type==='home'||!history.state)requestAnimationFrame(renderHome);
