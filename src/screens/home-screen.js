@@ -46,7 +46,11 @@
   };
   const goContinue=()=>{
     const r=continueRoute();
-    if(r.type==='lesson')window.lesson?.(r.stage,r.index,1);else window.stage?.(r.stage,1);
+    if(r.type==='lesson'){
+      if(window.PlanAccessService?.isLocked?.(r.stage,r.index)){window.AcademyScreens?.lockedPreview?.(r.stage,r.index);return}
+      window.lesson?.(r.stage,r.index,1);return;
+    }
+    window.stage?.(r.stage,1);
   };
 
   function renderHome(){
@@ -85,7 +89,7 @@
 
   window.home=renderHome;
   document.addEventListener('click',e=>{
-    const review=e.target.closest('[data-home-review]');if(review){e.preventDefault();window.AcademyScreens?.studyTool?.('smartReview');return}
+    const review=e.target.closest('[data-home-review]');if(review){e.preventDefault();if(window.PlanAccessService?.featureLocked?.('smartReview')){window.AcademyScreens?.profile?.('plans');return}window.AcademyScreens?.studyTool?.('smartReview');return}
     const g=e.target.closest('[data-weekly-goal]');if(g){e.preventDefault();if(window.ProgressService?.setWeeklyGoal?.(Number(g.dataset.weeklyGoal)))renderHome();return}
     if(e.target.closest('[data-home-continue]')){e.preventDefault();goContinue();return}
     const s=e.target.closest('[data-home-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.homeStage,1);return}
