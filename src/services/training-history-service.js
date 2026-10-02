@@ -109,7 +109,10 @@
       correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
     };
   }
+  function remove(id){
+    const s=read();s.runs=(s.runs||[]).filter(r=>r.id!==id);write(s);return true;
+  }
   function clear(){try{localStorage.removeItem(KEY)}catch(_){};return true}
 
-  window.TrainingHistoryService={KEY,list,summary,clear,recordStorageChange};
+  window.TrainingHistoryService={KEY,list,summary,remove,clear,recordStorageChange};
 })();
