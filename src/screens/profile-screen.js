@@ -17,6 +17,20 @@
     `;document.head.appendChild(s);
   }
 
+  const accessSection=()=>{
+    const CC=C(),status=window.AuthService?.getStatus?.()||{authenticated:false,provider:null},user=window.AuthService?.getCurrentUser?.()||null;
+    const meta=user?.user_metadata||{},name=meta.full_name||meta.name||user?.name||'',email=user?.email||'',provider=status.provider||meta.provider||'';
+    const method=status.authenticated?(provider==='google'?'GOOGLE':provider==='biometric'?t('biometrics','BIOMETRIA'):String(provider||t('account','CONTA')).toUpperCase()):t('directAccess','ACESSO DIRETO');
+    const rows=[
+      CC.LessonRow({num:'01',title:t('accessMethod','FORMA DE ACESSO'),note:method})
+    ];
+    if(name)rows.push(CC.LessonRow({num:'02',title:t('name','NOME'),note:name}));
+    if(email)rows.push(CC.LessonRow({num:String(rows.length+1).padStart(2,'0'),title:'E-MAIL',note:email}));
+    if(status.authenticated)rows.push(CC.LessonRow({num:String(rows.length+1).padStart(2,'0'),title:t('session','SESSÃO'),note:t('connected','CONECTADA'),attrs:'data-profile-signout'}));
+    else rows.push(CC.LessonRow({num:'02',title:t('session','SESSÃO'),note:t('directAccessCopy','O Academy está liberado sem login obrigatório durante os testes.')}));
+    return '<section class="academy-profile-section" id="profile-access">'+CC.CourseSection({title:t('accessData','DADOS DE ACESSO'),content:'<div class="academy-profile-list">'+rows.join('')+'</div>'})+'</section>';
+  };
+
   const COACH_KEY='academy.coach.v1';
   const readCoach=()=>{try{return JSON.parse(localStorage.getItem(COACH_KEY)||'{}')||{}}catch(_){return {}}};
   const coachSection=current=>{
@@ -31,6 +45,7 @@
     const CC=C(),plans=window.BillingService?.getPlans?.()||[],addons=window.BillingService?.getAddons?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR',historyMode=window.TrainingPreferenceService?.getMode?.()||'auto';
     root.innerHTML=`<section class="screen academy-profile">
       <header class="academy-profile-head academy-section-intro"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
+      ${accessSection()}
       <section class="academy-profile-section" id="profile-language">${CC.CourseSection({title:t('language','IDIOMA'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${lang==='pt-BR'?'active':''}" data-profile-lang="pt-BR">PT-BR</button><button type="button" class="academy-secondary ${lang==='en-US'?'active':''}" data-profile-lang="en-US">EN-US</button></div>`})}</section>
       <section class="academy-profile-section" id="profile-history-mode">${CC.CourseSection({title:t('historySaving','SALVAMENTO DO HISTÓRICO'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${historyMode==='auto'?'active':''}" data-history-mode="auto">${t('saveAutomatically','AUTOMÁTICO')}</button><button type="button" class="academy-secondary ${historyMode==='manual'?'active':''}" data-history-mode="manual">${t('saveManually','MANUAL')}</button></div><div class="academy-plan-benefits"><span>— ${historyMode==='auto'?t('autoSaveCopy','Cada sessão entra no histórico automaticamente.'):t('manualSaveCopy','As sessões ficam em rascunho até você salvar pelo Histórico.')}</span></div>`})}</section>
       <section class="academy-profile-section" id="profile-plans">${CC.CourseSection({title:t('plans','PLANOS'),content:`<div class="academy-plan-grid">${plans.map(p=>`<div class="academy-plan ${p.id===current?'current':''}"><div class="academy-plan-top"><strong>${esc(t(p.id,p.name))}</strong><span>${p.id===current?t('currentPlan','PLANO ATUAL'):t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(p.price||'')}</strong><span>${esc(p.period||'')}</span></div><div class="academy-plan-benefits">${(p.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}</div>${addons.map(a=>`<div class="academy-addon"><div class="academy-plan-top"><strong>${esc(t(a.id,a.name))}</strong><span>${t('prepared','DISPONÍVEL EM BREVE')}</span></div><div class="academy-plan-price"><strong>${esc(a.price||'')}</strong><span>${esc(a.period||'')}</span></div><div class="academy-plan-benefits">${(a.benefits||[]).map(b=>`<span>— ${esc(b)}</span>`).join('')}</div></div>`).join('')}`})}</section>
@@ -45,7 +60,7 @@
       <section class="academy-profile-section" id="profile-privacy">${CC.CourseSection({title:t('aboutPrivacy','SOBRE E PRIVACIDADE'),content:`<div class="academy-privacy-actions"><a class="academy-secondary" href="./privacy.html#pt">${t('privacyPolicy','POLÍTICA DE PRIVACIDADE')}</a><button type="button" class="academy-secondary" data-profile-clear-local>${t('deleteLocalData','APAGAR DADOS DESTE APARELHO')}</button><button type="button" class="academy-secondary" data-profile-delete-account>${t('requestAccountDeletion','SOLICITAR EXCLUSÃO DA CONTA')}</button></div>`})}</section>
     </section>`;
     window.AnalyticsService?.screen?.('profile');
-    if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':focus==='history-mode'?'profile-history-mode':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
+    if(focus){const id=focus==='plans'?'profile-plans':focus==='apps'?'profile-apps':focus==='history-mode'?'profile-history-mode':focus==='access'?'profile-access':'profile-language';setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),80)}
   }
   function open(focus=''){
     history.pushState({type:'academy-profile',focus},'','#profile');
@@ -79,6 +94,8 @@
       render('history-mode');
       return;
     }
+    const signout=e.target.closest('[data-profile-signout]');
+    if(signout){e.preventDefault();Promise.resolve(window.AuthService?.signOut?.()).finally(()=>render('access'));return}
     const l=e.target.closest('[data-profile-lang]');if(l){const code=l.dataset.profileLang;try{localStorage.setItem('stackup-language-v1',code)}catch(_){};document.documentElement.lang=code;location.reload();return}
     const clear=e.target.closest('[data-profile-clear-local]');
     if(clear){
