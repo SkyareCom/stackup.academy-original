@@ -43,14 +43,14 @@
       .fi-stat .fi-stat-value{
         display:block!important;
         color:var(--gold,var(--academy-ivory))!important;
-        font-size:18px!important;
+        font-size:14px!important;
         line-height:1.05!important;
       }
       @media(max-width:390px){
         .fi-stats{margin:10px 9px!important}
         .fi-stat{min-height:64px!important;padding:8px 3px!important}
-        .fi-stat .fi-stat-label{font-size:9px!important}
-        .fi-stat .fi-stat-value{font-size:16px!important}
+        .fi-stat .fi-stat-label{font-size:10px!important}
+        .fi-stat .fi-stat-value{font-size:14px!important}
       }
     `;
     document.head.appendChild(s);
