@@ -5,7 +5,13 @@
 
   if(!document.getElementById('academy-stage-screen-style')){
     const s=document.createElement('style');s.id='academy-stage-screen-style';s.textContent=`
-      .academy-stage-screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-stage-intro{height:176px;min-height:176px;max-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}.academy-stage-intro.photo{height:176px;min-height:176px;max-height:176px;margin:0 -16px 16px;padding:20px 16px;display:flex;align-items:flex-end;border-bottom:1px solid var(--academy-line-strong)}
+      .academy-stage-screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}
+      .academy-stage-intro{height:176px;min-height:176px;max-height:176px;padding:20px 0;display:block;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}
+      .academy-stage-intro.photo{height:176px;min-height:176px;max-height:176px;margin:0 -16px 16px;padding:20px 16px;display:block;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)}
+      .academy-stage-hero-grid{height:135px;display:grid;grid-template-rows:18px 18px 54px;row-gap:6px;align-content:end;width:100%}
+      .academy-stage-hero-grid .academy-kicker{margin:0;align-self:end}
+      .academy-stage-hero-grid .academy-title{margin:0;align-self:end}
+      .academy-stage-hero-grid .academy-copy{margin:0;align-self:start;max-width:430px;line-height:1.5;max-height:54px;overflow:hidden}
       .academy-stage-intro .academy-title{font-size:12px}.academy-stage-intro .academy-copy{max-width:430px}
       .academy-group{margin-top:20px}.academy-group-title{margin:0 0 12px;font-size:12px;letter-spacing:.16em;color:var(--academy-silver-2);text-transform:uppercase}
       .academy-group-list{border-bottom:1px solid var(--academy-line)}.academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-line-strong);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
@@ -20,7 +26,7 @@
     document.getElementById('navtools')?.classList.add('show');
     window.ProgressService?.setLastRoute?.({type:'stage',stage:key});
     const CC=C(),photo=key==='fundamentos'?window.academyTheme?.backgrounds?.base:key==='modalidades'?window.academyTheme?.backgrounds?.modalities:key==='pratica'?window.academyTheme?.backgrounds?.practice:'';
-    const intro=CC.EditorialHero({kicker:s.e||'',title:labelFor(key),subtitle:s.d||'',action:key==='pratica'?`<span class="academy-training-label">${t('focusDecision','FOCO · DECISÃO · REPETIÇÃO')}</span>`:''});
+    const intro=`<div class="academy-hero-content academy-stage-hero-grid"><div class="academy-kicker">${esc(s.e||'')}</div><h1 class="academy-title">${esc(labelFor(key))}</h1><p class="academy-copy">${esc(s.d||'')}</p></div>`;
     const header=photo?CC.AcademyBackground({src:photo,className:'academy-stage-intro academy-section-intro photo',content:intro,alt:''}):`<div class="academy-stage-intro academy-section-intro">${intro}</div>`;
     const groups=groupsFor(key,s.i||[]).map(g=>{
       const rows=g.indexes.filter(i=>s.i[i]).map(i=>{
