@@ -67,6 +67,15 @@
     #root .fi-option:disabled,#root .m2-option:disabled,#root .mg-option:disabled,#root .p3-option:disabled,#root .p3x-opt:disabled{opacity:.72}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{background:var(--academy-surface-2)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{background:var(--academy-surface-2)!important}
+    #root .fi-spot,#root .fi-spotbar,#root .fi-feedback,#root .m2-spot,#root .m2-spotbar,#root .m2-feedback,#root .p3x-quiz-banner,#root .p3x-hand,#root .p3x-filter-btn,#root .p3x-badge,#root .p3-math-card,#root .p3-input{
+      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-line-strong)!important;
+    }
+    #root .p3x-quiz-banner{background:var(--academy-surface-2)!important}
+    #root .p3x-hand strong,#root .fi-question,#root .fi-analysis,#root .fi-analysis strong,#root .m2-question,#root .m2-analysis,#root .m2-analysis strong,#root .p3-q,#root .p3-output,#root .p3-note,#root .p3-math-card h4,#root .p3x-panel h3,#root .p3x-question,#root .p3x-math-card h3,#root .p3x-tip{color:var(--academy-ivory)!important}
+    #root .fi-options,#root .m2-options,#root .p3-options,#root .p3x-options{gap:10px!important}
+    #root .fi-nav,#root .m2-nav,#root .p3-actions,#root .p3x-nav{gap:10px!important;margin-top:12px!important}
+    #root input:not([type="checkbox"]):not([type="radio"]),#root select,#root textarea{min-height:44px;padding:10px 12px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)!important;color:var(--academy-ivory)!important}
+    #root .academy-profile-section,#root .academy-home-section,#root .academy-group{scroll-margin-top:96px}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
   `;
   document.head.appendChild(style);
