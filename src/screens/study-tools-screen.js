@@ -100,15 +100,21 @@
     rec.dueAt=now+REVIEW_INTERVAL_DAYS[rec.box]*day;
     store[q.id]=rec;try{localStorage.setItem(REVIEW_KEY,JSON.stringify(store))}catch(_){}
   };
+  const boxFromAttempts=rows=>{
+    let box=0;
+    for(const a of (Array.isArray(rows)?rows:[]).slice().sort((x,y)=>Number(x.at||0)-Number(y.at||0))){
+      box=a?.correct?Math.min(box+1,REVIEW_INTERVAL_DAYS.length-1):0;
+    }
+    return box;
+  };
   const reviewCandidates=bank=>{
-    const wrong=wrongQuestionIds(),store=reviewStore(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
+    const attempts=storedAttempts(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
     return bank.map(q=>{
-      const rec=store[q.id],baseWrong=wrong.has(q.id);
-      if(!baseWrong)return null;
-      if(!rec)return {...q,_reviewBox:0,_reviewDue:0};
-      const box=Number.isFinite(Number(rec.box))?Number(rec.box):reviewBox(rec);
-      if(box>=maxBox&&rec.lastCorrect)return null;
-      const due=Number(rec.dueAt||0)||Number(rec.lastAt||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
+      const rows=(attempts[q.id]||[]).slice().sort((a,b)=>Number(a.at||0)-Number(b.at||0));
+      if(!rows.length)return null;
+      const last=rows[rows.length-1],box=boxFromAttempts(rows);
+      if(box>=maxBox&&last.correct)return null;
+      const due=Number(last.at||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
       return due<=now?{...q,_reviewBox:box,_reviewDue:due}:null;
     }).filter(Boolean).sort((a,b)=>a._reviewBox-b._reviewBox||a._reviewDue-b._reviewDue);
   };
@@ -119,18 +125,26 @@
     const add=(id,correct,at=0)=>{
       if(!id)return;(out[id]=out[id]||[]).push({correct:!!correct,at:Number(at||0)});
     };
+    const addFallback=(id,correct,at=0)=>{if(!out[id]?.length)add(id,correct,at)};
+    const historyRuns=window.TrainingHistoryService?.list?.({limit:250})||[];
+    historyRuns.slice().reverse().forEach(run=>{
+      for(const [id,rows] of Object.entries(run?.questionAttempts||{})){
+        for(const a of (Array.isArray(rows)?rows:[]))add(id,a?.correct===true,a?.at||run.updatedAt);
+      }
+    });
     const fundamentals=readLocal('stackup-fundamentals-progress-v1');
-    Object.values(fundamentals||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>add('BASE:'+id,a?.correct===true,a?.updatedAt)));
+    Object.values(fundamentals||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>addFallback('BASE:'+id,a?.correct===true,a?.updatedAt)));
     const modalities=readLocal('stackup-modalities-progress-v1');
-    Object.values(modalities||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>add('MODALIDADES:'+id,a?.correct===true,a?.updatedAt)));
+    Object.values(modalities||{}).forEach(section=>Object.entries(section?.answers||{}).forEach(([id,a])=>addFallback('MODALIDADES:'+id,a?.correct===true,a?.updatedAt)));
     const mixed=readLocal('stackup-mixed-games-progress-v2');
-    Object.entries(mixed?.answers||{}).forEach(([id,a])=>add('MIXED:'+id,a?.correct===true,a?.updatedAt));
+    Object.entries(mixed?.answers||{}).forEach(([id,a])=>addFallback('MIXED:'+id,a?.correct===true,a?.updatedAt));
     const advanced=readLocal('stackup-practice-advanced-v2');
     for(const [mode,source] of [['sim','SIM'],['quiz','QUIZ'],['math','MATEMÁTICA']]){
-      Object.entries(advanced?.[mode]?.results||{}).forEach(([id,a])=>add(source+':'+id,a?.correct===true||a===true,0));
+      Object.entries(advanced?.[mode]?.results||{}).forEach(([id,a])=>addFallback(source+':'+id,a?.correct===true||a===true,0));
     }
     const review=reviewStore();
     for(const [id,rec] of Object.entries(review||{}))for(const a of (rec?.attempts||[]))add(id,a?.correct===true,a?.at);
+    for(const rows of Object.values(out))rows.sort((a,b)=>Number(a.at||0)-Number(b.at||0));
     return out;
   };
   const competencyReport=bank=>{
@@ -200,19 +214,20 @@
   }
 
   function reviewSummary(){
-    const wrong=wrongQuestionIds(),store=reviewStore(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
-    let due=0;
-    wrong.forEach(id=>{
-      const rec=store[id];
-      if(!rec){due++;return}
-      const box=Number.isFinite(Number(rec.box))?Number(rec.box):reviewBox(rec);
-      if(box>=maxBox&&rec.lastCorrect)return;
-      const at=Number(rec.dueAt||0)||Number(rec.lastAt||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
+    const attempts=storedAttempts(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
+    let due=0,wrong=0,mastered=0,tracked=0;
+    for(const rowsRaw of Object.values(attempts)){
+      const rows=(rowsRaw||[]).slice().sort((a,b)=>Number(a.at||0)-Number(b.at||0));
+      if(!rows.length)continue;tracked++;
+      const last=rows[rows.length-1],box=boxFromAttempts(rows);
+      if(!last.correct)wrong++;
+      if(box>=maxBox&&last.correct){mastered++;continue}
+      const at=Number(last.at||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
       if(at<=now)due++;
-    });
+    }
     const E=window.EvolutionService?.snapshot?.()||{weakest:[]};
     const weak=E.weakest?.[0]||null;
-    return {due,wrong:wrong.size,weakest:weak?{key:weak.key,accuracy:weak.accuracy,answered:weak.answered}:null};
+    return {due,wrong,mastered,tracked,weakest:weak?{key:weak.key,accuracy:weak.accuracy,answered:weak.answered}:null};
   }
 
   async function renderReview(){
