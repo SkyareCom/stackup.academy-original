@@ -13,8 +13,10 @@ if(typography.includes('Love Ya Like A Sister')||typography.includes('Cormorant 
   console.error('FAIL: legacy Academy display families remain');
   process.exit(1);
 }
-if(!typography.includes('--type-screen:clamp(18px,5.8vw,22px)')||!typography.includes('--type-caption:clamp(9px,3vw,11px)')){
+if(!typography.includes('--type-screen:22px')||!typography.includes('--type-caption:10px')){
   console.error('FAIL: Academy mobile typography scale is outside specification');
   process.exit(1);
 }
-console.log('Typography identity OK: Saira Semi Condensed / Academy Monochrome Ivory');
+if(!typography.includes('--type-body:12px')||!typography.includes('--type-button:12px')){console.error('FAIL: Academy body/button typography must be 12px');process.exit(1);}
+if(/font-weight:\s*(500|800|900)/.test(typography)){console.error('FAIL: unsupported font weights found');process.exit(1);}
+console.log('Typography identity OK: Saira Semi Condensed 400/600/700');
