@@ -34,7 +34,7 @@
       const mode=window.TrainingPreferenceService?.getMode?.()||'auto';
       const runs=window.TrainingHistoryService?.list?.({limit:100})||[];
       const rows=runs.length
-        ?runs.map(r=>`<div class="academy-history-row"><div><strong>${esc(r.label)}</strong><span>${fmt(r.updatedAt)} · ${Number(r.deltaAnswered||0)} ${t('answeredShort','respondidas').toLowerCase()}</span><div class="academy-history-row-actions"><button type="button" class="academy-secondary" data-history-retrain="${esc(r.id)}">${t('trainAgain','TREINAR NOVAMENTE')}</button><button type="button" class="academy-secondary" data-history-delete="${esc(r.id)}">${t('delete','APAGAR')}</button></div></div><b>${Number(r.deltaCorrect||0)}/${Number(r.deltaAnswered||0)}</b></div>`).join('')
+        ?runs.map(r=>`<div class="academy-history-row"><div><strong>${esc(r.label)}</strong><span>${fmt(r.updatedAt)} · ${Number(r.deltaAnswered||0)} ${t('answeredShort','respondidas').toLowerCase()}</span><div class="academy-history-row-actions"><button type="button" class="academy-secondary" data-history-retrain="${esc(r.id)}">${r.resume?t('resumeSession','RETOMAR SESSÃO'):t('trainAgain','TREINAR NOVAMENTE')}</button><button type="button" class="academy-secondary" data-history-delete="${esc(r.id)}">${t('delete','APAGAR')}</button></div></div><b>${Number(r.deltaCorrect||0)}/${Number(r.deltaAnswered||0)}</b></div>`).join('')
         :`<div class="academy-state">${t('historyEmpty','Nenhum treino salvo no histórico ainda.')}</div>`;
       const draft=mode==='manual'?(`<div class="academy-history-draft"><strong>${t('pendingSession','SESSÃO EM RASCUNHO')}</strong><span>${P.answered} ${t('answeredShort','respondidas').toLowerCase()} · ${P.correct} ${t('correct','acertos').toLowerCase()}</span><div class="academy-history-draft-actions">${C().PrimaryButton(t('saveSession','SALVAR SESSÃO'),'data-save-history-draft')}${C().SecondaryButton(t('discardSession','DESCARTAR'),'data-discard-history-draft')}</div></div>`):'';
       body=`${draft}<div class="academy-history-summary"><div><b>${H.total}</b><span>${t('sessions','SESSÕES')}</span></div><div><b>${H.answered}</b><span>${t('answeredShort','RESPONDIDAS')}</span></div><div><b>${H.correct}</b><span>${t('correct','ACERTOS')}</span></div></div><div class="academy-history-list">${rows}</div><div class="academy-history-actions">${C().SecondaryButton(t('clearHistory','APAGAR HISTÓRICO'),'data-clear-academy-history')}</div>`;
@@ -56,6 +56,7 @@
     const retrain=e.target.closest('[data-history-retrain]');
     if(retrain){
       e.preventDefault();const run=window.TrainingHistoryService?.list?.({limit:250})?.find?.(r=>r.id===retrain.dataset.historyRetrain);
+      if(run?.resume){try{sessionStorage.setItem('academy.resume.v1',JSON.stringify(run.resume))}catch(_){}}
       if(run?.kind==='sim'){window.lesson?.('pratica',0,1);return}
       if(run?.kind==='quiz'){window.lesson?.('pratica',1,1);return}
       if(run?.kind==='math'){window.lesson?.('pratica',2,1);return}
