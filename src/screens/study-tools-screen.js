@@ -199,6 +199,22 @@
     return '<div class="academy-study-card"><strong>'+t(kind,title)+'</strong><span>'+description+'</span>'+C().SecondaryButton(t('open','ABRIR'),'data-study-kind="'+kind+'"')+'</div>';
   }
 
+  function reviewSummary(){
+    const wrong=wrongQuestionIds(),store=reviewStore(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
+    let due=0;
+    wrong.forEach(id=>{
+      const rec=store[id];
+      if(!rec){due++;return}
+      const box=Number.isFinite(Number(rec.box))?Number(rec.box):reviewBox(rec);
+      if(box>=maxBox&&rec.lastCorrect)return;
+      const at=Number(rec.dueAt||0)||Number(rec.lastAt||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
+      if(at<=now)due++;
+    });
+    const E=window.EvolutionService?.snapshot?.()||{weakest:[]};
+    const weak=E.weakest?.[0]||null;
+    return {due,wrong:wrong.size,weakest:weak?{key:weak.key,accuracy:weak.accuracy,answered:weak.answered}:null};
+  }
+
   async function renderReview(){
     shell(t('smartReview','REVISÃO INTELIGENTE'),t('smartReviewCopy','As questões erradas retornam em ciclos de reforço.'),'<div class="academy-state">'+t('loading','CARREGANDO...')+'</div>');
     try{
@@ -400,6 +416,8 @@
 
   window.AcademyScreens=window.AcademyScreens||{};
   window.AcademyScreens.studyTool=open;
+  window.AcademyStudyService={reviewSummary};
+  window.dispatchEvent(new CustomEvent('academy:studyready',{detail:reviewSummary()}));
   window.AcademyScreens.retrainHistory=startHistoryRetrain;
 
   document.addEventListener('click',e=>{
