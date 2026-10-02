@@ -20,6 +20,9 @@ const topReset=fs.readFileSync('page-top-reset.js','utf8');
 const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
 const androidGradle=fs.readFileSync('android/app/build.gradle.kts','utf8');
 const androidManifest=fs.readFileSync('android/app/src/main/AndroidManifest.xml','utf8');
+const androidMain=fs.readFileSync('android/app/src/main/java/com/skyare/stackupacademy/MainActivity.java','utf8');
+const historyService=fs.readFileSync('src/services/training-history-service.js','utf8');
+const evolutionService=fs.readFileSync('src/services/evolution-service.js','utf8');
 
 assert('Saira Semi Condensed font import exists',index.includes('family=Saira+Semi+Condensed'));
 assert('global font lock uses Saira Semi Condensed',typography.includes("font-family:'Saira Semi Condensed'"));
@@ -47,7 +50,12 @@ assert('web theme is Academy black',String(manifest.theme_color).toLowerCase()==
 assert('Android application id is stable',androidGradle.includes('applicationId = "com.skyare.stackupacademy"'));
 assert('Android targets API 36',androidGradle.includes('targetSdk = 36')&&androidGradle.includes('compileSdk = 36'));
 assert('Android blocks cleartext traffic',androidManifest.includes('android:usesCleartextTraffic="false"'));
-assert('Android opens the Academy HTTPS host',androidManifest.includes('android:host="skyarecom.github.io"')&&androidManifest.includes('android:pathPrefix="/stackup.holdem-academy/"'));
+assert('Android uses native MainActivity',androidManifest.includes('com.skyare.stackupacademy.MainActivity')&&!androidManifest.includes('com.google.androidbrowserhelper.trusted'));
+assert('Android opens Academy Original',androidMain.includes('https://skyarecom.github.io/stackup.academy-original/')&&androidMain.includes('APP_PATH = "/stackup.academy-original/"'));
+assert('Android release is build 218',androidGradle.includes('versionCode = 218')&&androidGradle.includes('versionName = "2.1.7"')&&androidMain.includes('CACHE_SCHEMA = 218'));
+assert('Practice uses four-card 2x2 layout',stageScreen.includes('academy-practice-grid')&&stageScreen.includes('grid-template-columns:repeat(2,minmax(0,1fr))')&&stageScreen.includes('data-practice-tool="history"'));
+assert('training history service is active',historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange')&&historyService.includes('clear'));
+assert('evolution service uses production XP weights',evolutionService.includes('fundamentals:10')&&evolutionService.includes('modalities:15')&&evolutionService.includes('quiz:20')&&evolutionService.includes('math:25')&&evolutionService.includes('sim:30'));
 
 if(process.exitCode)process.exit(process.exitCode);
 console.log('Play release UI guard OK');
