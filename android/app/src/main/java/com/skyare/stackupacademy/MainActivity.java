@@ -338,7 +338,7 @@ public class MainActivity extends FragmentActivity {
 
                 view.postDelayed(
                         () -> view.evaluateJavascript(
-                                "(function(){return !!(document.querySelector('#app')&&document.querySelector('.screen'));})();",
+                                "(function(){return !!(document.querySelector('.app')&&document.querySelector('#root .screen'));})();",
                                 value -> Log.i(TAG, "WEB_CONTENT_READY=" + value)),
                         1500);
             }
