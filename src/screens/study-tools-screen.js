@@ -85,21 +85,32 @@
     }
     return ids;
   };
+  const REVIEW_INTERVAL_DAYS=[0,1,2,4,8,16];
   const reviewStore=()=>readLocal(REVIEW_KEY);
+  const reviewBox=rec=>{
+    let box=0;
+    for(const a of (Array.isArray(rec?.attempts)?rec.attempts:[]))box=a?.correct?Math.min(box+1,REVIEW_INTERVAL_DAYS.length-1):0;
+    return box;
+  };
   const saveReviewResult=(q,correct)=>{
-    const store=reviewStore(),now=Date.now(),rec=store[q.id]||{attempts:[]};
+    const store=reviewStore(),now=Date.now(),day=86400000,rec=store[q.id]||{attempts:[]};
     rec.source=q.source;rec.skill=q.skill;rec.attempts=Array.isArray(rec.attempts)?rec.attempts:[];
-    rec.attempts.push({at:now,correct:!!correct});rec.attempts=rec.attempts.slice(-20);rec.lastAt=now;rec.lastCorrect=!!correct;
+    rec.attempts.push({at:now,correct:!!correct});rec.attempts=rec.attempts.slice(-20);
+    rec.lastAt=now;rec.lastCorrect=!!correct;rec.box=reviewBox(rec);
+    rec.dueAt=now+REVIEW_INTERVAL_DAYS[rec.box]*day;
     store[q.id]=rec;try{localStorage.setItem(REVIEW_KEY,JSON.stringify(store))}catch(_){}
   };
   const reviewCandidates=bank=>{
-    const wrong=wrongQuestionIds(),store=reviewStore(),now=Date.now(),day=86400000;
-    return bank.filter(q=>{
+    const wrong=wrongQuestionIds(),store=reviewStore(),now=Date.now(),day=86400000,maxBox=REVIEW_INTERVAL_DAYS.length-1;
+    return bank.map(q=>{
       const rec=store[q.id],baseWrong=wrong.has(q.id);
-      if(!rec)return baseWrong;
-      const due=Number(rec.lastAt||0)+(rec.lastCorrect?7*day:day);
-      return baseWrong&&now>=due;
-    });
+      if(!baseWrong)return null;
+      if(!rec)return {...q,_reviewBox:0,_reviewDue:0};
+      const box=Number.isFinite(Number(rec.box))?Number(rec.box):reviewBox(rec);
+      if(box>=maxBox&&rec.lastCorrect)return null;
+      const due=Number(rec.dueAt||0)||Number(rec.lastAt||0)+REVIEW_INTERVAL_DAYS[Math.min(box,maxBox)]*day;
+      return due<=now?{...q,_reviewBox:box,_reviewDue:due}:null;
+    }).filter(Boolean).sort((a,b)=>a._reviewBox-b._reviewBox||a._reviewDue-b._reviewDue);
   };
 
 
