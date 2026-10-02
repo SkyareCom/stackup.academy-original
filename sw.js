@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v120';
-const SW_VERSION=120;
+const CACHE='stackup-academy-v121';
+const SW_VERSION=121;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -74,7 +74,7 @@ const SCRIPTS=[
   ['src/screens/profile-screen.js',7],
   ['src/screens/practice-tools-screen.js',6],
   ['src/screens/study-tools-screen.js',3],
-  ['src/hooks/academy-events.js',1],
+  ['src/hooks/academy-events.js',2],
   ['src/navigation/bottom-navigation.js',6],
 ];
 const AUTO_SCRIPTS=new Set([
