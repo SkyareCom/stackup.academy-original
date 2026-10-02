@@ -8,8 +8,8 @@
       overallProgress:'PROGRESSO GERAL',answered:'QUESTÕES RESPONDIDAS',correct:'ACERTOS',errors:'ERROS',
       streak:'SEQUÊNCIA',weeklyGoal:'META SEMANAL',performance:'DESEMPENHO POR SEÇÃO',
       shortcuts:'ATALHOS',plans:'PLANOS',otherApps:'OUTROS APPS',language:'IDIOMA',
-      free:'ACADEMY FREE',edge:'ACADEMY EDGE',full:'ACADEMY FULL',
-      currentPlan:'PLANO ATUAL',prepared:'ESTRUTURA PREPARADA',ecosystem:'ECOSSISTEMA STACKUP',
+      free:'FREE',monthly:'MENSAL',semiannual:'SEMESTRAL',annual:'ANUAL',coachPlus:'COACH PLUS',
+      currentPlan:'PLANO ATUAL',prepared:'DISPONÍVEL EM BREVE',includedCoach:'2 MENSAGENS COACH/SEMANA INCLUÍDAS',ecosystem:'ECOSSISTEMA STACKUP',
       grinderCopy:'Pronto para transformar conhecimento em treino?',knowGrinder:'CONHEÇA O GRINDER',
       trainingLab:'LABORATÓRIO DE TREINO',back:'VOLTAR',next:'PRÓXIMO',review:'REVISAR',confirm:'CONFIRMAR',
       questions:'QUESTÕES',accuracy:'APROVEITAMENTO',lastSection:'ÚLTIMA SEÇÃO',nextStep:'PRÓXIMA ETAPA',focusDecision:'FOCO · DECISÃO · REPETIÇÃO',hands:'MÃOS',gameStructure:'ESTRUTURA DO JOGO',terminologyProfiles:'TERMINOLOGIA E PERFIS',formats:'FORMATOS',rulesConduct:'REGRAS E CONDUTA',profileCopy:'Preferências, plano do Academy e acesso ao ecossistema.',mainNav:'Navegação principal',personalRanking:'RANKING PESSOAL',history:'HISTÓRICO',exercises:'EXERCÍCIOS',practiceTools:'FERRAMENTAS DE PRÁTICA',selfRankingCopy:'Seu desempenho pessoal com base nos treinos já realizados.',historyCopy:'Resumo consolidado do progresso salvo neste dispositivo.',exercisesCopy:'Acesse rapidamente os exercícios existentes sem criar conteúdo paralelo.',simulator:'SIMULADOR',quiz:'QUIZ',mathPoker:'MATEMÁTICA DO POKER',simulatorCopy:'Treine decisões e regras das modalidades existentes.',quizCopy:'Revise conceitos e retenção.',mathPokerCopy:'Treine os cálculos já disponíveis.'
@@ -22,8 +22,8 @@
       overallProgress:'OVERALL PROGRESS',answered:'QUESTIONS ANSWERED',correct:'CORRECT',errors:'ERRORS',
       streak:'STREAK',weeklyGoal:'WEEKLY GOAL',performance:'PERFORMANCE BY SECTION',
       shortcuts:'SHORTCUTS',plans:'PLANS',otherApps:'OTHER APPS',language:'LANGUAGE',
-      free:'ACADEMY FREE',edge:'ACADEMY EDGE',full:'ACADEMY FULL',
-      currentPlan:'CURRENT PLAN',prepared:'FRONTEND READY',ecosystem:'STACKUP ECOSYSTEM',
+      free:'FREE',monthly:'MONTHLY',semiannual:'SEMIANNUAL',annual:'ANNUAL',coachPlus:'COACH PLUS',
+      currentPlan:'CURRENT PLAN',prepared:'COMING SOON',includedCoach:'2 COACH MESSAGES/WEEK INCLUDED',ecosystem:'STACKUP ECOSYSTEM',
       grinderCopy:'Ready to turn knowledge into training?',knowGrinder:'DISCOVER GRINDER',
       trainingLab:'TRAINING LAB',back:'BACK',next:'NEXT',review:'REVIEW',confirm:'CONFIRM',
       questions:'QUESTIONS',accuracy:'ACCURACY',lastSection:'LAST SECTION',nextStep:'NEXT STEP',focusDecision:'FOCUS · DECISION · REPETITION',hands:'HANDS',gameStructure:'GAME STRUCTURE',terminologyProfiles:'TERMINOLOGY & PROFILES',formats:'FORMATS',rulesConduct:'RULES & CONDUCT',profileCopy:'Preferences, Academy plan and ecosystem access.',mainNav:'Main navigation',personalRanking:'PERSONAL RANKING',history:'HISTORY',exercises:'EXERCISES',practiceTools:'PRACTICE TOOLS',selfRankingCopy:'Your personal performance based on completed training.',historyCopy:'Consolidated summary of progress stored on this device.',exercisesCopy:'Quick access to existing exercises without duplicating content.',simulator:'SIMULATOR',quiz:'QUIZ',mathPoker:'MATH OF POKER',simulatorCopy:'Train decisions and rules from the existing game types.',quizCopy:'Review concepts and retention.',mathPokerCopy:'Practice the calculations already available.'
