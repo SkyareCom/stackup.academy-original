@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v105';
-const SW_VERSION=105;
+const CACHE='stackup-academy-v106';
+const SW_VERSION=106;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -8,7 +8,8 @@ const ASSETS=[
   './fundamentals-visual-layer.js','./fundamentals-interactive.js','./fundamentals-progress-panel.js','./modalities-module.js',
   './modalities-depth-details.js','./mixed-games-module.js','./practice-module.js','./practice-table.js','./practice-advanced-bank.js',
   './practice-advanced.js','./table-rotation-guard.js','./math-card-structure.js','./practice-math-odds.js','./portuguese-corrections.js','./cover-layout.js','./release-compliance.js',
-  './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./typography-standard.js','./icon-192.png','./icon-512.png'
+  './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./typography-standard.js','./icon-192.png','./icon-512.png',
+  './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/components/academy-components.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
 ];
 const SCRIPTS=[
   ['session-reset.js',3],
@@ -50,10 +51,24 @@ const SCRIPTS=[
   ['portuguese-corrections.js',2],
   ['cover-layout.js',10],
   ['release-compliance.js',1],
-  ['academy-visual-system.js',5],
+  ['academy-visual-system.js',6],
   ['page-top-reset.js',3],
-  ['typography-standard.js',5],
-  ['academy-loader.js',9]
+  ['typography-standard.js',6],
+  ['academy-loader.js',9],
+  ['src/theme/academy-theme.js',1],
+  ['src/utils/dom.js',1],
+  ['src/i18n/academy-copy.js',2],
+  ['src/services/progress-service.js',1],
+  ['src/services/auth-service.js',1],
+  ['src/services/content-service.js',1],
+  ['src/services/analytics-service.js',1],
+  ['src/services/billing-service.js',1],
+  ['src/components/academy-components.js',1],
+  ['src/screens/home-screen.js',2],
+  ['src/screens/stage-screen.js',2],
+  ['src/screens/profile-screen.js',2],
+  ['src/hooks/academy-events.js',1],
+  ['src/navigation/bottom-navigation.js',2],
 ];
 const AUTO_SCRIPTS=new Set([
   'session-reset.js','highlight-card-style.js','fundamentals-learning-flow.js',
@@ -91,7 +106,7 @@ function enhanceHtml(source){
     html=html.replace('</head>','<style id="stackup-header-logo-size">.brandin .logo[data-stackup-logo="1"]{width:80px!important;height:80px!important;flex:0 0 80px!important;object-fit:contain!important;background:transparent!important}</style></head>');
   }
   if(!html.includes('stackup-font-lock')){
-    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Inter\',Arial,sans-serif!important}.name,.intro h1,.stitle,.head h2,.card.lesson>h2,.ttitle,.rname,.compare h3{font-family:\'Cormorant Garamond\',Georgia,\'Times New Roman\',serif!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
+    html=html.replace('</head>','<style id="stackup-font-lock">html,body,body *{font-family:\'Overlock\',system-ui,sans-serif!important}.name,.intro h1,.stitle,.head h2,.card.lesson>h2,.ttitle,.rname,.compare h3{font-family:\'Overlock\',system-ui,sans-serif!important}.navicon,.rank,.suit,.fv-rank,.fv-suit{font-family:Arial,sans-serif!important}</style></head>');
   }
   for(const [name,version] of SCRIPTS){
     if(AUTO_SCRIPTS.has(name)&&!html.includes(name))html=html.replace('</body>',`<script src="./${name}?v=${version}"></script></body>`);
