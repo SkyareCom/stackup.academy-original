@@ -5,10 +5,10 @@
 
   if(!document.getElementById('academy-profile-style')){
     const s=document.createElement('style');s.id='academy-profile-style';s.textContent=`
-      .academy-profile{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-profile-head{min-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}
+      .academy-profile{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}.academy-profile-head{height:176px;min-height:176px;max-height:176px;padding:20px 0;display:flex;flex-direction:column;justify-content:flex-end;border-bottom:1px solid var(--academy-line-strong);margin:0 0 16px}
       .academy-profile-section{padding:20px 0 0}.academy-profile-list{border-top:1px solid var(--academy-line)}
-      .academy-plan-grid{display:grid;gap:12px}.academy-plan{padding:15px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}
-      .academy-plan.current{border-color:var(--academy-silver)}.academy-plan-top{display:flex;justify-content:space-between;gap:12px}.academy-plan strong{font-size:12px}.academy-plan span{font-size:12px;letter-spacing:.08em;color:var(--academy-muted);text-transform:uppercase}
+      .academy-plan-grid{display:grid;gap:12px}.academy-plan{padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface)}
+      .academy-plan.current{border-color:var(--academy-silver)}.academy-plan-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.academy-plan-price{margin-top:12px;display:flex;align-items:baseline;gap:6px}.academy-plan-benefits{display:grid;gap:6px;margin-top:12px;color:var(--academy-muted)}.academy-plan-benefits span{display:block}.academy-addon{margin-top:12px;padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-bg-2)}.academy-plan strong{font-size:12px}.academy-plan span{font-size:12px;letter-spacing:.08em;color:var(--academy-muted);text-transform:uppercase}
       .academy-cross-sell{padding:17px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2)}
       .academy-cross-sell p{margin:6px 0 14px;color:var(--academy-muted);font-size:12px;line-height:1.45}
       .academy-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}.academy-lang-toggle button.active{background:var(--academy-ivory);color:var(--academy-bg);border-color:var(--academy-ivory)}
@@ -18,7 +18,7 @@
   function render(focus=''){
     const root=document.getElementById('root');if(!root)return;
     document.getElementById('navtools')?.classList.add('show');
-    const CC=C(),plans=window.BillingService?.getPlans?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR';
+    const CC=C(),plans=window.BillingService?.getPlans?.()||[],addons=window.BillingService?.getAddons?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR';
     root.innerHTML=`<section class="screen academy-profile">
       <header class="academy-profile-head academy-section-intro"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></header>
       <section class="academy-profile-section" id="profile-language">${CC.CourseSection({title:t('language','IDIOMA'),content:`<div class="academy-lang-toggle"><button type="button" class="academy-secondary ${lang==='pt-BR'?'active':''}" data-profile-lang="pt-BR">PT-BR</button><button type="button" class="academy-secondary ${lang==='en-US'?'active':''}" data-profile-lang="en-US">EN-US</button></div>`})}</section>
