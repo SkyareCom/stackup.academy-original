@@ -13,13 +13,54 @@
   const stageName=k=>({fundamentals:'BASE',modalities:'MODALIDADES',practice:'PRÁTICA',quiz:'QUIZ',math:'MATEMÁTICA DO POKER',sim:'SIMULADOR'}[k]||String(k||'').toUpperCase());
   const stageKey=k=>({fundamentals:'fundamentos',modalities:'modalidades',practice:'pratica',quiz:'pratica',math:'pratica',sim:'pratica'}[k]||'pratica');
 
-  function ensureAdvancedBank(){
-    if(window.StackupPracticeAdvancedBank)return Promise.resolve(window.StackupPracticeAdvancedBank);
+  const loadBankScript=(name,version,test)=>{
+    if(test())return Promise.resolve();
     return new Promise((resolve,reject)=>{
-      const existing=document.querySelector('script[data-academy-exam-bank]');
-      if(existing){existing.addEventListener('load',()=>resolve(window.StackupPracticeAdvancedBank));existing.addEventListener('error',reject);return}
-      const s=document.createElement('script');s.dataset.academyExamBank='1';s.src='./practice-advanced-bank.js?v=2';s.onload=()=>resolve(window.StackupPracticeAdvancedBank);s.onerror=()=>reject(new Error('Não foi possível carregar o banco do simulado.'));document.body.appendChild(s);
+      const key='academy-bank-'+name.replace(/[^a-z0-9]/gi,'-');
+      const existing=document.querySelector('script[data-bank-key="'+key+'"]');
+      if(existing){
+        if(test())return resolve();
+        existing.addEventListener('load',()=>test()?resolve():reject(new Error('Banco não exposto: '+name)),{once:true});
+        existing.addEventListener('error',reject,{once:true});
+        return;
+      }
+      const s=document.createElement('script');s.dataset.bankKey=key;s.src='./'+name+'?v='+version;s.async=false;
+      s.onload=()=>test()?resolve():reject(new Error('Banco não exposto: '+name));
+      s.onerror=()=>reject(new Error('Não foi possível carregar '+name+'.'));
+      document.body.appendChild(s);
     });
+  };
+  async function ensureStudyBanks(){
+    await loadBankScript('fundamentals-interactive-bank.js',1,()=>!!window.StackupFundamentalsSpotBank);
+    await loadBankScript('modalities-module.js',7,()=>!!window.StackupModalitiesSpotBank);
+    await loadBankScript('mixed-games-module.js',8,()=>!!window.StackupMixedGamesSpotBank);
+    await loadBankScript('practice-advanced-bank.js',2,()=>!!window.StackupPracticeAdvancedBank);
+  }
+  const normalizeQuestion=(q,source,skill)=>{
+    if(!q||!Array.isArray(q.options)||q.options.length<2||Array.isArray(q.answer))return null;
+    return {
+      id:source+':'+String(q.id||Math.random()),
+      question:q.question||q.prompt||'',
+      options:[...q.options],
+      answer:q.answer,
+      source,skill
+    };
+  };
+  async function generalQuestionBank(){
+    await ensureStudyBanks();
+    const out=[];
+    Object.entries(window.StackupFundamentalsSpotBank||{}).forEach(([chapter,rows])=>{
+      (rows||[]).forEach(q=>{const n=normalizeQuestion(q,'BASE',chapter);if(n)out.push(n)});
+    });
+    Object.entries(window.StackupModalitiesSpotBank||{}).forEach(([game,rows])=>{
+      (rows||[]).forEach(q=>{const n=normalizeQuestion(q,'MODALIDADES',game);if(n)out.push(n)});
+    });
+    (window.StackupMixedGamesSpotBank||[]).forEach(q=>{const n=normalizeQuestion(q,'MODALIDADES','MIXED GAMES');if(n)out.push(n)});
+    const adv=window.StackupPracticeAdvancedBank||{};
+    (adv.quiz||[]).forEach(q=>{const n=normalizeQuestion(q,'QUIZ',q.topic||'QUIZ');if(n)out.push(n)});
+    (adv.math||[]).forEach(q=>{const n=normalizeQuestion(q,'MATEMÁTICA',q.topic||'MATEMÁTICA');if(n)out.push(n)});
+    const seen=new Set();
+    return out.filter(q=>q.question&&q.answer!=null&&!seen.has(q.id)&&(seen.add(q.id),true));
   }
   const shuffle=a=>{const out=[...a];for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out};
 
@@ -51,9 +92,9 @@
   async function startExam(){
     shell(t('timedExam','SIMULADO CRONOMETRADO'),t('examPreparing','Preparando 20 questões sorteadas do Academy...'),'<div class="academy-state">'+t('loading','CARREGANDO...')+'</div>');
     try{
-      const bank=await ensureAdvancedBank();
-      const questions=shuffle(bank?.quiz||[]).slice(0,20);
-      if(questions.length<20)throw new Error('Banco insuficiente para o simulado.');
+      const bank=await generalQuestionBank();
+      const questions=shuffle(bank).slice(0,20);
+      if(questions.length<20)throw new Error('Banco geral insuficiente para o simulado.');
       exam={questions,index:0,answers:{},startedAt:Date.now(),endsAt:Date.now()+12*60*1000,finished:false};
       renderExam();
     }catch(error){shell(t('timedExam','SIMULADO CRONOMETRADO'),'',C().ErrorState(error.message||'Não foi possível iniciar o simulado.'))}
