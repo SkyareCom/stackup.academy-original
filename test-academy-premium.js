@@ -11,6 +11,8 @@ const home=read('src/screens/home-screen.js');
 const stage=read('src/screens/stage-screen.js');
 const profile=read('src/screens/profile-screen.js');
 const tools=read('src/screens/practice-tools-screen.js');
+const study=read('src/screens/study-tools-screen.js');
+const evolution=read('src/services/evolution-service.js');
 const studyTools=read('src/screens/study-tools-screen.js');
 const nav=read('src/navigation/bottom-navigation.js');
 const progress=read('src/services/progress-service.js');
@@ -45,6 +47,9 @@ assert('BASE uses editorial groups',stage.includes('AcademyCourseMap')&&stage.in
 assert('Practice uses latest four-card 2x2 layout',stage.includes('academy-practice-grid')&&stage.includes('repeat(2,minmax(0,1fr))')&&stage.includes("data-practice-tool=\"history\""));
 assert('advanced study tools are ported',studyTools.includes('SIMULADO CRONOMETRADO')&&studyTools.includes('REVISÃO INTELIGENTE')&&studyTools.includes('CERTIFICADOS')&&studyTools.includes('RELATÓRIO POR COMPETÊNCIA')&&home.includes('data-home-study'));
 assert('Practice history is session-based',tools.includes('TrainingHistoryService')&&historyService.includes("KEY='academy.hist.v1'")&&historyService.includes('recordStorageChange'));
+assert('advanced study exposes all four production tools',study.includes('smartReview')&&study.includes('timedExam')&&study.includes('certificates')&&study.includes('skillReport'));
+assert('advanced exam uses the full Academy bank',study.includes('StackupFundamentalsSpotBank')&&study.includes('StackupModalitiesSpotBank')&&study.includes('StackupMixedGamesSpotBank'));
+assert('evolution includes self battle and podium',evolution.includes('selfBattle')&&evolution.includes('podium'));
 assert('12px-only hierarchy',read('typography-standard.js').includes('--type-brand:12px')&&read('typography-standard.js').includes('--type-caption:12px'));
 assert('card and section titles uppercase',read('typography-standard.js').includes('.academy-row-copy strong')&&read('typography-standard.js').includes('text-transform:uppercase!important'));
 assert('stage header content cannot shift vertically',stage.includes('academy-stage-hero-grid')&&stage.includes('grid-template-rows:18px 18px 54px')&&!stage.includes("action:key==='pratica'"));
