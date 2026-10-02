@@ -11,13 +11,13 @@ if(!index.includes('family=Saira+Semi+Condensed:wght@400;600'))fail('Saira Semi 
 if(index.includes('wght@700')||index.includes('wght@500')||index.includes('wght@800')||index.includes('wght@900'))fail('unsupported Saira font weights imported');
 if(typography.includes('Love Ya Like A Sister')||typography.includes('Cormorant Garamond')||typography.includes("'Inter'"))fail('legacy Academy display families remain');
 
-for(const token of ['--type-brand:14px','--type-screen:14px','--type-section:14px','--type-body:12px','--type-button:12px','--type-caption:10px']){
+for(const token of ['--type-brand:12px','--type-screen:12px','--type-section:12px','--type-body:12px','--type-button:12px','--type-caption:12px']){
   if(!typography.includes(token))fail('missing typography token '+token);
 }
 if(!typography.includes('text-transform:uppercase!important'))fail('uppercase title guard is missing');
 if(!typography.includes('.academy-row-copy strong')||!typography.includes('.academy-section-heading h2')||!typography.includes('.ttitle'))fail('card/section title selectors are not protected');
 
-const allowedSizes=new Set([10,12,14]);
+const allowedSizes=new Set([12]);
 const allowedWeights=new Set([400,600]);
 const files=[];
 function walk(dir){
@@ -45,4 +45,4 @@ if(violations.length)fail('typography violations: '+violations.slice(0,40).join(
 
 if(!copy.includes("continueLearning:'CONTINUAR APRENDENDO'")||!copy.includes("trainingLab:'LABORATÓRIO DE TREINO'")||!copy.includes("mathPoker:'MATEMÁTICA DO POKER'"))fail('Portuguese primary premium copy is incomplete');
 
-console.log('Typography identity OK: Saira Semi Condensed; sizes 14/12/10; weights 400/600; Portuguese primary');
+console.log('Typography identity OK: Saira Semi Condensed; 12px only; weights 400/600; uppercase titles; Portuguese primary');
