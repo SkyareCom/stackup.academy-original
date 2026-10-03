@@ -13,9 +13,9 @@
   const groups={
     fundamentos:[
       ['other-rules-details.js',6],
-      ['fundamentals-interactive-bank.js',1],
+      ['fundamentals-interactive-bank.js',2],
       ['fundamentals-visual-layer.js',5],
-      ['fundamentals-interactive.js',10],
+      ['fundamentals-interactive.js',11],
       ['fundamentals-progress-panel.js',6]
     ],
     modalidades:[
