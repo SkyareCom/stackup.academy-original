@@ -19,6 +19,7 @@
     `;document.head.appendChild(s);
   }
   const app=document.querySelector('.app');if(!app)return;
+  const root=document.getElementById('root');if(!root)return;
   const nav=document.createElement('nav');nav.className='academy-bottom-nav';nav.setAttribute('aria-label',t('mainNav','Navegação principal'));
   const items=[
     ['home','home',t('home','HOME')],['fundamentos','base',t('base','BASE')],['modalidades','modalities',t('modalities','MODALIDADES')],
@@ -98,6 +99,6 @@
   },{passive:true});
   root.addEventListener('touchcancel',()=>{touch=null;resetSwipe()},{passive:true});
   window.addEventListener('popstate',()=>requestAnimationFrame(()=>setActive(infer())));
-  const root=document.getElementById('root');new MutationObserver(()=>requestAnimationFrame(()=>setActive(infer()))).observe(root,{childList:true});
+  new MutationObserver(()=>requestAnimationFrame(()=>setActive(infer()))).observe(root,{childList:true});
   setActive(infer());
 })();
