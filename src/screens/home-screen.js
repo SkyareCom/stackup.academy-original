@@ -62,6 +62,15 @@
     document.getElementById('navtools')?.classList.remove('show');
     const S=window.ProgressService?.snapshot?.()||{answered:0,correct:0,errors:0,pct:0,accuracy:0,weekly:{completed:0,goal:25,pct:0},sections:{}};
     const route=continueRoute(),hasProgress=S.answered>0,CC=C(),R=window.AcademyStudyService?.reviewSummary?.()||{due:0};
+    const E=window.EvolutionService?.snapshot?.()||{selfBattle:{villainPct:0,heroPct:0},podium:{previous:null,next:null}};
+    const evolutionMeta={
+      firstAttempt:t('firstAttempt','1ª TENTATIVA'),
+      currentPerformance:t('currentPerformance','ATUAL'),
+      villainMe:t('villainMe','EU VILÃO'),
+      villainPct:E.selfBattle?.villainPct||0,
+      heroPct:E.selfBattle?.heroPct||0,
+      podium:{previous:E.podium?.previous?.name||'',next:E.podium?.next?.name||''}
+    };
     const stageCards=['fundamentos','modalidades','pratica'].map(key=>{
       const inf=stageInfo(key),progressKey=key==='fundamentos'?'fundamentals':key,section=S.sections?.[progressKey]||{pct:0};return `<button type="button" class="academy-stage-card" data-home-stage="${key}"><span>ETAPA ${inf.num}</span><strong>${esc(inf.label)}</strong><small>${Math.round(section.pct||0)}%</small></button>`;
     }).join('');
@@ -79,7 +88,7 @@
         ${CC.CourseSection({title:t('continueLearning','CONTINUAR APRENDENDO'),content:`<div class="academy-continue"><div class="academy-continue-top"><div><div class="academy-kicker">${t('nextStep','PRÓXIMA ETAPA')}</div><h3>${esc(lastLabel(route))}</h3><p>${Math.round(S.pct)}% · ${S.answered} ${t('answered','QUESTÕES RESPONDIDAS').toLowerCase()}</p></div><b>${Math.round(S.pct)}%</b></div>${CC.LearningProgress(S.pct)}${CC.SecondaryButton(hasProgress?t('continue','CONTINUAR APRENDENDO'):t('start','COMEÇAR'),'data-home-continue')}</div>`})}
       </section>
       <section class="academy-home-section">
-        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-evolution-summary"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div>${R.due?`<div class="academy-review-entry">${CC.SecondaryButton(t('todayReviewPending','REVISÃO DO DIA · {n} PENDENTES').replace('{n}',R.due),'data-home-review')}</div>`:''}`})}
+        ${CC.CourseSection({title:t('myEvolution','MINHA EVOLUÇÃO'),content:`<div class="academy-evolution-summary" data-evolution-context="${esc(JSON.stringify(evolutionMeta))}"><div><b>${S.answered}</b><span>${t('answered','QUESTÕES RESPONDIDAS')}</span></div><div><b>${S.correct}</b><span>${t('correct','ACERTOS')}</span></div><div><b>${S.accuracy}%</b><span>${t('accuracy','APROVEITAMENTO')}</span></div></div><div style="margin-top:14px">${CC.WeeklyGoal(S.weekly)}</div>${R.due?`<div class="academy-review-entry">${CC.SecondaryButton(t('todayReviewPending','REVISÃO DO DIA · {n} PENDENTES').replace('{n}',R.due),'data-home-review')}</div>`:''}`})}
       </section>
     </section>`;
     window.AnalyticsService?.screen?.('home');
