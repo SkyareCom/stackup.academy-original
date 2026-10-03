@@ -89,6 +89,95 @@
     #root .academy-row-copy,#root .academy-plan,#root .academy-addon,#root .academy-cross-sell,#root .block,#root .detail-card{text-align:left!important}
     #root .academy-section-heading,#root .academy-plan-top,#root .academy-metric-row{align-items:flex-start!important}
     #root .academy-stage-card{text-align:center!important}
+
+    /* Premium content guard: legacy educational modules must never reintroduce light panels. */
+    #root .detail-card,#root .detail-note,#root .street-chip,#root .action-chip,#root .step-item,
+    #root .ct-card,#root .ct-note,#root .ct-alert,#root .ct-mini,
+    #root .etq-card,#root .etq-note,#root .etq-alert,#root .etq-mini,#root .penalty,
+    #root .rule-card,#root .rule-note,#root .rule-alert,#root .rule-step,#root .staff-card,
+    #root .rules-card,#root .rules-note,#root .rules-alert,#root .rules-step,
+    #root .tp-card,#root .tp-note,#root .term,#root .profile,#root .axis>div,
+    #root .strategy-item,#root .strategy-summary,#root .m2-depth-card,
+    #root .positions-lesson-key .dealer-info,#root .position-key .dealer-info{
+      background:var(--academy-surface)!important;
+      border-color:var(--academy-line-strong)!important;
+      color:var(--academy-ivory)!important;
+      box-shadow:none!important;
+    }
+    #root .detail-card h3,#root .street-chip strong,#root .action-chip strong,#root .step-item strong,
+    #root .ct-card h3,#root .ct-card strong,#root .ct-mini strong,
+    #root .etq-card h3,#root .etq-card strong,#root .etq-mini strong,#root .penalty strong,
+    #root .rule-card h3,#root .rule-card strong,#root .rule-step strong,#root .staff-card h3,#root .staff-card strong,
+    #root .rules-card h3,#root .rules-card strong,#root .rules-step strong,
+    #root .tp-card h3,#root .tp-card strong,#root .term strong,#root .profile strong,#root .axis b,
+    #root .strategy-item h4,#root .strategy-item b,#root .strategy-summary strong,#root .m2-depth-card h3{
+      color:var(--academy-ivory)!important;
+    }
+    #root .detail-card p,#root .street-chip span,#root .action-chip span,#root .step-item,
+    #root .ct-card p,#root .ct-mini span,#root .etq-card p,#root .etq-mini span,#root .penalty,
+    #root .rule-card p,#root .rule-step,#root .staff-card p,#root .rules-card p,#root .rules-step,
+    #root .tp-card p,#root .term span,#root .profile span,#root .axis>div,
+    #root .strategy-item p,#root .strategy-summary,#root .m2-depth-card p{
+      color:var(--academy-silver-3)!important;
+    }
+
+    /* Legacy ranking: five cards stay in one horizontal hand instead of stacking vertically. */
+    #root .ranking{display:grid!important;gap:10px!important}
+    #root .ranking .rrow{
+      padding:12px!important;
+      border:1px solid var(--academy-line-strong)!important;
+      border-radius:var(--academy-radius-lg)!important;
+      background:var(--academy-surface)!important;
+      overflow:hidden!important;
+    }
+    #root .ranking .rhead{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:10px!important}
+    #root .ranking .rpos{color:var(--academy-muted)!important;flex:none!important}
+    #root .ranking .rname{color:var(--academy-ivory)!important}
+    #root .ranking .hand{
+      display:flex!important;
+      flex-direction:row!important;
+      flex-wrap:nowrap!important;
+      align-items:center!important;
+      justify-content:flex-start!important;
+      gap:5px!important;
+      width:100%!important;
+      overflow-x:auto!important;
+      padding:2px 0 4px!important;
+    }
+    #root .ranking .pc{
+      display:flex!important;
+      flex:0 0 45px!important;
+      width:45px!important;
+      min-width:45px!important;
+      max-width:45px!important;
+      height:62px!important;
+      min-height:62px!important;
+      max-height:62px!important;
+      margin:0!important;
+      border-radius:8px!important;
+      background:var(--academy-ivory-2)!important;
+      border:1px solid var(--academy-silver-3)!important;
+      color:var(--academy-bg-3)!important;
+      align-items:center!important;
+      justify-content:center!important;
+      flex-direction:column!important;
+      box-shadow:0 3px 8px var(--academy-shadow)!important;
+    }
+    #root .ranking .pc.red{color:var(--academy-danger)!important}
+    #root .ranking .rnote{margin-top:7px!important;color:var(--academy-muted)!important;line-height:1.4!important}
+
+    /* Premium actions: avoid light/sage filled buttons inside training modules. */
+    #root .fi-btn.primary,#root .m2-btn.primary,#root .p3-btn.primary,#root .p3x-btn.primary{
+      background:var(--academy-surface-3)!important;
+      color:var(--academy-ivory)!important;
+      border-color:var(--academy-graphite-2)!important;
+      box-shadow:none!important;
+    }
+    #root .fi-result.ok,#root .fi-complete{
+      background:var(--academy-surface-3)!important;
+      color:var(--academy-ivory)!important;
+      border:1px solid var(--academy-success)!important;
+    }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
   `;
   document.head.appendChild(style);
