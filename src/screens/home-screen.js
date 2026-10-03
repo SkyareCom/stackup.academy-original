@@ -106,5 +106,5 @@
     const s=e.target.closest('[data-home-stage]');if(s){e.preventDefault();window.stage?.(s.dataset.homeStage,1);return}
   });
   window.addEventListener('academy:studyready',()=>{if(document.querySelector('#root .academy-home'))renderHome()});
-  if(history.state?.type==='home'||!history.state)requestAnimationFrame(renderHome);
+  if((window.AcademyEntry?.hasSession?.()??true)&&(history.state?.type==='home'||!history.state))requestAnimationFrame(renderHome);
 })();
