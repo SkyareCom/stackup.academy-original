@@ -12,13 +12,16 @@
   const current={sim:null,quiz:null,math:null};
   const history={sim:[],quiz:[],math:[]};
   const answered={sim:false,quiz:false,math:false};
+  const migrateSimAliases=()=>{const aliases=B.simAliases||{},results=state.sim.results||{};let changed=false;for(const [oldId,newId] of Object.entries(aliases)){if(Object.prototype.hasOwnProperty.call(results,oldId)){if(!Object.prototype.hasOwnProperty.call(results,newId))results[newId]=results[oldId];delete results[oldId];changed=true;}}if(state.sim.currentId&&aliases[state.sim.currentId]){state.sim.currentId=aliases[state.sim.currentId];changed=true;}return changed;};
   const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(state))}catch(_){}};
+  if(migrateSimAliases())save();
   const takeResume=(mode,bank)=>{
     let req=null;try{req=JSON.parse(sessionStorage.getItem(RESUME_KEY)||'null')}catch(_){}
     if(!req||req.mode!==mode)return false;
     if(mode==='sim'&&req.filter&&SIM_FILTERS.some(f=>f.key===req.filter))state.sim.filter=req.filter;
     const activeBank=mode==='sim'?simBank():bank;
-    const item=activeBank.find(x=>String(x.id)===String(req.id));
+    const requestedId=mode==='sim'?(B.simAliases?.[req.id]||req.id):req.id;
+    const item=activeBank.find(x=>String(x.id)===String(requestedId));
     try{sessionStorage.removeItem(RESUME_KEY)}catch(_){}
     if(!item)return false;
     current[mode]=item;history[mode]=[];answered[mode]=false;
@@ -229,7 +232,7 @@
   function setTheory(lesson,mode){
     const blocks=lesson.querySelector('.blocks');if(!blocks)return;
     if(mode==='sim')blocks.innerHTML=`<div class="block"><h3>SIMULAÇÃO DE JOGO</h3><p>A mão acontece visualmente na mesa: dealer, blinds, distribuição, stacks, apostas, pote, valor a pagar, board e showdown. A pergunta aparece como decisão dentro da situação.</p></div><div class="block"><h3>FILTROS PRIORITÁRIOS</h3><p><strong>NLH, PLO4, PLO5 e PLO6</strong> ficam separados para treino direcionado. <strong>MAIS</strong> reúne as demais modalidades.</p></div><div class="block"><h3>ESTATÍSTICAS POR FILTRO</h3><p>CERTOS, REALIZADOS e TOTAL mostram somente os spots da modalidade selecionada, preservando o progresso de cada grupo.</p></div>`;
-    if(mode==='quiz')blocks.innerHTML=`<div class="block"><h3>150 PERGUNTAS INÉDITAS</h3><p>Perguntas gerais sobre tudo que foi ensinado no app: conceitos, jogo, regras, terminologias, modalidades e comportamento.</p></div><div class="block"><h3>SEM REPETIR O EXERCÍCIO DO CAPÍTULO</h3><p>O Quiz reformula o conhecimento e cobra aplicação fora do contexto exato em que ele foi apresentado.</p></div>`;
+    if(mode==='quiz')blocks.innerHTML=`<div class="block"><h3>${B.quiz.length} PERGUNTAS ATIVAS</h3><p>Perguntas gerais sobre tudo que foi ensinado no app: conceitos, jogo, regras, terminologias, modalidades e comportamento.</p></div><div class="block"><h3>SEM REPETIR O EXERCÍCIO DO CAPÍTULO</h3><p>O Quiz reformula o conhecimento e cobra aplicação fora do contexto exato em que ele foi apresentado.</p></div>`;
     if(mode==='math')blocks.innerHTML=`<div class="block"><h3>MATEMÁTICA QUE VOCÊ USA NA MESA</h3><p>Cada cálculo explica para que serve, como usar e um atalho mental. Inclui Regra do 2 e do 4, outs, pot odds, SPR, EV, MDF, alpha e probabilidades de referência.</p></div>`;
   }
 
