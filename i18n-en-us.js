@@ -41,7 +41,7 @@
     'movem-se':'move','afastar-se':'step away','ausenta-se':'steps away','queima-se':'burn',
     'abre-se':'deal','escolhem-se':'choose','adaptar-se':'adapt',
     conectividade:'connectivity',movimentando:'moving',aplicam:'apply',brando:'soft',
-    terceira:'third',matematica:'mathematics'
+    terceira:'third',matematica:'mathematics',tópico:'topic','evolução':'evolution'
   });
 
   function language(){try{return localStorage.getItem(STORAGE)==='en-US'?'en-US':'pt-BR';}catch(_){return 'pt-BR';}}
