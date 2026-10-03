@@ -43,7 +43,7 @@
       .academy-entry-lang:active,.academy-entry-access-btn:active{transform:translateY(1px)}
       .academy-entry-access-btn:disabled{opacity:.55;cursor:wait}
       .academy-entry-access-btn svg{width:20px;height:20px;display:block}
-      .academy-entry-stack-logo{width:22px;height:22px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#090909;box-shadow:0 0 0 1px rgba(242,217,149,.22)}.academy-entry-stack-logo img{width:100%;height:100%;object-fit:cover;display:block}.academy-entry-arrow{color:rgba(242,237,226,.42);text-align:right;font-size:16px;font-weight:300}
+      .academy-entry-stack-logo{width:22px;height:22px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#090909;box-shadow:0 0 0 1px rgba(242,217,149,.22)}.academy-entry-stack-logo img{width:100%;height:100%;object-fit:cover;display:block}.academy-entry-arrow{color:rgba(242,237,226,.42);text-align:right;font-size:12px;font-weight:400}
       .academy-entry-status{min-height:18px;margin:12px 2px 0;color:var(--academy-muted,#97938B);font-size:12px;line-height:1.35;text-align:center}
       @media(max-height:700px){.academy-entry-brand{padding-top:1vh}.academy-entry-logo{width:92px;height:92px}.academy-entry-controls{padding-top:24px}}
     `;
