@@ -299,7 +299,21 @@
   window.StackupModalitiesMeta={version:2,lessons:Object.keys(BANK).length,spotsByLesson:bankSizes,minSpotsPerLesson:Math.min(...sizeValues),maxSpotsPerLesson:Math.max(...sizeValues),totalSpots:sizeValues.reduce((a,b)=>a+b,0),interactionTypes:['choice','binary','sequence']};
   function slug(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'').toUpperCase();}
   function read(){try{return JSON.parse(localStorage.getItem(STORAGE)||'{}')||{};}catch(_){return {};}}function write(x){try{localStorage.setItem(STORAGE,JSON.stringify(x));}catch(_){}}
-  function progress(n){const p=read()[n]||{answers:{}};const answers={...(p.answers||{})};for(const [oldId,newId] of Object.entries(LEGACY_ALIASES[n]||{})){if(answers[oldId]&&!answers[newId])answers[newId]=answers[oldId];}return {...p,answers};}function save(n,s,sel,ok){const all=read(),p=all[n]||{answers:{}};const old=p.answers[s.id];p.answers[s.id]={selected:sel,correct:ok,attempts:(old?.attempts||0)+1};all[n]=p;write(all);}
+  function migrateAliases(){
+    const all=read();let changed=false;
+    for(const [lesson,map] of Object.entries(LEGACY_ALIASES)){
+      const p=all[lesson];if(!p?.answers)continue;
+      for(const [oldId,newId] of Object.entries(map||{})){
+        if(!Object.prototype.hasOwnProperty.call(p.answers,oldId))continue;
+        if(!Object.prototype.hasOwnProperty.call(p.answers,newId))p.answers[newId]=p.answers[oldId];
+        delete p.answers[oldId];changed=true;
+      }
+    }
+    if(changed)write(all);
+    return changed;
+  }
+  migrateAliases();
+  function progress(n){return read()[n]||{answers:{}};}function save(n,s,sel,ok){const all=read(),p=all[n]||{answers:{}};const old=p.answers[s.id];p.answers[s.id]={selected:sel,correct:ok,attempts:(old?.attempts||0)+1};all[n]=p;write(all);}
   function stats(n){const allowed=new Set((BANK[n]||[]).map(x=>x.id)),a=Object.entries(progress(n).answers||{}).filter(([id])=>allowed.has(id)).map(([,v])=>v),r=a.length,c=a.filter(x=>x.correct).length,total=Math.max(1,(BANK[n]||[]).length);return{r,c,total,cp:r?Math.round(c/r*100):0,rp:Math.min(100,Math.round(r/total*100))};}
   function runtime(n){if(!runtimes[n])runtimes[n]={q:queue(n),history:[],cursor:-1,redo:false,seq:[]};return runtimes[n];}function queue(n){const a=progress(n).answers||{},spots=BANK[n]||[];return[...shuffle(spots.filter(s=>!a[s.id])),...shuffle(spots.filter(s=>a[s.id]))];}
   function next(rt,n){if(rt.cursor<rt.history.length-1){rt.cursor++;rt.redo=false;rt.seq=[];return;}let s=rt.q.shift();if(!s){rt.q=shuffle(BANK[n]);s=rt.q.shift();}rt.history.push(s.id);rt.cursor=rt.history.length-1;rt.redo=false;rt.seq=[];}function current(rt,n){return BANK[n].find(s=>s.id===rt.history[rt.cursor]);}
