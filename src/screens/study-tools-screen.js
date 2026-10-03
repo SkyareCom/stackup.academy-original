@@ -413,9 +413,14 @@
         const action=s.score>0?C().SecondaryButton(t('reinforceCompetency','REFORÇAR COMPETÊNCIA'),'data-competency-review="'+encodeURIComponent(s.skill)+'"'):'';
         return '<div class="academy-skill-row"><div class="academy-skill-head"><strong>'+esc(s.skill)+'</strong><b>'+s.weightedAccuracy+'%</b></div><small>'+esc(meta)+'</small>'+action+'</div>';
       }).join(''):C().EmptyState(t('noCompetencyData','Ainda não há dados suficientes por competência.'));
+      const comparisonValues=Object.values(E.comparison||{});
+      const comparisonCount=comparisonValues.reduce((n,x)=>n+Number(x?.count||0),0);
+      const comparisonFirst=comparisonCount?Math.round(comparisonValues.reduce((n,x)=>n+Number(x?.firstPct||0)*Number(x?.count||0),0)/comparisonCount):0;
+      const comparisonCurrent=comparisonCount?Math.round(comparisonValues.reduce((n,x)=>n+Number(x?.lastPct||0)*Number(x?.count||0),0)/comparisonCount):0;
+      const comparison=comparisonCount?'<div class="academy-skill-row"><div class="academy-skill-head"><strong>'+t('firstAttempt','1ª TENTATIVA')+' × '+t('currentPerformance','ATUAL')+'</strong><b>'+comparisonCurrent+'%</b></div><small>'+comparisonFirst+'% → '+comparisonCurrent+'%</small></div>':'';
       const days=Object.entries(E.log||{}).sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);
       const timeline=days.length?'<div class="academy-xp-timeline"><div class="academy-kicker" style="padding:12px 0 2px">'+t('xpTimeline','XP AO LONGO DOS DIAS')+'</div>'+days.map(([day,xp])=>'<div class="academy-xp-day"><span>'+day.slice(8,10)+'/'+day.slice(5,7)+'</span><div>'+C().LearningProgress(Math.min(100,E.xp?Math.round(Number(xp)/E.xp*100):0))+'</div><b>'+xp+' XP</b></div>').join('')+'</div>':'';
-      shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),t('skillReportDetailedCopy','Competências priorizadas por precisão recente, erros persistentes, repetição e tendência.'),rows+timeline);
+      shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),t('skillReportDetailedCopy','Competências priorizadas por precisão recente, erros persistentes, repetição e tendência.'),comparison+rows+timeline);
     }catch(error){shell(t('skillReport','RELATÓRIO POR COMPETÊNCIA'),'',C().ErrorState(error?.message||t('skillReportError','Não foi possível montar o relatório por competência.')))}
   }
 
