@@ -1,5 +1,6 @@
 (() => {
   const BANK=()=>window.StackupFundamentalsSpotBank||{};
+  const ALIASES=()=>window.StackupFundamentalsAliases||{};
   const tr=(k,f='')=>window.AcademyI18n?.t(k,f)||f||k;
   const freeMode=()=>window.PlanAccessService?.TEST_ACCESS===false&&window.PlanAccessService?.isPaid?.()===false;
   const chapterBank=chapter=>{
@@ -63,6 +64,20 @@
 
   function readStore(){try{return JSON.parse(localStorage.getItem(STORAGE)||'{}')||{};}catch(_){return {};}}
   function writeStore(data){try{localStorage.setItem(STORAGE,JSON.stringify(data));}catch(_){}}
+  function migrateAliases(){
+    const all=readStore(),aliases=ALIASES();let changed=false;
+    for(const [chapter,map] of Object.entries(aliases)){
+      const cp=all[chapter];if(!cp?.answers)continue;
+      for(const [oldId,newId] of Object.entries(map||{})){
+        if(!Object.prototype.hasOwnProperty.call(cp.answers,oldId))continue;
+        if(!Object.prototype.hasOwnProperty.call(cp.answers,newId))cp.answers[newId]=cp.answers[oldId];
+        delete cp.answers[oldId];changed=true;
+      }
+    }
+    if(changed)writeStore(all);
+    return changed;
+  }
+  migrateAliases();
   function chapterProgress(chapter){const all=readStore();return all[chapter]||{answers:{}};}
   function saveAnswer(chapter,spot,selected,correct){const all=readStore();const cp=all[chapter]||{answers:{}};const old=cp.answers[spot.id];cp.answers[spot.id]={selected,correct,attempts:(old?.attempts||0)+1,updatedAt:Date.now()};all[chapter]=cp;writeStore(all);}
   function shuffle(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;}
