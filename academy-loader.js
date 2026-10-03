@@ -19,7 +19,7 @@
       ['fundamentals-progress-panel.js',6]
     ],
     modalidades:[
-      ['modalities-module.js',8],
+      ['modalities-module.js',9],
       ['modalities-depth-details.js',5],
       ['mixed-games-module.js',8]
     ],
