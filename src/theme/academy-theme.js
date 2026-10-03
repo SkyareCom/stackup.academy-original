@@ -47,10 +47,19 @@
       --academy-radius-sm:8px;--academy-radius-md:12px;--academy-radius-lg:16px;--academy-radius-xl:20px;
       --academy-motion-fast:160ms;--academy-motion:220ms;--academy-shadow-soft:rgba(0,0,0,.22);--academy-shadow:rgba(0,0,0,.45);--academy-shadow-heavy:rgba(0,0,0,.70);
       --academy-layout-x:16px;--academy-section-gap:20px;--academy-control-gap:12px;--academy-panel-pad:16px;
-      --g:var(--academy-bg-2);--gd:var(--academy-bg);--gs:var(--academy-bg-3);--b:var(--academy-bg);--b2:var(--academy-bg-3);--c:var(--academy-ivory);--c2:var(--academy-ivory-2);--ink:var(--academy-bg-3);--m:var(--academy-muted-2);--gold:var(--academy-ivory);--gold2:var(--academy-silver-2);--w:var(--academy-white);
-      --academy-green:var(--academy-bg-2);--academy-green-dark:var(--academy-bg);--academy-emerald:var(--academy-bg-3);--academy-gold:var(--academy-ivory);--academy-gold-dark:var(--academy-silver-2);--academy-parchment:var(--academy-ivory);--academy-parchment-2:var(--academy-ivory-2);--academy-brown:var(--academy-bg);--academy-brown-2:var(--academy-bg-3);--academy-ink:var(--academy-bg-3);
+      --g:var(--academy-bg-2);--gd:var(--academy-ivory);--gs:var(--academy-bg-3);--b:var(--academy-bg);--b2:var(--academy-bg-3);--c:var(--academy-concrete);--c2:var(--academy-concrete-2);--ink:var(--academy-ivory);--m:var(--academy-silver-3);--gold:var(--academy-ivory);--gold2:var(--academy-silver-2);--w:var(--academy-white);
+      --academy-green:var(--academy-bg-2);--academy-green-dark:var(--academy-bg);--academy-emerald:var(--academy-bg-3);--academy-gold:var(--academy-ivory);--academy-gold-dark:var(--academy-silver-2);--academy-parchment:var(--academy-concrete);--academy-parchment-2:var(--academy-concrete-2);--academy-brown:var(--academy-bg);--academy-brown-2:var(--academy-bg-3);--academy-ink:var(--academy-ivory);
     }
     html,body,body *{font-family:var(--academy-font)!important}
+    /* Hard stop: legacy educational surfaces can no longer resolve to ivory/parchment. */
+    #root :is(.tp-card,.term,.profile,.axis>div,.detail-card,.detail-note,.street-chip,.action-chip,.step-item,.ct-card,.ct-note,.ct-alert,.ct-mini,.etq-card,.etq-note,.etq-alert,.etq-mini,.penalty,.rule-card,.rule-note,.rule-alert,.rule-step,.staff-card,.rules-card,.rules-note,.rules-alert,.rules-step,.strategy-item,.strategy-summary,.m2-depth-card){
+      background:var(--academy-concrete)!important;
+      color:var(--academy-ivory)!important;
+      border-color:#3A3A3A!important;
+    }
+    #root :is(.term,.profile,.axis>div,.street-chip,.action-chip,.ct-mini,.etq-mini,.staff-card){
+      background:var(--academy-concrete-2)!important;
+    }
     body{background:var(--academy-bg)!important;color:var(--academy-ivory)!important}
     button,a,input,select,textarea{font:inherit}
     button,[role="button"]{transition:transform var(--academy-motion-fast) ease,background-color var(--academy-motion) ease,border-color var(--academy-motion) ease,color var(--academy-motion) ease,opacity var(--academy-motion) ease}
