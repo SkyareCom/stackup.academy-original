@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v133';
-const SW_VERSION=133;
+const CACHE='stackup-academy-v134';
+const SW_VERSION=134;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -22,7 +22,7 @@ const SCRIPTS=[
   ['i18n-en-us-words-extra-2.js',1],
   ['i18n-en-us-words-extra-3.js',1],
   ['i18n-en-us-words-extra-4.js',2],
-  ['i18n-en-us.js',6],
+  ['i18n-en-us.js',7],
   ['positions-table.js',10],
   ['fundamentals-details.js',6],
   ['misdeal-staff-details.js',4],
@@ -57,7 +57,7 @@ const SCRIPTS=[
   ['academy-loader.js',12],
   ['src/theme/academy-theme.js',8],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',19],
+  ['src/i18n/academy-copy.js',20],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-preference-service.js',1],
   ['src/services/training-history-service.js',7],
@@ -66,18 +66,18 @@ const SCRIPTS=[
   ['src/services/auth-service.js',1],
   ['src/services/content-service.js',1],
   ['src/services/analytics-service.js',2],
-  ['src/services/billing-service.js',3],
+  ['src/services/billing-service.js',4],
   ['src/services/plan-access-service.js',2],
   ['src/components/academy-components.js',7],
   ['src/components/editorial-lesson-adapter.js',3],
   ['src/components/training-save-bar.js',2],
   ['src/screens/home-screen.js',9],
   ['src/screens/stage-screen.js',11],
-  ['src/screens/profile-screen.js',9],
+  ['src/screens/profile-screen.js',10],
   ['src/screens/practice-tools-screen.js',9],
   ['src/screens/study-tools-screen.js',8],
   ['src/hooks/academy-events.js',2],
-  ['src/navigation/bottom-navigation.js',7],
+  ['src/navigation/bottom-navigation.js',8],
 ];
 const AUTO_SCRIPTS=new Set([
   'session-reset.js','highlight-card-style.js','fundamentals-learning-flow.js',
