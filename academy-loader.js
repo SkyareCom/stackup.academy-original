@@ -12,25 +12,25 @@
   const loading=new Map();
   const groups={
     fundamentos:[
-      ['other-rules-details.js',4],
+      ['other-rules-details.js',6],
       ['fundamentals-interactive-bank.js',1],
-      ['fundamentals-visual-layer.js',4],
-      ['fundamentals-interactive.js',9],
-      ['fundamentals-progress-panel.js',5]
+      ['fundamentals-visual-layer.js',5],
+      ['fundamentals-interactive.js',10],
+      ['fundamentals-progress-panel.js',6]
     ],
     modalidades:[
-      ['modalities-module.js',4],
-      ['modalities-depth-details.js',3],
-      ['mixed-games-module.js',5]
+      ['modalities-module.js',8],
+      ['modalities-depth-details.js',5],
+      ['mixed-games-module.js',8]
     ],
     pratica:[
-      ['practice-module.js',3],
-      ['practice-table.js',5],
-      ['practice-advanced-bank.js',1],
-      ['practice-advanced.js',5],
-      ['table-rotation-guard.js',3],
+      ['practice-module.js',5],
+      ['practice-table.js',7],
+      ['practice-advanced-bank.js',3],
+      ['practice-advanced.js',10],
+      ['table-rotation-guard.js',5],
       ['math-card-structure.js',2],
-      ['practice-math-odds.js',4]
+      ['practice-math-odds.js',6]
     ]
   };
 
