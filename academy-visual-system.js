@@ -60,7 +60,7 @@
       flex-direction:row!important;
       flex-wrap:nowrap!important;
       align-items:center!important;
-      justify-content:flex-start!important;
+      justify-content:flex-end!important;
       gap:4px!important;
       width:100%!important;
       min-width:0!important;
