@@ -12,15 +12,28 @@
   const current={sim:null,quiz:null,math:null};
   const history={sim:[],quiz:[],math:[]};
   const answered={sim:false,quiz:false,math:false};
-  const migrateSimAliases=()=>{const aliases=B.simAliases||{},results=state.sim.results||{};let changed=false;for(const [oldId,newId] of Object.entries(aliases)){if(Object.prototype.hasOwnProperty.call(results,oldId)){if(!Object.prototype.hasOwnProperty.call(results,newId))results[newId]=results[oldId];delete results[oldId];changed=true;}}if(state.sim.currentId&&aliases[state.sim.currentId]){state.sim.currentId=aliases[state.sim.currentId];changed=true;}return changed;};
+  const migrateAliases=()=>{
+    let changed=false;
+    for(const mode of ['sim','quiz']){
+      const aliases=mode==='sim'?(B.simAliases||{}):(B.quizAliases||{}),results=state[mode].results||{};
+      for(const [oldId,newId] of Object.entries(aliases)){
+        if(!Object.prototype.hasOwnProperty.call(results,oldId))continue;
+        if(!Object.prototype.hasOwnProperty.call(results,newId))results[newId]=results[oldId];
+        delete results[oldId];changed=true;
+      }
+      if(state[mode].currentId&&aliases[state[mode].currentId]){state[mode].currentId=aliases[state[mode].currentId];changed=true;}
+    }
+    return changed;
+  };
   const save=()=>{try{localStorage.setItem(STORE,JSON.stringify(state))}catch(_){}};
-  if(migrateSimAliases())save();
+  if(migrateAliases())save();
   const takeResume=(mode,bank)=>{
     let req=null;try{req=JSON.parse(sessionStorage.getItem(RESUME_KEY)||'null')}catch(_){}
     if(!req||req.mode!==mode)return false;
     if(mode==='sim'&&req.filter&&SIM_FILTERS.some(f=>f.key===req.filter))state.sim.filter=req.filter;
     const activeBank=mode==='sim'?simBank():bank;
-    const requestedId=mode==='sim'?(B.simAliases?.[req.id]||req.id):req.id;
+    const aliasMap=mode==='sim'?(B.simAliases||{}):mode==='quiz'?(B.quizAliases||{}):{};
+    const requestedId=aliasMap[req.id]||req.id;
     const item=activeBank.find(x=>String(x.id)===String(requestedId));
     try{sessionStorage.removeItem(RESUME_KEY)}catch(_){}
     if(!item)return false;
