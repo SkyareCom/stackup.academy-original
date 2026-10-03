@@ -14,7 +14,7 @@
     fundamentos:[
       ['other-rules-details.js',6],
       ['fundamentals-interactive-bank.js',2],
-      ['fundamentals-visual-layer.js',5],
+      ['fundamentals-visual-layer.js',6],
       ['fundamentals-interactive.js',11],
       ['fundamentals-progress-panel.js',6]
     ],
