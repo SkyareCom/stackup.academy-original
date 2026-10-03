@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v149';
-const SW_VERSION=149;
+const CACHE='stackup-academy-v150';
+const SW_VERSION=150;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -55,7 +55,7 @@ const SCRIPTS=[
   ['page-top-reset.js',4],
   ['typography-standard.js',11],
   ['academy-loader.js',17],
-  ['src/theme/academy-theme.js',11],
+  ['src/theme/academy-theme.js',12],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',21],
   ['src/content/academy-course-map.js',1],
@@ -142,8 +142,9 @@ async function appShellResponse(request){
 
 self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
+  const url=new URL(event.request.url);
+
   if(event.request.mode==='navigate'){
-    const url=new URL(event.request.url);
     const isAppShell=url.pathname.endsWith('/')||url.pathname.endsWith('/index.html');
     if(isAppShell){
       event.respondWith(appShellResponse(event.request));
@@ -154,12 +155,27 @@ self.addEventListener('fetch',event=>{
         const copy=response.clone();
         caches.open(CACHE).then(cache=>cache.put(event.request,copy));
         return response;
-      }).catch(()=>caches.match(event.request,{ignoreSearch:true}))
+      }).catch(()=>caches.match(event.request))
     );
     return;
   }
+
+  /* Scripts/styles are network-first so a new ?v= can never be masked by an old cache entry. */
+  if(event.request.destination==='script'||event.request.destination==='style'||url.pathname.endsWith('.js')||url.pathname.endsWith('.css')){
+    event.respondWith(
+      fetch(event.request).then(response=>{
+        const copy=response.clone();
+        caches.open(CACHE).then(cache=>cache.put(event.request,copy));
+        return response;
+      }).catch(async()=>{
+        return (await caches.match(event.request))||(await caches.match(url.pathname.split('/').pop()));
+      })
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request,{ignoreSearch:true}).then(cached=>cached||fetch(event.request).then(response=>{
+    caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{
       const copy=response.clone();
       caches.open(CACHE).then(cache=>cache.put(event.request,copy));
       return response;
