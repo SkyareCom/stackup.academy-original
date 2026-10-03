@@ -41,7 +41,7 @@
       .academy-entry-access{display:grid;gap:10px}
       .academy-entry-access-btn{width:100%;min-height:54px;padding:0 16px;border:1px solid #3A3A3A;border-radius:14px;background:rgba(36,36,36,.92);color:var(--academy-ivory,#F2EDE2);display:grid;grid-template-columns:26px 1fr 18px;align-items:center;gap:12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
       .academy-entry-access-btn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-      .academy-entry-arrow{color:var(--academy-silver,#7E7E7E);text-align:right;font-size:16px}
+      .academy-entry-arrow{color:var(--academy-silver,#7E7E7E);text-align:right;font-size:12px}
       .academy-entry-status{min-height:18px;margin:12px 2px 0;color:var(--academy-muted,#97938B);font-size:12px;line-height:1.35;text-align:center}
       @media(max-height:700px){.academy-entry-brand{padding-top:1vh}.academy-entry-logo{width:92px;height:92px}.academy-entry-controls{padding-top:24px}}
     `;
