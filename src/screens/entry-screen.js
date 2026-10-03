@@ -1,5 +1,4 @@
 (() => {
-  const SESSION_KEY='academy.entry.session.v1';
   const METHOD_KEY='academy.entry.method.v1';
   const LANG_KEY='stackup-language-v1';
   const allowedLangs=new Set(['pt-BR','en-US','es-ES']);
@@ -14,8 +13,8 @@
     document.documentElement.lang=lang;
     window.dispatchEvent(new CustomEvent('stackup:languagechange',{detail:{language:lang}}));
   };
-  const hasSession=()=>{try{return sessionStorage.getItem(SESSION_KEY)==='1'}catch(_){return false}};
-  const setSession=method=>{try{sessionStorage.setItem(SESSION_KEY,'1');sessionStorage.setItem(METHOD_KEY,method)}catch(_){}};
+  const hasSession=()=>window.__academyEntryPassed===true;
+  const setSession=method=>{window.__academyEntryPassed=true;try{sessionStorage.setItem(METHOD_KEY,method)}catch(_){}};
 
   if(!document.getElementById('academy-entry-style')){
     const s=document.createElement('style');
