@@ -3,6 +3,7 @@
     colors:{
       background:{primary:'#070707',secondary:'#0C0C0C',tertiary:'#151515'},
       surfaces:{one:'#1A1A1A',two:'#202020',three:'#282828'},
+      concrete:{one:'#242424',two:'#2B2B2B',three:'#313131'},
       graphite:{one:'#333333',two:'#484848'},
       silver:{one:'#7E7E7E',two:'#A5A5A5',three:'#B9B9B9'},
       ivory:{one:'#F2EDE2',two:'#F7F3EB'},
@@ -33,7 +34,7 @@
   style.textContent=`
     :root{
       --academy-bg:#070707;--academy-bg-2:#0C0C0C;--academy-bg-3:#151515;
-      --academy-surface:#1A1A1A;--academy-surface-2:#202020;--academy-surface-3:#282828;
+      --academy-surface:#1A1A1A;--academy-surface-2:#202020;--academy-surface-3:#282828;--academy-concrete:#242424;--academy-concrete-2:#2B2B2B;--academy-concrete-3:#313131;
       --academy-graphite:#333333;--academy-graphite-2:#484848;
       --academy-silver:#7E7E7E;--academy-silver-2:#A5A5A5;--academy-silver-3:#B9B9B9;
       --academy-ivory:#F2EDE2;--academy-ivory-2:#F7F3EB;--academy-white:#FAF7F0;
@@ -99,10 +100,14 @@
     #root .tp-card,#root .tp-note,#root .term,#root .profile,#root .axis>div,
     #root .strategy-item,#root .strategy-summary,#root .m2-depth-card,
     #root .positions-lesson-key .dealer-info,#root .position-key .dealer-info{
-      background:var(--academy-surface)!important;
-      border-color:var(--academy-line-strong)!important;
+      background:var(--academy-concrete)!important;
+      border-color:#3A3A3A!important;
       color:var(--academy-ivory)!important;
       box-shadow:none!important;
+    }
+    #root .term,#root .profile,#root .axis>div,#root .street-chip,#root .action-chip,#root .ct-mini,#root .etq-mini,#root .staff-card{
+      background:var(--academy-concrete-2)!important;
+      border-color:#3A3A3A!important;
     }
     #root .detail-card h3,#root .street-chip strong,#root .action-chip strong,#root .step-item strong,
     #root .ct-card h3,#root .ct-card strong,#root .ct-mini strong,
