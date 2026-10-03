@@ -35,10 +35,13 @@
       .academy-entry-product{margin-top:6px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2)}
       .academy-entry-controls{margin-top:auto;padding-top:38px}
       .academy-entry-language{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:22px}
-      .academy-entry-lang{min-height:42px;border:1px solid #3A3A3A;border-radius:12px;background:rgba(36,36,36,.88);color:var(--academy-silver-3,#B9B9B9);font-size:12px;font-weight:600;letter-spacing:.04em}
-      .academy-entry-lang.active{background:var(--academy-concrete-3,#313131);border-color:var(--academy-silver,#7E7E7E);color:var(--academy-ivory,#F2EDE2)}
+      .academy-entry-lang{min-height:44px;padding:10px 12px;border:1px solid var(--academy-silver,#7E7E7E);border-radius:var(--academy-radius-md,14px);background:var(--academy-surface-2,#202020);color:var(--academy-ivory,#F2EDE2);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+      .academy-entry-lang.active{background:var(--academy-ivory,#F2EDE2);border-color:var(--academy-ivory,#F2EDE2);color:var(--academy-bg,#070707)}
       .academy-entry-access{display:grid;gap:10px}
-      .academy-entry-access-btn{width:100%;min-height:54px;padding:0 16px;border:1px solid #3A3A3A;border-radius:14px;background:rgba(36,36,36,.92);color:var(--academy-ivory,#F2EDE2);display:grid;grid-template-columns:26px 1fr 18px;align-items:center;gap:12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+      .academy-entry-access-btn{width:100%;min-height:44px;padding:10px 14px;border:1px solid var(--academy-silver,#7E7E7E);border-radius:var(--academy-radius-md,14px);background:var(--academy-surface-2,#202020);color:var(--academy-ivory,#F2EDE2);display:grid;grid-template-columns:26px 1fr 18px;align-items:center;gap:12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+      .academy-entry-lang:hover,.academy-entry-access-btn:hover{border-color:var(--academy-ivory,#F2EDE2)}
+      .academy-entry-lang:active,.academy-entry-access-btn:active{transform:translateY(1px)}
+      .academy-entry-access-btn:disabled{opacity:.55;cursor:wait}
       .academy-entry-access-btn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
       .academy-entry-arrow{color:var(--academy-silver,#7E7E7E);text-align:right;font-size:12px}
       .academy-entry-status{min-height:18px;margin:12px 2px 0;color:var(--academy-muted,#97938B);font-size:12px;line-height:1.35;text-align:center}
