@@ -126,7 +126,14 @@
     q=>`Para confirmar que você entendeu o conceito: ${q}`
   ];
   const QUIZ=[];
-  FACTS.forEach((f,fi)=>WRAP.forEach((w,wi)=>QUIZ.push({id:`Q${String(QUIZ.length+1).padStart(3,'0')}`,question:w(f[0]),options:[f[1],...f[2]],answer:f[1],why:f[3],topic:fi<10?'FUNDAMENTOS':fi<24?'MODALIDADES':'CONCEITOS'})));
+  const QUIZ_ALIASES={};
+  FACTS.forEach((f,fi)=>{
+    const canonicalNumber=fi*WRAP.length+1;
+    const canonicalId=`Q${String(canonicalNumber).padStart(3,'0')}`;
+    const w=WRAP[fi%WRAP.length];
+    QUIZ.push({id:canonicalId,question:w(f[0]),options:[f[1],...f[2]],answer:f[1],why:f[3],topic:fi<10?'FUNDAMENTOS':fi<24?'MODALIDADES':'CONCEITOS'});
+    for(let offset=1;offset<WRAP.length;offset++)QUIZ_ALIASES[`Q${String(canonicalNumber+offset).padStart(3,'0')}`]=canonicalId;
+  });
 
   const MATH_THEORY=[
     {title:'OUTS',use:'Serve para estimar quantas cartas ainda podem melhorar sua mão para o resultado que você procura.',formula:'OUTS = cartas limpas que completam sua mão',tip:'Não conte a mesma carta duas vezes e elimine outs que podem completar uma mão ainda melhor para o adversário.'},
@@ -171,5 +178,5 @@
   mergeUnique(QUIZ,REFERENCE_QUIZ);
   mergeUnique(MATH,REFERENCE_MATH);
 
-  window.StackupPracticeAdvancedBank={sim:SIM,simAliases:SIM_ALIASES,quiz:QUIZ,math:MATH,mathTheory:MATH_THEORY,allocation:{simTotal:SIM.length,holdem:SIM.filter(x=>x.game==="Texas Hold'em").length,omaha:SIM.filter(x=>/^PLO/.test(x.game)).length,others:SIM.filter(x=>x.game!=="Texas Hold'em"&&!/^PLO/.test(x.game)).length,quizTotal:QUIZ.length,mathTotal:MATH.length}};
+  window.StackupPracticeAdvancedBank={sim:SIM,simAliases:SIM_ALIASES,quiz:QUIZ,quizAliases:QUIZ_ALIASES,math:MATH,mathTheory:MATH_THEORY,allocation:{simTotal:SIM.length,holdem:SIM.filter(x=>x.game==="Texas Hold'em").length,omaha:SIM.filter(x=>/^PLO/.test(x.game)).length,others:SIM.filter(x=>x.game!=="Texas Hold'em"&&!/^PLO/.test(x.game)).length,quizTotal:QUIZ.length,mathTotal:MATH.length}};
 })();
