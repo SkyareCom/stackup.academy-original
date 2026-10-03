@@ -121,40 +121,50 @@
       color:var(--academy-silver-3)!important;
     }
 
-    /* Legacy ranking: five cards stay in one horizontal hand instead of stacking vertically. */
+    /* Premium ranking: hand name and five cards share one compact row. */
     #root .ranking{display:grid!important;gap:10px!important}
     #root .ranking .rrow{
-      padding:12px!important;
+      display:grid!important;
+      grid-template-columns:max-content minmax(0,1fr)!important;
+      grid-template-rows:auto auto!important;
+      column-gap:8px!important;
+      row-gap:7px!important;
+      align-items:center!important;
+      padding:11px 12px!important;
       border:1px solid var(--academy-line-strong)!important;
       border-radius:var(--academy-radius-lg)!important;
       background:var(--academy-surface)!important;
       overflow:hidden!important;
     }
-    #root .ranking .rhead{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:10px!important}
+    #root .ranking .rhead{grid-column:1!important;grid-row:1!important;display:flex!important;align-items:center!important;gap:5px!important;margin:0!important;white-space:nowrap!important}
+    #root .ranking .rhead:after{content:'—';margin-left:2px;color:var(--academy-muted)!important}
     #root .ranking .rpos{color:var(--academy-muted)!important;flex:none!important}
-    #root .ranking .rname{color:var(--academy-ivory)!important}
+    #root .ranking .rname{color:var(--academy-ivory)!important;white-space:nowrap!important}
     #root .ranking .hand{
+      grid-column:2!important;
+      grid-row:1!important;
       display:flex!important;
       flex-direction:row!important;
       flex-wrap:nowrap!important;
       align-items:center!important;
       justify-content:flex-start!important;
-      gap:5px!important;
+      gap:4px!important;
       width:100%!important;
-      overflow-x:auto!important;
-      padding:2px 0 4px!important;
+      min-width:0!important;
+      overflow:hidden!important;
+      padding:0!important;
     }
     #root .ranking .pc{
       display:flex!important;
-      flex:0 0 45px!important;
-      width:45px!important;
-      min-width:45px!important;
-      max-width:45px!important;
-      height:62px!important;
-      min-height:62px!important;
-      max-height:62px!important;
+      flex:0 0 34px!important;
+      width:34px!important;
+      min-width:34px!important;
+      max-width:34px!important;
+      height:48px!important;
+      min-height:48px!important;
+      max-height:48px!important;
       margin:0!important;
-      border-radius:8px!important;
+      border-radius:7px!important;
       background:var(--academy-ivory-2)!important;
       border:1px solid var(--academy-silver-3)!important;
       color:var(--academy-bg-3)!important;
@@ -164,7 +174,12 @@
       box-shadow:0 3px 8px var(--academy-shadow)!important;
     }
     #root .ranking .pc.red{color:var(--academy-danger)!important}
-    #root .ranking .rnote{margin-top:7px!important;color:var(--academy-muted)!important;line-height:1.4!important}
+    #root .ranking .rnote{grid-column:1/-1!important;grid-row:2!important;margin:0!important;color:var(--academy-muted)!important;line-height:1.4!important}
+    @media(max-width:390px){
+      #root .ranking .rrow{column-gap:6px!important;padding:10px!important}
+      #root .ranking .hand{gap:3px!important}
+      #root .ranking .pc{flex-basis:31px!important;width:31px!important;min-width:31px!important;max-width:31px!important;height:44px!important;min-height:44px!important;max-height:44px!important}
+    }
 
     /* Premium actions: avoid light/sage filled buttons inside training modules. */
     #root .fi-btn.primary,#root .m2-btn.primary,#root .p3-btn.primary,#root .p3x-btn.primary{
