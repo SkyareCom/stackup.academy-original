@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v148';
-const SW_VERSION=148;
+const CACHE='stackup-academy-v149';
+const SW_VERSION=149;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -26,7 +26,7 @@ const SCRIPTS=[
   ['positions-table.js',10],
   ['fundamentals-details.js',6],
   ['misdeal-staff-details.js',4],
-  ['terminology-profiles-details.js',6],
+  ['terminology-profiles-details.js',7],
   ['strategic-concepts-details.js',5],
   ['terminology-extra-terms.js',2],
   ['cash-tournament-details.js',4],
@@ -55,7 +55,7 @@ const SCRIPTS=[
   ['page-top-reset.js',4],
   ['typography-standard.js',11],
   ['academy-loader.js',17],
-  ['src/theme/academy-theme.js',10],
+  ['src/theme/academy-theme.js',11],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',21],
   ['src/content/academy-course-map.js',1],
