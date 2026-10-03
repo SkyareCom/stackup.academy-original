@@ -26,8 +26,8 @@
     pratica:[
       ['practice-module.js',5],
       ['practice-table.js',7],
-      ['practice-advanced-bank.js',3],
-      ['practice-advanced.js',10],
+      ['practice-advanced-bank.js',4],
+      ['practice-advanced.js',11],
       ['table-rotation-guard.js',5],
       ['math-card-structure.js',2],
       ['practice-math-odds.js',6]
