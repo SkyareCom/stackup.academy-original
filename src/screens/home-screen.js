@@ -6,11 +6,13 @@
   if(!document.getElementById('academy-home-screen-style')){
     const s=document.createElement('style');s.id='academy-home-screen-style';s.textContent=`
       .academy-home{padding:0 16px 34px!important}
-      .academy-home-hero{height:176px;min-height:176px;max-height:176px;margin:0 -16px 0;padding:20px 16px;display:flex;align-items:flex-end;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)}
-      .academy-home-hero .academy-hero-content{max-width:430px}
+      .academy-home-hero{height:176px;min-height:176px;max-height:176px;margin:0 -16px 16px;padding:20px 16px;display:block;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)}
+      .academy-home-hero .academy-hero-content{height:135px;display:grid;grid-template-rows:18px 18px 54px;row-gap:6px;align-content:end;width:100%;max-width:430px}
+      .academy-home-hero .academy-kicker{margin:0;align-self:end}
+      .academy-home-hero .academy-title{margin:0;align-self:end}
+      .academy-home-hero .academy-copy{margin:0;align-self:start;max-width:430px;line-height:1.5;max-height:54px;overflow:hidden}
       .academy-home-hero .academy-title{font-size:12px;max-width:360px}
       .academy-home-hero .academy-copy{color:var(--academy-silver-3);font-size:12px;letter-spacing:.02em}
-      .academy-home-hero .academy-primary{margin-top:18px}
       .academy-home-section{padding:20px 0 0}
       .academy-continue{padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-lg);background:var(--academy-surface)}
       .academy-continue-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.academy-continue h3{margin:4px 0 5px;font-size:12px;line-height:1.05;color:var(--academy-ivory)}
@@ -83,7 +85,7 @@
       kicker:"STACKUP HOLD'EM · ACADEMY",
       title:t('learn3','APRENDA A JOGAR POKER EM 3 ETAPAS'),
       subtitle:t('heroSub','Aprenda. Pratique. Evolua.'),
-      action:CC.PrimaryButton(hasProgress?t('continue','CONTINUAR APRENDENDO'):t('start','COMEÇAR'),'data-home-continue')
+      action:''
     });
     root.innerHTML=`<section class="screen academy-home">
       ${CC.AcademyBackground({src:window.academyTheme?.backgrounds?.home,className:'academy-home-hero',content:heroContent,alt:''})}
