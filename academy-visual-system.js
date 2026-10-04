@@ -146,3 +146,82 @@
     @media(max-width:340px){.brand{padding-inline:12px}.brandin .logo[data-stackup-logo="1"]{width:56px!important;height:56px!important;max-width:56px!important;flex-basis:56px!important}.name{font-size:12px}.sub{font-size:12px}.screen{padding-inline:12px}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
   `;document.head.appendChild(s);
 })();
+
+
+/* v184 — full visual audit: one border token + safe fixed-nav geometry */
+(() => {
+  const id='stackup-academy-audit-v184';
+  if(document.getElementById(id))return;
+  const s=document.createElement('style');s.id=id;s.textContent=`
+    :root{
+      --academy-card-border-color:rgba(217,170,87,.24);
+      --academy-card-border:var(--academy-card-border-color);
+      --academy-bottom-nav-h:58px;
+      --academy-content-safe-bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom) + 28px);
+    }
+
+    /* Every semantic card uses exactly the same border colour. */
+    #root :is(
+      .card,.academy-row,.academy-stage-card,.academy-practice-card,.academy-study-card,
+      .academy-history-row,.academy-history-draft,.academy-certificate,.academy-skill-row,
+      .academy-coach-box,.academy-plan,.academy-addon,.academy-app-card,.academy-weekly,
+      .academy-state,.compare,.rrow,.block,.detail-card,.m2-card,.m2-depth-card,
+      .academy-group-card,.academy-tool-card,.academy-profile-card,.academy-access-card,
+      .academy-language-card,.academy-stat-card,.academy-exam-card,.academy-review-card,
+      .academy-question-card,.academy-result-card,.academy-summary-card,.academy-progress-card,
+      .fi-card,.p3-card
+    ){
+      border-color:var(--academy-card-border-color)!important;
+    }
+
+    /* Lists and separators are not allowed to fake a second card-border colour. */
+    #root :is(.academy-group-list,.blocks,.ranking){border-color:transparent!important}
+
+    /* Fixed footer must never cover the final card/title/control. */
+    .app{padding-bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important}
+    #root>.screen,
+    #root>.academy-home,
+    #root>.academy-stage-screen,
+    #root>.academy-profile,
+    #root>.academy-practice-screen,
+    #root>.academy-study-screen{
+      padding-bottom:var(--academy-content-safe-bottom)!important;
+    }
+    #root .academy-course-section:last-child,
+    #root .academy-group:last-child,
+    #root .academy-study-grid:last-child,
+    #root .academy-profile-section:last-child,
+    #root .list:last-child{margin-bottom:18px!important}
+
+    /* Shared card geometry/alignment. */
+    #root :is(.academy-row,.card.topic,.academy-stage-card,.academy-practice-card,.academy-study-card,
+      .academy-history-row,.academy-plan,.academy-addon,.academy-app-card){
+      min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+    }
+    #root :is(.academy-row,.card.topic){display:grid!important;grid-template-columns:42px minmax(0,1fr) 14px!important;align-items:center!important;column-gap:12px!important}
+    #root :is(.academy-row,.card.topic) :is(.idx,.academy-row-index){grid-column:1!important}
+    #root :is(.academy-row,.card.topic) :is(.tcopy,.academy-row-copy){grid-column:2!important;min-width:0!important}
+    #root :is(.academy-row,.card.topic) .arrow{grid-column:3!important;justify-self:end!important}
+
+    /* Heroes share one height, crop and darkness. */
+    #root :is(.academy-home-hero,.academy-stage-intro,.academy-stage-intro.photo,.academy-profile-head){
+      height:var(--academy-hero-h)!important;min-height:var(--academy-hero-h)!important;max-height:var(--academy-hero-h)!important;
+      overflow:hidden!important;
+    }
+    #root :is(.academy-home-hero,.academy-stage-intro,.academy-profile-head) .academy-photo{
+      width:100%!important;object-fit:cover!important;filter:grayscale(1) brightness(.42) blur(1.5px)!important;
+    }
+
+    /* Prevent clipping/overflow throughout the app. */
+    #root :is(h1,h2,h3,h4,p,span,strong,small,button){max-width:100%}
+    #root :is(.academy-copy,.tnote,.desc,.lead,.academy-row-copy,.academy-study-card,.academy-profile){
+      overflow-wrap:anywhere!important;word-break:normal!important;
+    }
+    #root button{min-width:0}
+    #root .academy-grid,#root .academy-study-grid,#root .academy-practice-grid{min-width:0!important;max-width:100%!important}
+
+    @media(max-width:390px){
+      #root :is(.academy-row,.card.topic){grid-template-columns:36px minmax(0,1fr) 12px!important;column-gap:9px!important}
+    }
+  `;document.head.appendChild(s);
+})();
