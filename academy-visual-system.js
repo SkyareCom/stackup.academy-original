@@ -11,7 +11,7 @@
     .brandin>div{min-width:0}.brandin .logo[data-stackup-logo="1"]{width:62px!important;height:62px!important;max-width:62px!important;flex:0 0 62px!important;object-fit:contain!important;filter:drop-shadow(0 5px 10px rgba(0,0,0,.45))}
     .name{font-size:12px;line-height:1!important;font-weight:600!important;letter-spacing:.055em!important;color:var(--academy-ivory)!important;text-transform:uppercase}
     .sub{margin-top:5px!important;font-size:12px;line-height:1.25!important;font-weight:600!important;letter-spacing:.1em!important;color:var(--academy-silver-2)!important;text-transform:uppercase}
-    .navtools{display:none;gap:12px;padding:12px 16px 16px;background:var(--academy-bg)}.navtools.show{display:flex}
+    .navtools{display:none;gap:12px;height:136px;padding:12px 16px 16px;background:var(--academy-bg);align-items:flex-start;box-sizing:border-box}.navtools.show{display:flex}
     #root .academy-home,#root .academy-stage-screen,#root .academy-profile{padding-top:0!important}
 #root .academy-home-hero,#root .academy-stage-intro,#root .academy-stage-intro.photo,#root .academy-profile-head{position:relative!important;height:176px!important;min-height:176px!important;max-height:176px!important;margin-top:0!important;margin-bottom:16px!important;padding-top:20px!important;padding-bottom:20px!important;box-sizing:border-box!important;border-bottom:1px solid var(--academy-line-strong)!important}
 .navbtn{flex:1;min-height:40px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px}
