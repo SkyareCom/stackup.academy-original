@@ -1,15 +1,16 @@
 (() => {
   const theme={
     colors:{
-      background:{primary:'#070707',secondary:'#0C0C0C',tertiary:'#151515'},
-      surfaces:{one:'#1A1A1A',two:'#202020',three:'#282828'},
-      concrete:{one:'#242424',two:'#2B2B2B',three:'#313131'},
-      graphite:{one:'#333333',two:'#484848'},
-      silver:{one:'#7E7E7E',two:'#A5A5A5',three:'#B9B9B9'},
-      ivory:{one:'#F2EDE2',two:'#F7F3EB'},
-      white:'#FAF7F0',
-      muted:{one:'#97938B',two:'#77736C'},
-      lines:{soft:'rgba(242,237,226,0.10)',strong:'rgba(242,237,226,0.18)'},
+      background:{primary:'#050505',secondary:'#0A0A09',tertiary:'#11100E'},
+      surfaces:{one:'#171613',two:'#1E1C18',three:'#27231D'},
+      concrete:{one:'#211F1B',two:'#2A2721',three:'#332F27'},
+      graphite:{one:'#37332C',two:'#514A3E'},
+      silver:{one:'#817C72',two:'#AAA397',three:'#C2BAAC'},
+      ivory:{one:'#F4EFE5',two:'#FBF6EC'},
+      white:'#FFF9EF',
+      muted:{one:'#9B958A',two:'#777167'},
+      gold:{primary:'#D9AA57',bright:'#F0C97A',dark:'#9E7334'},
+      lines:{soft:'rgba(217,170,87,0.10)',strong:'rgba(217,170,87,0.24)'},
       success:'#82917F',warning:'#B39B72',danger:'#956A66'
     },
     typography:{
@@ -33,13 +34,14 @@
   style.id='academy-theme-tokens';
   style.textContent=`
     :root{
-      --academy-bg:#070707;--academy-bg-2:#0C0C0C;--academy-bg-3:#151515;
-      --academy-surface:#1A1A1A;--academy-surface-2:#202020;--academy-surface-3:#282828;--academy-concrete:#242424;--academy-concrete-2:#2B2B2B;--academy-concrete-3:#313131;
-      --academy-graphite:#333333;--academy-graphite-2:#484848;
-      --academy-silver:#7E7E7E;--academy-silver-2:#A5A5A5;--academy-silver-3:#B9B9B9;
-      --academy-ivory:#F2EDE2;--academy-ivory-2:#F7F3EB;--academy-white:#FAF7F0;
-      --academy-muted:#97938B;--academy-muted-2:#77736C;
-      --academy-line:rgba(242,237,226,.10);--academy-line-strong:rgba(242,237,226,.18);
+      --academy-bg:#050505;--academy-bg-2:#0A0A09;--academy-bg-3:#11100E;
+      --academy-surface:#171613;--academy-surface-2:#1E1C18;--academy-surface-3:#27231D;--academy-concrete:#211F1B;--academy-concrete-2:#2A2721;--academy-concrete-3:#332F27;
+      --academy-graphite:#37332C;--academy-graphite-2:#514A3E;
+      --academy-silver:#817C72;--academy-silver-2:#AAA397;--academy-silver-3:#C2BAAC;
+      --academy-ivory:#F4EFE5;--academy-ivory-2:#FBF6EC;--academy-white:#FFF9EF;
+      --academy-muted:#9B958A;--academy-muted-2:#777167;
+      --academy-gold:#D9AA57;--academy-gold-bright:#F0C97A;--academy-gold-dark:#9E7334;
+      --academy-line:rgba(217,170,87,.10);--academy-line-strong:rgba(217,170,87,.24);
       --academy-success:#82917F;--academy-warning:#B39B72;--academy-danger:#956A66;
       --academy-font:'Saira Semi Condensed',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --academy-space-1:4px;--academy-space-2:8px;--academy-space-3:12px;--academy-space-4:16px;
@@ -47,8 +49,8 @@
       --academy-radius-sm:8px;--academy-radius-md:12px;--academy-radius-lg:16px;--academy-radius-xl:20px;
       --academy-motion-fast:160ms;--academy-motion:220ms;--academy-shadow-soft:rgba(0,0,0,.22);--academy-shadow:rgba(0,0,0,.45);--academy-shadow-heavy:rgba(0,0,0,.70);
       --academy-layout-x:16px;--academy-section-gap:20px;--academy-control-gap:12px;--academy-panel-pad:16px;
-      --g:var(--academy-bg-2);--gd:var(--academy-ivory);--gs:var(--academy-bg-3);--b:var(--academy-bg);--b2:var(--academy-bg-3);--c:var(--academy-concrete);--c2:var(--academy-concrete-2);--ink:var(--academy-ivory);--m:var(--academy-silver-3);--gold:var(--academy-ivory);--gold2:var(--academy-silver-2);--w:var(--academy-white);
-      --academy-green:var(--academy-bg-2);--academy-green-dark:var(--academy-bg);--academy-emerald:var(--academy-bg-3);--academy-gold:var(--academy-ivory);--academy-gold-dark:var(--academy-silver-2);--academy-parchment:var(--academy-concrete);--academy-parchment-2:var(--academy-concrete-2);--academy-brown:var(--academy-bg);--academy-brown-2:var(--academy-bg-3);--academy-ink:var(--academy-ivory);
+      --g:var(--academy-bg-2);--gd:var(--academy-gold);--gs:var(--academy-bg-3);--b:var(--academy-bg);--b2:var(--academy-bg-3);--c:var(--academy-concrete);--c2:var(--academy-concrete-2);--ink:var(--academy-ivory);--m:var(--academy-silver-3);--gold:var(--academy-gold);--gold2:var(--academy-gold-bright);--w:var(--academy-white);
+      --academy-green:var(--academy-bg-2);--academy-green-dark:var(--academy-bg);--academy-emerald:var(--academy-bg-3);--academy-parchment:var(--academy-concrete);--academy-parchment-2:var(--academy-concrete-2);--academy-brown:var(--academy-bg);--academy-brown-2:var(--academy-bg-3);--academy-ink:var(--academy-ivory);
     }
     html,body,body *{font-family:var(--academy-font)!important}
     /* Hard stop: legacy educational surfaces can no longer resolve to ivory/parchment. */
@@ -66,7 +68,10 @@
     button:active,[role="button"]:active{transform:scale(.985)}
     *{min-width:0}
     img,svg,canvas,video{max-width:100%}
-    :focus-visible{outline:2px solid var(--academy-ivory)!important;outline-offset:2px}
+    :focus-visible{outline:2px solid var(--academy-gold)!important;outline-offset:2px}
+    #root .academy-section-heading h2,#root .academy-group-title,#root .academy-title,#root .kicker,#root .eyebrow,#root .badge{color:var(--academy-gold)!important}
+    #root .academy-stage-card:hover,#root .academy-plan:hover,#root button:hover{border-color:rgba(217,170,87,.42)!important}
+    #root .academy-progress-fill,#root .academy-stage-progress>span,#root progress::-webkit-progress-value{background:linear-gradient(90deg,var(--academy-gold-dark),var(--academy-gold-bright))!important}
         #root .card,#root .block,#root .rrow,#root .detail-card,#root .m2-card,#root .p3-shell,#root .p3x-panel,#root .p3x-math-card,#root .p3m-group{box-shadow:none!important}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{border-color:var(--academy-success)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{border-color:var(--academy-danger)!important}
