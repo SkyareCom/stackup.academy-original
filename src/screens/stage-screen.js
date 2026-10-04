@@ -5,7 +5,7 @@
 
   if(!document.getElementById('academy-stage-screen-style')){
     const s=document.createElement('style');s.id='academy-stage-screen-style';s.textContent=`
-      .academy-stage-screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))!important}
+      .academy-stage-screen{padding:0 16px calc(32px + env(safe-area-inset-bottom))!important}
       .academy-stage-intro{height:176px!important;min-height:176px!important;max-height:176px!important;margin:0 -16px 16px!important;padding:20px 16px!important;display:block;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)!important}
       .academy-stage-intro.photo{height:176px!important;min-height:176px!important;max-height:176px!important;margin:0 -16px 16px!important;padding:20px 16px!important;display:block;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)!important}
       .academy-stage-hero-grid{height:135px;display:grid;grid-template-rows:18px 18px 54px;row-gap:6px;align-content:end;width:100%;max-width:430px}
