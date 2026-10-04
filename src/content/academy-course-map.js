@@ -18,7 +18,7 @@
     getGroups(stage,items=[]){
       const configured=map[stage]?.groups;
       if(configured)return configured.map(g=>({...g,indexes:g.indexes.filter(i=>items[i])}));
-      return[{labelKey:stage==='pratica'?'trainingLab':'modalities',indexes:items.map((_,i)=>i)}];
+      return[{labelKey:stage==='pratica'?'trainingLab':stage==='fundamentos'?'base':'modalities',indexes:items.map((_,i)=>i)}];
     }
   };
 })();
