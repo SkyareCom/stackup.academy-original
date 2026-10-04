@@ -55,7 +55,7 @@ assert('bottom navigation has five columns',bottomNav.includes('grid-template-co
 assert('premium components expose AcademyBackground',components.includes('AcademyBackground')&&components.includes('WeeklyGoal')&&components.includes('BottomSheet'));
 assert('progress reset is explicit only',reset.includes('CLEAR_ACADEMY_PROGRESS')&&!reset.includes('visibilitychange'));
 assert('header-first navigation is enforced',topReset.includes('resetToHeader')&&topReset.includes('scrollIntoView')&&topReset.includes('[data-academy-lesson]')&&topReset.includes('[data-academy-nav]'));
-assert('header reset survives delayed rendering',topReset.includes('1450')&&topReset.includes('MutationObserver'));
+assert('header reset does not fight vertical scrolling',topReset.includes('[0,40,100,180]')&&!topReset.includes("window.addEventListener('scroll'")&&!topReset.includes('1450'));
 assert('web app is standalone',manifest.display==='standalone');
 assert('web app stays portrait-first',manifest.orientation==='portrait-primary');
 assert('web theme is Academy black',String(manifest.theme_color).toLowerCase()==='#070707');
