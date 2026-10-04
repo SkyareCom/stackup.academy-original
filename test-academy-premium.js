@@ -31,9 +31,9 @@ const index=read('index.html');
 for(const dir of ['theme','components','screens','navigation','content','i18n','services','hooks','utils','assets']){
   assert('src/'+dir+' exists',exists('src/'+dir));
 }
-assert('exact Academy backgrounds',theme.includes("primary:'#070707'")&&theme.includes("secondary:'#0C0C0C'")&&theme.includes("tertiary:'#151515'"));
-assert('exact Academy surfaces',theme.includes("one:'#1A1A1A'")&&theme.includes("two:'#202020'")&&theme.includes("three:'#282828'"));
-assert('exact Academy ivory and white',theme.includes("one:'#F2EDE2'")&&theme.includes("two:'#F7F3EB'")&&theme.includes("white:'#FAF7F0'"));
+assert('exact Academy backgrounds',theme.includes("primary:'#050505'")&&theme.includes("secondary:'#0A0A09'")&&theme.includes("tertiary:'#11100E'"));
+assert('exact Academy surfaces',theme.includes("one:'#171613'")&&theme.includes("two:'#1E1C18'")&&theme.includes("three:'#27231D'"));
+assert('exact Academy ivory and white',theme.includes("one:'#F4EFE5'")&&theme.includes("two:'#FBF6EC'")&&theme.includes("white:'#FFF9EF'"));
 assert('semantic colors',theme.includes("success:'#82917F'")&&theme.includes("warning:'#B39B72'")&&theme.includes("danger:'#956A66'"));
 assert('Saira Semi Condensed only for Academy UI',index.includes('family=Saira+Semi+Condensed')&&!index.includes('Cormorant+Garamond')&&!index.includes('Love+Ya+Like+A+Sister')&&index.includes('wght@400;600')&&!index.includes('wght@500')&&!index.includes('wght@700')&&!index.includes('wght@800')&&!index.includes('wght@900'));
 assert('Portuguese premium copy is primary',copy.includes("continueLearning:'CONTINUAR APRENDENDO'")&&copy.includes("trainingLab:'LABORATÓRIO DE TREINO'")&&copy.includes("mathPoker:'MATEMÁTICA DO POKER'"));
