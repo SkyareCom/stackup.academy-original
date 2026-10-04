@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v164';
-const SW_VERSION=164;
+const CACHE='stackup-academy-v165';
+const SW_VERSION=165;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -55,7 +55,7 @@ const SCRIPTS=[
   ['page-top-reset.js',4],
   ['typography-standard.js',12],
   ['academy-loader.js',17],
-  ['src/theme/academy-theme.js',13],
+  ['src/theme/academy-theme.js',14],
   ['src/utils/dom.js',1],
   ['src/i18n/academy-copy.js',22],
   ['src/content/academy-course-map.js',1],
