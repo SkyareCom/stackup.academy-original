@@ -26,8 +26,8 @@ assert('global font lock uses Saira Semi Condensed',typography.includes("font-fa
 assert('legacy display fonts are removed',!typography.includes('Cormorant')&&!typography.includes('Love Ya Like A Sister'));
 assert('typography is 12px everywhere',typography.includes('--type-screen:12px')&&typography.includes('--type-body:12px')&&typography.includes('--type-caption:12px')&&typography.includes('#root *'));
 assert('horizontal overflow is blocked globally',visual.includes('overflow-x:hidden'));
-assert('Academy exact background token exists',theme.includes("primary:'#070707'")&&theme.includes("secondary:'#0C0C0C'"));
-assert('Academy exact ivory token exists',theme.includes("one:'#F2EDE2'")&&theme.includes("two:'#F7F3EB'"));
+assert('Academy exact background token exists',theme.includes("primary:'#050505'")&&theme.includes("secondary:'#0A0A09'"));
+assert('Academy exact ivory token exists',theme.includes("one:'#F4EFE5'")&&theme.includes("two:'#FBF6EC'"));
 assert('Academy semantic tokens exist',theme.includes("success:'#82917F'")&&theme.includes("warning:'#B39B72'")&&theme.includes("danger:'#956A66'"));
 assert('Portuguese is primary',academyCopy.includes("continueLearning:'CONTINUAR APRENDENDO'")&&academyCopy.includes("trainingLab:'LABORATÓRIO DE TREINO'")&&languageSelector.includes("==='en-US'?'en-US':'pt-BR'"));
 assert('stage titles have fixed vertical slots',stageScreen.includes('academy-stage-hero-grid')&&stageScreen.includes('grid-template-rows:18px 18px 54px')&&!stageScreen.includes("action:key==='pratica'"));
