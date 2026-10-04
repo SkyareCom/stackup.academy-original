@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v163';
-const SW_VERSION=163;
+const CACHE='stackup-academy-v164';
+const SW_VERSION=164;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -53,7 +53,7 @@ const SCRIPTS=[
   ['release-compliance.js',1],
   ['academy-visual-system.js',13],
   ['page-top-reset.js',4],
-  ['typography-standard.js',11],
+  ['typography-standard.js',12],
   ['academy-loader.js',17],
   ['src/theme/academy-theme.js',13],
   ['src/utils/dom.js',1],
@@ -160,10 +160,10 @@ self.addEventListener('fetch',event=>{
     return;
   }
   event.respondWith(
-    caches.match(event.request,{ignoreSearch:true}).then(cached=>cached||fetch(event.request).then(response=>{
+    fetch(event.request).then(response=>{
       const copy=response.clone();
       caches.open(CACHE).then(cache=>cache.put(event.request,copy));
       return response;
-    }))
+    }).catch(()=>caches.match(event.request,{ignoreSearch:true}))
   );
 });
