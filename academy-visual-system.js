@@ -122,6 +122,13 @@
     #root .academy-home-hero .academy-kicker,#root .academy-stage-hero-grid .academy-kicker,#root .academy-profile-hero-grid .academy-kicker{margin:0!important;align-self:end!important}
     #root .academy-home-hero .academy-title,#root .academy-stage-hero-grid .academy-title,#root .academy-profile-hero-grid .academy-title{margin:0!important;align-self:end!important}
     #root .academy-home-hero .academy-copy,#root .academy-stage-hero-grid .academy-copy,#root .academy-profile-hero-grid .academy-copy{margin:0!important;align-self:start!important;line-height:1.5!important;max-height:54px!important;overflow:hidden!important}
+    /* v182 audit hardening */
+    #root,#root .screen,#root section,#root div{min-width:0}
+    #root img{max-width:100%}
+    #root .academy-course-section,#root .academy-group,#root .academy-study-card,#root .academy-history-row,#root .academy-history-draft,#root .academy-certificate,#root .academy-skill-row,#root .academy-coach-box,#root .academy-plan,#root .academy-addon,#root .academy-app-card{overflow:hidden;overflow-wrap:anywhere}
+    #root .academy-stage-card,#root .academy-practice-card,#root .academy-secondary,#root .academy-primary,#root .academy-lesson-row{overflow:hidden;overflow-wrap:anywhere}
+    #root .academy-stage-card,#root .academy-practice-card,#root .academy-study-card,#root .academy-history-row,#root .academy-plan,#root .academy-addon,#root .academy-app-card{background:var(--academy-surface-2)!important;border:1px solid var(--academy-line-strong)!important}
+    #root .academy-app-card{min-height:72px}
     button,input,select,textarea{max-width:100%}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}
     .fi-stat-label,.fi-stat span,.p3-stat span{white-space:normal!important;overflow-wrap:break-word!important}
     @media(max-width:340px){.brand{padding-inline:12px}.brandin .logo[data-stackup-logo="1"]{width:56px!important;height:56px!important;max-width:56px!important;flex-basis:56px!important}.name{font-size:12px}.sub{font-size:12px}.screen{padding-inline:12px}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
