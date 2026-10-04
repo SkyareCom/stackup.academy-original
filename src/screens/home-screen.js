@@ -6,7 +6,7 @@
   if(!document.getElementById('academy-home-screen-style')){
     const s=document.createElement('style');s.id='academy-home-screen-style';s.textContent=`
       .academy-home{padding:0 16px 34px!important}
-      .academy-home-hero{min-height:322px;margin:0 -16px 0;padding:42px 18px 24px;display:flex;align-items:flex-end;border-bottom:1px solid var(--academy-line-strong)}
+      .academy-home-hero{height:176px;min-height:176px;max-height:176px;margin:0 -16px 0;padding:20px 16px;display:flex;align-items:flex-end;overflow:hidden;box-sizing:border-box;border-bottom:1px solid var(--academy-line-strong)}
       .academy-home-hero .academy-hero-content{max-width:430px}
       .academy-home-hero .academy-title{font-size:12px;max-width:360px}
       .academy-home-hero .academy-copy{color:var(--academy-silver-3);font-size:12px;letter-spacing:.02em}
