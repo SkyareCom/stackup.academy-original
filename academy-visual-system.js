@@ -225,3 +225,57 @@
     }
   `;document.head.appendChild(s);
 })();
+
+
+/* v185 — audit sweep: legacy cards, controls, grids and footer collision */
+(() => {
+ const id='stackup-academy-audit-v185';if(document.getElementById(id))return;
+ const s=document.createElement('style');s.id=id;s.textContent=`
+  /* Global card border contract. Status/answer outlines remain semantic, not card chrome. */
+  #root :is(
+   .tp-card,.term,.profile,.axis>div,.detail-note,.street-chip,.action-chip,.step-item,
+   .ct-card,.ct-note,.ct-alert,.ct-mini,.etq-card,.etq-note,.etq-alert,.etq-mini,.penalty,
+   .rule-card,.rule-note,.rule-alert,.rule-step,.staff-card,.rules-card,.rules-note,.rules-alert,.rules-step,
+   .strategy-item,.strategy-summary,.positions-lesson-key .dealer-info,.position-key .dealer-info,
+   .academy-continue,.academy-cross-sell,.academy-shortcut,.academy-access-feedback,
+   .fi-shell,.fi-question,.fi-option,.fi-spot,.fi-spotbar,.fi-feedback,
+   .m2-shell,.m2-card,.m2-option,.m2-spot,.m2-spotbar,.m2-feedback,.mg-shell,.mg-card,.mg-option,
+   .p3-shell,.p3-panel,.p3-option,.p3-math-card,.p3x-panel,.p3x-opt,.p3x-math-card,.p3m-group,
+   .p3x-quiz-banner,.p3x-hand,.p3x-filter-btn,.p3x-badge,.p3-input
+  ){border-color:var(--academy-card-border-color)!important}
+
+  /* Never mutate card border colour on hover/current/active; selection is expressed by fill/text. */
+  #root :is(.academy-stage-card,.academy-plan,.academy-app-card,.academy-practice-card,.academy-study-card):hover,
+  #root .academy-plan.current{border-color:var(--academy-card-border-color)!important}
+  #root :is(.academy-stage-card,.academy-practice-card,.academy-study-card,.academy-shortcut):active{
+   background:var(--academy-surface-3)!important
+  }
+
+  /* Uniform vertical rhythm and no accidental viewport overflow. */
+  #root .screen{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+  #root :is(.academy-home-section,.academy-profile-section,.academy-group){width:100%!important;max-width:100%!important}
+  #root :is(.academy-plan-grid,.academy-apps-grid,.academy-study-grid,.academy-practice-grid,.list){width:100%!important;max-width:100%!important}
+  #root :is(.academy-plan-grid,.academy-apps-grid,.academy-study-grid,.list)>*{min-width:0!important;max-width:100%!important}
+
+  /* Fixed navigation is the final visual layer but content always clears it. */
+  .academy-bottom-nav{height:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important}
+  #root{min-height:calc(100dvh - var(--academy-bottom-nav-h) - env(safe-area-inset-bottom))!important}
+  #root>:last-child{padding-bottom:var(--academy-content-safe-bottom)!important}
+
+  /* Profile hero must obey the same monochrome/blur treatment as all other section heroes. */
+  #root .academy-profile-head{filter:none!important}
+  #root .academy-profile-head .academy-photo,
+  #root .academy-stage-intro .academy-photo,
+  #root .academy-home-hero .academy-photo{
+   filter:grayscale(1) saturate(.05) brightness(.42) blur(1.5px)!important;
+   transform:scale(1.035)!important
+  }
+
+  /* Preserve readable controls on narrow Android viewports. */
+  @media(max-width:360px){
+   #root :is(.academy-plan-top,.academy-section-heading){gap:8px!important}
+   #root :is(.academy-plan-top,.academy-section-heading)>*{min-width:0!important}
+   #root .academy-lang-toggle{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  }
+ `;document.head.appendChild(s);
+})();
