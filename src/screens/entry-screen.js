@@ -53,7 +53,7 @@
   const icon={
     biometric:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><path d="M12 2.75a8.1 8.1 0 0 0-8.1 8.1"/><path d="M20.1 10.85A8.1 8.1 0 0 0 12 2.75"/><path d="M6.7 11.15A5.3 5.3 0 0 1 12 5.85a5.3 5.3 0 0 1 5.3 5.3c0 4.55-1.25 7.7-3.75 9.45"/><path d="M9.35 11.3A2.65 2.65 0 0 1 12 8.65a2.65 2.65 0 0 1 2.65 2.65c0 3.45-.8 5.9-2.45 7.45"/><path d="M9.6 20.55c1.55-2.25 2.15-5.05 2.15-8.45"/><path d="M6.2 15.4c.55-1.35.8-2.75.8-4.2"/></svg>',
     google:'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.06H12v3.9h5.38a4.6 4.6 0 0 1-2 3.02v2.53h3.24c1.9-1.75 2.98-4.33 2.98-7.39Z"/><path fill="#34A853" d="M12 22c2.7 0 4.97-.9 6.62-2.43l-3.24-2.53c-.9.6-2.05.96-3.38.96-2.6 0-4.81-1.76-5.6-4.13H3.06v2.6A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.4 13.87A6.01 6.01 0 0 1 6.08 12c0-.65.11-1.28.32-1.87v-2.6H3.06A10 10 0 0 0 2 12c0 1.61.39 3.14 1.06 4.47l3.34-2.6Z"/><path fill="#EA4335" d="M12 6c1.47 0 2.79.5 3.83 1.49l2.87-2.87A9.62 9.62 0 0 0 12 2a10 10 0 0 0-8.94 5.53l3.34 2.6C7.19 7.76 9.4 6 12 6Z"/></svg>',
-    stack:'<span class="academy-entry-stack-logo" aria-hidden="true"><img src="./stackup-logo.png?v=20261004" alt=""></span>'
+    stack:'<span class="academy-entry-stack-logo" aria-hidden="true"><img src="./stackup-logo.png?v=20261004b" alt=""></span>'
   };
 
   const labels={
@@ -72,7 +72,7 @@
       <div class="academy-entry-shade"></div>
       <div class="academy-entry-inner">
         <div class="academy-entry-brand">
-          <img class="academy-entry-logo" src="./stackup-logo.png?v=20261004" alt="StackUp Hold'em">
+          <img class="academy-entry-logo" src="./stackup-logo.png?v=20261004b" alt="StackUp Hold'em">
           <div class="academy-entry-company">STACKUP HOLD'EM</div>
           <div class="academy-entry-product">ACADEMY</div>
         </div>
