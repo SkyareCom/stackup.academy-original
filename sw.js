@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v158';
-const SW_VERSION=158;
+const CACHE='stackup-academy-v159';
+const SW_VERSION=159;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -8,7 +8,7 @@ const ASSETS=[
   './fundamentals-visual-layer.js','./fundamentals-interactive.js','./fundamentals-progress-panel.js','./modalities-module.js',
   './modalities-depth-details.js','./mixed-games-module.js','./practice-module.js','./practice-table.js','./practice-advanced-bank.js',
   './practice-advanced.js','./table-rotation-guard.js','./math-card-structure.js','./practice-math-odds.js','./portuguese-corrections.js','./cover-layout.js','./release-compliance.js',
-  './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./stackup-logo.jpg','./typography-standard.js','./icon-192.png','./icon-512.png',
+  './academy-loader.js','./academy-visual-system.js','./page-top-reset.js','./header-logo-transparent.png','./stackup-logo.png','./typography-standard.js','./icon-192.png','./icon-512.png',
   './src/theme/academy-theme.js','./src/utils/dom.js','./src/i18n/academy-copy.js','./src/content/academy-course-map.js','./src/services/training-preference-service.js','./src/services/training-history-service.js','./src/services/evolution-service.js','./src/services/progress-service.js','./src/services/auth-service.js','./src/screens/entry-screen.js','./src/services/content-service.js','./src/services/analytics-service.js','./src/services/billing-service.js','./src/services/plan-access-service.js','./src/components/academy-components.js','./src/components/editorial-lesson-adapter.js','./src/components/training-save-bar.js','./src/screens/home-screen.js','./src/screens/stage-screen.js','./src/screens/profile-screen.js','./src/screens/practice-tools-screen.js','./src/screens/study-tools-screen.js','./src/hooks/academy-events.js','./src/navigation/bottom-navigation.js'
 ];
 const SCRIPTS=[
@@ -64,7 +64,7 @@ const SCRIPTS=[
   ['src/services/evolution-service.js',3],
   ['src/services/progress-service.js',6],
   ['src/services/auth-service.js',1],
-  ['src/screens/entry-screen.js',4],
+  ['src/screens/entry-screen.js',5],
   ['src/services/content-service.js',1],
   ['src/services/analytics-service.js',2],
   ['src/services/billing-service.js',4],
@@ -72,7 +72,7 @@ const SCRIPTS=[
   ['src/components/academy-components.js',7],
   ['src/components/editorial-lesson-adapter.js',3],
   ['src/components/training-save-bar.js',2],
-  ['src/screens/home-screen.js',14],
+  ['src/screens/home-screen.js',15],
   ['src/screens/stage-screen.js',11],
   ['src/screens/profile-screen.js',11],
   ['src/screens/practice-tools-screen.js',9],
