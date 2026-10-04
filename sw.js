@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v180';
-const SW_VERSION=180;
+const CACHE='stackup-academy-v181';
+const SW_VERSION=181;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -51,7 +51,7 @@ const SCRIPTS=[
   ['portuguese-corrections.js',2],
   ['cover-layout.js',10],
   ['release-compliance.js',1],
-  ['academy-visual-system.js',20],
+  ['academy-visual-system.js',21],
   ['page-top-reset.js',5],
   ['typography-standard.js',12],
   ['academy-loader.js',17],
@@ -74,7 +74,7 @@ const SCRIPTS=[
   ['src/components/training-save-bar.js',2],
   ['src/screens/home-screen.js',20],
   ['src/screens/stage-screen.js',11],
-  ['src/screens/profile-screen.js',17],
+  ['src/screens/profile-screen.js',18],
   ['src/screens/practice-tools-screen.js',9],
   ['src/screens/study-tools-screen.js',9],
   ['src/hooks/academy-events.js',2],
