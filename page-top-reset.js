@@ -25,7 +25,7 @@
     }
   }
 
-  function resetToHeader(lockMs=1500){
+  function resetToHeader(lockMs=220){
     const id=++resetId;
     lockUntil=Math.max(lockUntil,Date.now()+lockMs);
     const run=()=>{if(id===resetId)setTop();};
@@ -39,7 +39,7 @@
       });
     });
 
-    [0,40,100,180,320,520,800,1100,1450].forEach(delay=>setTimeout(run,delay));
+    [0,40,100,180].forEach(delay=>setTimeout(run,delay));
   }
 
   function isPageNavigation(target){
@@ -75,13 +75,7 @@
     return value;
   };
 
-  new MutationObserver(()=>{
-    if(Date.now()<lockUntil)resetToHeader(Math.max(250,lockUntil-Date.now()));
-  }).observe(root,{childList:true});
-
-  window.addEventListener('scroll',()=>{
-    if(Date.now()<lockUntil && window.scrollY>0)setTop();
-  },{passive:true});
+  /* Do not fight the user's vertical scroll after dynamic quiz/feedback rendering. */
 
   window.addEventListener('popstate',()=>resetToHeader(),{passive:true});
   window.addEventListener('hashchange',()=>resetToHeader(),{passive:true});
