@@ -79,7 +79,9 @@
       background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-line-strong)!important;
     }
     #root .fi-question,#root .m2-question,#root .mg-question,#root .p3-q,#root .p3x-question,#root .p3x-panel p,#root .p3x-math-card p{color:var(--academy-ivory)!important}
-    #root .fi-option,#root .m2-option,#root .mg-option,#root .p3-option,#root .p3x-opt{min-height:48px!important}
+    #root .fi-option,#root .m2-option,#root .mg-option,#root .p3-option,#root .p3x-opt{min-height:52px!important;background:var(--academy-surface-2)!important;border:1px solid rgba(240,201,122,.46)!important;color:var(--academy-ivory-2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important}
+    #root .fi-option:hover,#root .m2-option:hover,#root .mg-option:hover,#root .p3-option:hover,#root .p3x-opt:hover{background:var(--academy-surface-3)!important;border-color:var(--academy-gold)!important}
+    #root .fi-option:focus-visible,#root .m2-option:focus-visible,#root .mg-option:focus-visible,#root .p3-option:focus-visible,#root .p3x-opt:focus-visible{outline:2px solid var(--academy-gold-bright)!important;outline-offset:2px}
     #root .fi-option:disabled,#root .m2-option:disabled,#root .mg-option:disabled,#root .p3-option:disabled,#root .p3x-opt:disabled{opacity:.72}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{background:var(--academy-surface-2)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{background:var(--academy-surface-2)!important}
