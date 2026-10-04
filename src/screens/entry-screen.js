@@ -29,11 +29,11 @@
       .academy-entry-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) saturate(.04) brightness(.28) blur(3px);transform:scale(1.035)}
       .academy-entry-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.38) 0%,rgba(7,7,7,.72) 44%,#070707 86%)}
       .academy-entry-inner{position:relative;z-index:2;min-height:100dvh;padding:calc(34px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
-      .academy-entry-brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:1vh}
-      .academy-entry-logo{width:220px;height:220px;object-fit:contain;border-radius:50%;filter:drop-shadow(0 14px 34px rgba(0,0,0,.62))}
-      .academy-entry-company{margin-top:8px;font-size:24px!important;font-weight:600;line-height:1.05;letter-spacing:.065em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2);text-shadow:0 2px 10px rgba(0,0,0,.45)}
-      .academy-entry-product{margin-top:8px;font-family:'Saira Stencil One','Saira Semi Condensed',system-ui,sans-serif;font-size:35px!important;font-weight:400;line-height:1;letter-spacing:.12em;text-transform:uppercase;color:#D9AA57!important;text-shadow:0 2px 14px rgba(217,170,87,.22)}
-      .academy-entry-controls{margin-top:34px;padding-top:0;width:100%;max-width:430px;align-self:center}
+      .academy-entry-brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:0}
+      .academy-entry-logo{width:210px!important;height:210px!important;object-fit:contain;border-radius:50%;filter:drop-shadow(0 14px 34px rgba(0,0,0,.62))}
+      .academy-entry-company{margin-top:6px;font-family:'Saira Semi Condensed',system-ui,sans-serif!important;font-size:24px!important;font-weight:600!important;line-height:1.05;letter-spacing:.055em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2);text-shadow:0 2px 10px rgba(0,0,0,.45)}
+      .academy-entry-product{margin-top:7px;font-family:'Saira Stencil One','Saira Semi Condensed',system-ui,sans-serif!important;font-size:35px!important;font-weight:400!important;line-height:1;letter-spacing:.10em;text-transform:uppercase;color:#D9AA57!important;text-shadow:0 2px 14px rgba(217,170,87,.22)}
+      .academy-entry-controls{margin-top:30px!important;padding-top:0;width:100%;max-width:430px;align-self:center}
       .academy-entry-language{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:18px}
       .academy-entry-lang{min-height:40px;padding:8px 10px;border:1px solid rgba(242,237,226,.18);border-radius:12px;background:rgba(18,18,18,.58);backdrop-filter:blur(12px);color:var(--academy-silver-3,#B9B9B9);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.025);transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s ease}
       .academy-entry-lang.active{background:rgba(242,237,226,.10);border-color:rgba(242,237,226,.46);color:var(--academy-ivory,#F2EDE2)}
@@ -45,7 +45,7 @@
       .academy-entry-access-btn svg{width:20px;height:20px;display:block}
       .academy-entry-stack-logo{width:22px;height:22px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#090909;box-shadow:0 0 0 1px rgba(242,217,149,.22)}.academy-entry-stack-logo img{width:100%;height:100%;object-fit:cover;display:block}.academy-entry-arrow{color:rgba(242,237,226,.42);text-align:right;font-size:12px;font-weight:400}
       .academy-entry-status{min-height:18px;margin:12px 2px 0;color:var(--academy-muted,#97938B);font-size:12px;line-height:1.35;text-align:center}
-      @media(max-height:700px){.academy-entry-brand{padding-top:0}.academy-entry-logo{width:164px;height:164px}.academy-entry-company{font-size:24px!important}.academy-entry-product{font-size:35px!important}.academy-entry-controls{margin-top:20px;padding-top:0}}
+      @media(max-height:700px){.academy-entry-brand{padding-top:0}.academy-entry-logo{width:172px!important;height:172px!important}.academy-entry-company{font-size:24px!important}.academy-entry-product{font-size:35px!important}.academy-entry-controls{margin-top:18px!important;padding-top:0}}
     `;
     document.head.appendChild(s);
   }
