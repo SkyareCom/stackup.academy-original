@@ -279,3 +279,53 @@
   }
  `;document.head.appendChild(s);
 })();
+
+
+/* v186 — deep module sweep: legacy learning/practice surfaces */
+(() => {
+ const id='stackup-academy-audit-v186';if(document.getElementById(id))return;
+ const s=document.createElement('style');s.id=id;s.textContent=`
+  /* Catch every legacy semantic panel/card still produced by old modules. */
+  #root :is(
+   [class$="-card"],[class*="-card "],[class$="-panel"],[class*="-panel "],
+   [class$="-shell"],[class*="-shell "],[class$="-question"],[class*="-question "],
+   [class$="-option"],[class*="-option "],[class$="-feedback"],[class*="-feedback "],
+   [class$="-note"],[class*="-note "],[class$="-alert"],[class*="-alert "],
+   [class$="-mini"],[class*="-mini "],[class$="-row"],[class*="-row "]
+  ){border-color:var(--academy-card-border-color)!important}
+
+  /* Training answer states use fill/icon/text, never a different card outline. */
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt).correct,
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt).fi-correct{
+   border-color:var(--academy-card-border-color)!important;
+   box-shadow:inset 4px 0 0 var(--academy-success)!important
+  }
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt).wrong,
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt).fi-wrong{
+   border-color:var(--academy-card-border-color)!important;
+   box-shadow:inset 4px 0 0 var(--academy-danger)!important
+  }
+
+  /* Tables/game areas remain special graphics; surrounding cards stay within viewport. */
+  #root :is(.fi-shell,.m2-shell,.mg-shell,.p3-shell,.p3x-shell,.academy-training-shell){
+   width:100%!important;max-width:100%!important;overflow-x:hidden!important
+  }
+  #root :is(.fi-options,.m2-options,.mg-options,.p3-options,.p3x-options){
+   width:100%!important;max-width:100%!important
+  }
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt){
+   width:100%!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important
+  }
+
+  /* No fixed auxiliary action bar may sit underneath the main bottom navigation. */
+  #root :is(.training-save-bar,.academy-training-save-bar,.academy-save-bar){
+   bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important;
+   max-width:560px!important
+  }
+
+  /* The final content item always remains fully reachable. */
+  #root :is(.fi-shell,.m2-shell,.mg-shell,.p3-shell,.p3x-shell,.academy-training-shell):last-child{
+   margin-bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom) + 24px)!important
+  }
+ `;document.head.appendChild(s);
+})();
