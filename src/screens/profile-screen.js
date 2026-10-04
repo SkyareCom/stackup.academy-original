@@ -54,7 +54,9 @@
         ['HEROES',t('heroesAppCopy',"Aperfeiçoamento em No-Limit Hold'em")],
         ['REVOLUTION',t('revolutionAppCopy','Simulador de treino e jogo interativo de NLH')],
         ['WRAPS',t('wrapsAppCopy','Treinamento de Pot-Limit Omaha')],
-        ['D ACTION',t('dActionAppCopy','Aperfeiçoamento em Pot-Limit Omaha')]
+        ['D ACTION',t('dActionAppCopy','Aperfeiçoamento em Pot-Limit Omaha')],
+        ['ENDURANCE',t('enduranceAppCopy','Performance mental e gestão de sessão no poker')],
+        ['ENTERPRISE',t('enterpriseAppCopy','Gestão para clubes e operações de poker')]
       ].map(([name,desc])=>`<div class="academy-app-card"><div><strong>${name}</strong><p>${desc}</p></div><span class="academy-soon-tag">${t('comingSoon','EM BREVE')}</span></div>`).join('')}</div>`})}</section>
       ${coachSection(current)}
       <section class="academy-profile-section" id="profile-privacy">${CC.CourseSection({title:t('aboutPrivacy','SOBRE E PRIVACIDADE'),content:`<div class="academy-privacy-actions"><a class="academy-secondary" href="./privacy.html#pt">${t('privacyPolicy','POLÍTICA DE PRIVACIDADE')}</a><button type="button" class="academy-secondary" data-profile-clear-local>${t('deleteLocalData','APAGAR DADOS DESTE APARELHO')}</button><button type="button" class="academy-secondary" data-profile-delete-account>${t('requestAccountDeletion','SOLICITAR EXCLUSÃO DA CONTA')}</button></div>`})}</section>
