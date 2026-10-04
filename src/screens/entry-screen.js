@@ -31,8 +31,8 @@
       .academy-entry-inner{position:relative;z-index:2;min-height:100dvh;padding:calc(34px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
       .academy-entry-brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:6vh}
       .academy-entry-logo{width:118px;height:118px;object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.42))}
-      .academy-entry-company{margin-top:18px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--academy-silver-3,#B9B9B9)}
-      .academy-entry-product{margin-top:6px;font-size:12px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2)}
+      .academy-entry-company{margin-top:18px;font-size:18px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--academy-silver-3,#B9B9B9)}
+      .academy-entry-product{margin-top:6px;font-size:30px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2)}
       .academy-entry-controls{margin-top:auto;padding-top:30px;width:100%;max-width:430px;align-self:center}
       .academy-entry-language{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:18px}
       .academy-entry-lang{min-height:40px;padding:8px 10px;border:1px solid rgba(242,237,226,.18);border-radius:12px;background:rgba(18,18,18,.58);backdrop-filter:blur(12px);color:var(--academy-silver-3,#B9B9B9);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.025);transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s ease}
