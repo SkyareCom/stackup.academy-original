@@ -41,7 +41,7 @@
       --academy-ivory:#F4EFE5;--academy-ivory-2:#FBF6EC;--academy-white:#FFF9EF;
       --academy-muted:#9B958A;--academy-muted-2:#777167;
       --academy-gold:#D9AA57;--academy-gold-bright:#F0C97A;--academy-gold-dark:#9E7334;
-      --academy-line:rgba(217,170,87,.10);--academy-line-strong:rgba(217,170,87,.24);
+      --academy-line:rgba(217,170,87,.10);--academy-line-strong:rgba(217,170,87,.24);--academy-card-border-color:rgba(217,170,87,.24);--academy-card-border:var(--academy-card-border-color);
       --academy-success:#82917F;--academy-warning:#B39B72;--academy-danger:#956A66;
       --academy-font:'Saira Semi Condensed',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       --academy-space-1:4px;--academy-space-2:8px;--academy-space-3:12px;--academy-space-4:16px;
@@ -57,7 +57,7 @@
     #root :is(.tp-card,.term,.profile,.axis>div,.detail-card,.detail-note,.street-chip,.action-chip,.step-item,.ct-card,.ct-note,.ct-alert,.ct-mini,.etq-card,.etq-note,.etq-alert,.etq-mini,.penalty,.rule-card,.rule-note,.rule-alert,.rule-step,.staff-card,.rules-card,.rules-note,.rules-alert,.rules-step,.strategy-item,.strategy-summary,.m2-depth-card){
       background:var(--academy-concrete)!important;
       color:var(--academy-ivory)!important;
-      border-color:#3A3A3A!important;
+      border-color:var(--academy-card-border-color)!important;
     }
     #root :is(.term,.profile,.axis>div,.street-chip,.action-chip,.ct-mini,.etq-mini,.staff-card){
       background:var(--academy-concrete-2)!important;
@@ -70,23 +70,23 @@
     img,svg,canvas,video{max-width:100%}
     :focus-visible{outline:2px solid var(--academy-gold)!important;outline-offset:2px}
     #root .academy-section-heading h2,#root .academy-group-title,#root .academy-title,#root .kicker,#root .eyebrow,#root .badge{color:var(--academy-gold)!important}
-    #root .academy-stage-card:hover,#root .academy-plan:hover,#root button:hover{border-color:rgba(217,170,87,.42)!important}
+    #root .academy-stage-card:hover,#root .academy-plan:hover,#root button:hover{border-color:var(--academy-card-border-color)!important}
     #root .academy-progress-fill,#root .academy-stage-progress>span,#root progress::-webkit-progress-value{background:linear-gradient(90deg,var(--academy-gold-dark),var(--academy-gold-bright))!important}
         #root .card,#root .block,#root .rrow,#root .detail-card,#root .m2-card,#root .p3-shell,#root .p3x-panel,#root .p3x-math-card,#root .p3m-group{box-shadow:none!important}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{border-color:var(--academy-success)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{border-color:var(--academy-danger)!important}
     #root .fi-shell,#root .fi-question,#root .fi-option,#root .m2-shell,#root .m2-card,#root .m2-option,#root .mg-shell,#root .mg-card,#root .mg-option,#root .p3-shell,#root .p3-panel,#root .p3-option,#root .p3-math-card,#root .p3x-panel,#root .p3x-opt,#root .p3x-math-card,#root .p3m-group{
-      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-line-strong)!important;
+      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-card-border-color)!important;
     }
     #root .fi-question,#root .m2-question,#root .mg-question,#root .p3-q,#root .p3x-question,#root .p3x-panel p,#root .p3x-math-card p{color:var(--academy-ivory)!important}
-    #root .fi-option,#root .m2-option,#root .mg-option,#root .p3-option,#root .p3x-opt{min-height:52px!important;background:var(--academy-surface-2)!important;border:1px solid rgba(240,201,122,.46)!important;color:var(--academy-ivory-2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important}
-    #root .fi-option:hover,#root .m2-option:hover,#root .mg-option:hover,#root .p3-option:hover,#root .p3x-opt:hover{background:var(--academy-surface-3)!important;border-color:var(--academy-gold)!important}
+    #root .fi-option,#root .m2-option,#root .mg-option,#root .p3-option,#root .p3x-opt{min-height:52px!important;background:var(--academy-surface-2)!important;border:1px solid var(--academy-card-border-color)!important;color:var(--academy-ivory-2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important}
+    #root .fi-option:hover,#root .m2-option:hover,#root .mg-option:hover,#root .p3-option:hover,#root .p3x-opt:hover{background:var(--academy-surface-3)!important;border-color:var(--academy-card-border-color)!important}
     #root .fi-option:focus-visible,#root .m2-option:focus-visible,#root .mg-option:focus-visible,#root .p3-option:focus-visible,#root .p3x-opt:focus-visible{outline:2px solid var(--academy-gold-bright)!important;outline-offset:2px}
     #root .fi-option:disabled,#root .m2-option:disabled,#root .mg-option:disabled,#root .p3-option:disabled,#root .p3x-opt:disabled{opacity:.72}
     #root .fi-option.fi-correct,#root .m2-option.correct,#root .p3-option.correct,#root .p3x-opt.correct{background:var(--academy-surface-2)!important}
     #root .fi-option.fi-wrong,#root .m2-option.wrong,#root .p3-option.wrong,#root .p3x-opt.wrong{background:var(--academy-surface-2)!important}
     #root .fi-spot,#root .fi-spotbar,#root .fi-feedback,#root .m2-spot,#root .m2-spotbar,#root .m2-feedback,#root .p3x-quiz-banner,#root .p3x-hand,#root .p3x-filter-btn,#root .p3x-badge,#root .p3-math-card,#root .p3-input{
-      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-line-strong)!important;
+      background:var(--academy-surface)!important;color:var(--academy-ivory)!important;border-color:var(--academy-card-border-color)!important;
     }
     #root .p3x-quiz-banner{background:var(--academy-surface-2)!important}
     #root .p3x-hand strong,#root .fi-question,#root .fi-analysis,#root .fi-analysis strong,#root .m2-question,#root .m2-analysis,#root .m2-analysis strong,#root .p3-q,#root .p3-output,#root .p3-note,#root .p3-math-card h4,#root .p3x-panel h3,#root .p3x-question,#root .p3x-math-card h3,#root .p3x-tip{color:var(--academy-ivory)!important}
@@ -117,13 +117,13 @@
     #root .strategy-item,#root .strategy-summary,#root .m2-depth-card,
     #root .positions-lesson-key .dealer-info,#root .position-key .dealer-info{
       background:var(--academy-concrete)!important;
-      border-color:#3A3A3A!important;
+      border-color:var(--academy-card-border-color)!important;
       color:var(--academy-ivory)!important;
       box-shadow:none!important;
     }
     #root .term,#root .profile,#root .axis>div,#root .street-chip,#root .action-chip,#root .ct-mini,#root .etq-mini,#root .staff-card{
       background:var(--academy-concrete-2)!important;
-      border-color:#3A3A3A!important;
+      border-color:var(--academy-card-border-color)!important;
     }
     #root .detail-card h3,#root .street-chip strong,#root .action-chip strong,#root .step-item strong,
     #root .ct-card h3,#root .ct-card strong,#root .ct-mini strong,
