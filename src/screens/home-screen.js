@@ -65,7 +65,7 @@
 
   function renderHome(){
     const root=document.getElementById('root');if(!root)return;
-    document.getElementById('navtools')?.classList.remove('show');
+    const nav=document.getElementById('navtools');if(nav){nav.classList.add('show');nav.innerHTML='<button class="navbtn" type="button" data-home-exit><span class="navicon">×</span><span>SAIR DO APP</span></button><button class="navbtn" type="button" data-home-next><span>PRÓXIMO</span><span class="navicon">›</span></button>'}
     const S=window.ProgressService?.snapshot?.()||{answered:0,correct:0,errors:0,pct:0,accuracy:0,weekly:{completed:0,goal:25,pct:0},sections:{}};
     const route=continueRoute(),hasProgress=S.answered>0,CC=C(),R=window.AcademyStudyService?.reviewSummary?.()||{due:0};
     const E=window.EvolutionService?.snapshot?.()||{selfBattle:{villainPct:0,heroPct:0},podium:{previous:null,next:null}};
@@ -102,6 +102,8 @@
 
   window.home=renderHome;
   document.addEventListener('click',e=>{
+    const exit=e.target.closest('[data-home-exit]');if(exit){e.preventDefault();window.__academyEntryPassed=false;try{sessionStorage.removeItem('academy.entry.method.v1')}catch(_){};window.AcademyEntry?.render?.();return}
+    const next=e.target.closest('[data-home-next]');if(next){e.preventDefault();window.stage?.('fundamentos',1);return}
     const review=e.target.closest('[data-home-review]');if(review){e.preventDefault();if(window.PlanAccessService?.featureLocked?.('smartReview')){window.AcademyScreens?.profile?.('plans');return}window.AcademyScreens?.studyTool?.('smartReview');return}
     const g=e.target.closest('[data-weekly-goal]');if(g){e.preventDefault();if(window.ProgressService?.setWeeklyGoal?.(Number(g.dataset.weeklyGoal)))renderHome();return}
     if(e.target.closest('[data-home-continue]')){e.preventDefault();goContinue();return}
