@@ -12,7 +12,9 @@
     .name{font-size:12px;line-height:1!important;font-weight:600!important;letter-spacing:.055em!important;color:var(--academy-ivory)!important;text-transform:uppercase}
     .sub{margin-top:5px!important;font-size:12px;line-height:1.25!important;font-weight:600!important;letter-spacing:.1em!important;color:var(--academy-silver-2)!important;text-transform:uppercase}
     .navtools{display:none;gap:12px;padding:12px 16px 16px;background:var(--academy-bg)}.navtools.show{display:flex}
-    .navbtn{flex:1;min-height:40px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+    #root .academy-home,#root .academy-stage-screen,#root .academy-profile{padding-top:0!important}
+#root .academy-home-hero,#root .academy-stage-intro,#root .academy-stage-intro.photo,#root .academy-profile-head{position:relative!important;height:176px!important;min-height:176px!important;max-height:176px!important;margin-top:0!important;margin-bottom:16px!important;padding-top:20px!important;padding-bottom:20px!important;box-sizing:border-box!important;border-bottom:1px solid var(--academy-line-strong)!important}
+.navbtn{flex:1;min-height:40px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);font-size:12px;font-weight:600;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:10px}
     .navicon{font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;margin:0 2px}.screen{padding:16px 16px calc(32px + env(safe-area-inset-bottom))}
     .list{display:grid;gap:12px}.card{width:100%;min-width:0}
     .card.stage,.card.topic{border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);box-shadow:none}
