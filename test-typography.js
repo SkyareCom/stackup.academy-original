@@ -17,7 +17,7 @@ for(const token of ['--type-brand:12px','--type-screen:12px','--type-section:12p
 if(!typography.includes('text-transform:uppercase!important'))fail('uppercase title guard is missing');
 if(!typography.includes('.academy-row-copy strong')||!typography.includes('.academy-section-heading h2')||!typography.includes('.ttitle'))fail('card/section title selectors are not protected');
 
-const allowedSizes=new Set([12]);
+const allowedSizes=new Set([12,18,30]);
 const allowedWeights=new Set([400,600]);
 const files=[];
 function walk(dir){
@@ -45,4 +45,4 @@ if(violations.length)fail('typography violations: '+violations.slice(0,40).join(
 
 if(!copy.includes("continueLearning:'CONTINUAR APRENDENDO'")||!copy.includes("trainingLab:'LABORATÓRIO DE TREINO'")||!copy.includes("mathPoker:'MATEMÁTICA DO POKER'"))fail('Portuguese primary premium copy is incomplete');
 
-console.log('Typography identity OK: Saira Semi Condensed; 12px only; weights 400/600; uppercase titles; Portuguese primary');
+console.log('Typography identity OK: Saira Semi Condensed with approved 18px/30px entry branding; weights 400/600; uppercase titles; Portuguese primary');
