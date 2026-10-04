@@ -129,6 +129,18 @@
     #root .academy-stage-card,#root .academy-practice-card,#root .academy-secondary,#root .academy-primary,#root .academy-lesson-row{overflow:hidden;overflow-wrap:anywhere}
     #root .academy-stage-card,#root .academy-practice-card,#root .academy-study-card,#root .academy-history-row,#root .academy-plan,#root .academy-addon,#root .academy-app-card{background:var(--academy-surface-2)!important;border:1px solid var(--academy-line-strong)!important}
     #root .academy-app-card{min-height:72px}
+    /* v183: unified gold card system + legacy lesson integration */
+    :root{--academy-card-border:var(--academy-line-strong)}
+    #root .academy-row,#root .card.stage,#root .card.topic,#root .card.lesson,#root .block,#root .detail-card,#root .m2-card,#root .m2-depth-card,#root .academy-stage-card,#root .academy-practice-card,#root .academy-study-card,#root .academy-history-row,#root .academy-history-draft,#root .academy-certificate,#root .academy-skill-row,#root .academy-coach-box,#root .academy-plan,#root .academy-addon,#root .academy-app-card,#root .academy-weekly,#root .academy-state,#root .compare{
+      border:1px solid var(--academy-card-border)!important;border-radius:var(--academy-radius-md)!important
+    }
+    #root .academy-row{margin:0 0 10px!important;padding:14px 12px!important;background:var(--academy-surface)!important}
+    #root .academy-group-list{border:0!important}
+    #root .block,#root .detail-card,#root .m2-card,#root .m2-depth-card{padding:15px 16px!important;margin-bottom:10px!important;background:var(--academy-surface)!important;color:var(--academy-ivory)!important}
+    #root .block h3,#root .detail-card h3,#root .m2-card h3,#root .m2-depth-card h3{color:var(--academy-ivory)!important}
+    #root .block p,#root .detail-card p,#root .m2-card p,#root .m2-depth-card p{color:var(--academy-muted)!important}
+    #root .card.lesson{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important}
+    #root .card.lesson>.badge{border:1px solid var(--academy-card-border)!important;border-radius:var(--academy-radius-md)!important}
     button,input,select,textarea{max-width:100%}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}
     .fi-stat-label,.fi-stat span,.p3-stat span{white-space:normal!important;overflow-wrap:break-word!important}
     @media(max-width:340px){.brand{padding-inline:12px}.brandin .logo[data-stackup-logo="1"]{width:56px!important;height:56px!important;max-width:56px!important;flex-basis:56px!important}.name{font-size:12px}.sub{font-size:12px}.screen{padding-inline:12px}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
