@@ -100,11 +100,10 @@
       .ranking .hand .pc{flex-basis:31px!important;width:31px!important;min-width:31px!important;max-width:31px!important;height:44px!important;min-height:44px!important;max-height:44px!important}
     }
     .rank,.suit{font-family:Arial,sans-serif!important}.compare{margin-top:20px;padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory)}.ci{padding:12px 0;border-top:1px solid var(--academy-line)}.ci:first-of-type{border-top:0}
+    #navtools + #root>.academy-home,#navtools + #root>.academy-stage-screen,#navtools + #root>.academy-profile{margin-top:0!important;padding-top:0!important}
+    #root>.academy-home>.academy-photo-bg:first-child,#root>.academy-stage-screen>.academy-stage-intro,#root>.academy-profile>.academy-profile-head{height:176px!important;min-height:176px!important;max-height:176px!important;margin-top:0!important;border-bottom:1px solid var(--academy-line-strong)!important;box-sizing:border-box!important}
     button,input,select,textarea{max-width:100%}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}
     .fi-stat-label,.fi-stat span,.p3-stat span{white-space:normal!important;overflow-wrap:break-word!important}
     @media(max-width:340px){.brand{padding-inline:12px}.brandin .logo[data-stackup-logo="1"]{width:56px!important;height:56px!important;max-width:56px!important;flex-basis:56px!important}.name{font-size:12px}.sub{font-size:12px}.screen{padding-inline:12px}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
   `;document.head.appendChild(s);
 })();
-/* v177 geometry lock: one coordinate system for action strip + hero */
-#navtools + #root>.academy-home,#navtools + #root>.academy-stage-screen,#navtools + #root>.academy-profile{margin-top:0!important;padding-top:0!important}
-#root>.academy-home>.academy-photo-bg:first-child,#root>.academy-stage-screen>.academy-stage-intro,#root>.academy-profile>.academy-profile-head{height:176px!important;min-height:176px!important;max-height:176px!important;margin-top:0!important;border-bottom:1px solid var(--academy-line-strong)!important;box-sizing:border-box!important}
