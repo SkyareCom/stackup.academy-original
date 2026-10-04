@@ -102,6 +102,23 @@
     .rank,.suit{font-family:Arial,sans-serif!important}.compare{margin-top:20px;padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory)}.ci{padding:12px 0;border-top:1px solid var(--academy-line)}.ci:first-of-type{border-top:0}
     #navtools + #root>.academy-home,#navtools + #root>.academy-stage-screen,#navtools + #root>.academy-profile{margin-top:0!important;padding-top:0!important}
     #root>.academy-home>.academy-photo-bg:first-child,#root>.academy-stage-screen>.academy-stage-intro,#root>.academy-profile>.academy-profile-head{height:176px!important;min-height:176px!important;max-height:176px!important;margin-top:0!important;border-bottom:1px solid var(--academy-line-strong)!important;box-sizing:border-box!important}
+    /* v179: single geometry source for every blurred hero */
+    :root{--academy-hero-h:176px;--academy-hero-pad-y:20px;--academy-hero-text-h:135px}
+    #root .academy-home-hero,#root .academy-stage-intro,#root .academy-stage-intro.photo,#root .academy-profile-head{
+      height:var(--academy-hero-h)!important;min-height:var(--academy-hero-h)!important;max-height:var(--academy-hero-h)!important;
+      margin:0 -16px 16px!important;padding:var(--academy-hero-pad-y) 16px!important;
+      display:block!important;overflow:hidden!important;box-sizing:border-box!important;
+      border:0!important;border-bottom:1px solid var(--academy-line-strong)!important
+    }
+    #root .academy-home-hero>.academy-photo{height:calc(var(--academy-hero-h) + 16px)!important}
+    #root .academy-stage-intro>.academy-photo{height:calc(var(--academy-hero-h) + 16px)!important}
+    #root .academy-home-hero .academy-hero-content,#root .academy-stage-hero-grid,#root .academy-profile-hero-grid{
+      height:var(--academy-hero-text-h)!important;min-height:var(--academy-hero-text-h)!important;max-height:var(--academy-hero-text-h)!important;
+      display:grid!important;grid-template-rows:18px 18px 54px!important;row-gap:6px!important;align-content:end!important;width:100%!important;max-width:430px!important
+    }
+    #root .academy-home-hero .academy-kicker,#root .academy-stage-hero-grid .academy-kicker,#root .academy-profile-hero-grid .academy-kicker{margin:0!important;align-self:end!important}
+    #root .academy-home-hero .academy-title,#root .academy-stage-hero-grid .academy-title,#root .academy-profile-hero-grid .academy-title{margin:0!important;align-self:end!important}
+    #root .academy-home-hero .academy-copy,#root .academy-stage-hero-grid .academy-copy,#root .academy-profile-hero-grid .academy-copy{margin:0!important;align-self:start!important;line-height:1.5!important;max-height:54px!important;overflow:hidden!important}
     button,input,select,textarea{max-width:100%}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}
     .fi-stat-label,.fi-stat span,.p3-stat span{white-space:normal!important;overflow-wrap:break-word!important}
     @media(max-width:340px){.brand{padding-inline:12px}.brandin .logo[data-stackup-logo="1"]{width:56px!important;height:56px!important;max-width:56px!important;flex-basis:56px!important}.name{font-size:12px}.sub{font-size:12px}.screen{padding-inline:12px}.fi-stats,.p3-progress{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
