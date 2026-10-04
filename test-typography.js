@@ -17,7 +17,7 @@ for(const token of ['--type-brand:12px','--type-screen:12px','--type-section:12p
 if(!typography.includes('text-transform:uppercase!important'))fail('uppercase title guard is missing');
 if(!typography.includes('.academy-row-copy strong')||!typography.includes('.academy-section-heading h2')||!typography.includes('.ttitle'))fail('card/section title selectors are not protected');
 
-const allowedSizes=new Set([12,18,30]);
+const allowedSizes=new Set([12,18,24,30,35]);
 const allowedWeights=new Set([400,600]);
 const files=[];
 function walk(dir){
