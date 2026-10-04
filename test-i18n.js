@@ -39,7 +39,7 @@ const privacy=fs.readFileSync(path.join(ROOT,'privacy.html'),'utf8');
 check('privacy is PT-BR and EN-US',privacy.includes('section lang="pt"')&&privacy.includes('section lang="en"'));
 check('privacy keeps Premium typography',privacy.includes('Saira+Semi+Condensed')&&!privacy.includes('Love+Ya+Like+A+Sister'));
 const index=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
-check('logo preserved',index.includes('src="./stackup-logo.jpg?v=20261003"'));
+check('logo preserved',index.includes('src="./stackup-logo.png?v=20261004"'));
 check('Saira Semi Condensed Academy typography preserved',index.includes('family=Saira+Semi+Condensed')&&!index.includes('Love+Ya+Like+A+Sister')&&!index.includes('Cormorant+Garamond'));
 const positions=fs.readFileSync(path.join(ROOT,'positions-table.js'),'utf8');
 check('positions lesson centered',positions.includes('align-items:center')&&positions.includes('margin:14px auto 0'));
