@@ -29,7 +29,7 @@ assert('first load only boots the lightweight loader',/await load\('\.\/academy-
 assert('heavy Academy modules are lazy by stage',loader.includes('const groups={')&&loader.includes('requestIdleCallback')&&loader.includes("new MutationObserver(schedule).observe(root,{childList:true})"));
 assert('service worker limits legacy document-wide observers',sw.includes('stackup-performance-guard')&&sw.includes('target===document.documentElement'));
 assert('service worker auto-injects only lightweight core',sw.includes('const AUTO_SCRIPTS=new Set')&&sw.includes('AUTO_SCRIPTS.has(name)'));
-assert('service worker serves static assets cache-first',sw.includes("caches.match(event.request,{ignoreSearch:true}).then(cached=>cached||fetch(event.request)"));
+assert('service worker refreshes static assets before cache fallback',sw.includes("fetch(event.request).then(response=>")&&sw.includes("catch(()=>caches.match(event.request,{ignoreSearch:true}))"));
 assert('service worker activation does not force client navigation',!sw.includes('client.navigate(client.url)'));
 
 if(process.exitCode)process.exit(process.exitCode);
