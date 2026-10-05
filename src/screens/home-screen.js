@@ -14,11 +14,11 @@
       .academy-home-hero .academy-title{font-size:12px;max-width:360px}
       .academy-home-hero .academy-copy{color:var(--academy-silver-3);font-size:12px;letter-spacing:.02em}
       .academy-home-section{padding:20px 0 0}
-      .academy-continue{padding:16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-lg);background:var(--academy-surface)}
+      .academy-continue{padding:16px;border:1px solid var(--academy-card-border-color);border-radius:var(--academy-radius-lg);background:var(--academy-surface)}
       .academy-continue-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.academy-continue h3{margin:4px 0 5px;font-size:12px;line-height:1.05;color:var(--academy-ivory)}
       .academy-continue p{margin:0;color:var(--academy-muted);font-size:12px;line-height:1.45}.academy-continue .academy-secondary{margin-top:14px;width:100%}
       .academy-stage-grid{display:grid;grid-template-columns:1fr;gap:8px}
-      .academy-stage-card{min-height:88px;padding:14px 16px;border:1px solid var(--academy-line-strong);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto;column-gap:12px;row-gap:8px;align-items:center;text-align:left;cursor:pointer}
+      .academy-stage-card{min-height:88px;padding:14px 16px;border:1px solid var(--academy-card-border-color);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto;column-gap:12px;row-gap:8px;align-items:center;text-align:left;cursor:pointer}
       .academy-stage-step{grid-column:1;grid-row:1;font-size:12px;color:var(--academy-silver);letter-spacing:.08em;white-space:nowrap;justify-self:start;text-align:left}
       .academy-stage-pct{grid-column:2;grid-row:1;margin:0;color:var(--academy-ivory);font-size:12px;font-weight:600;text-align:right;justify-self:end}
       .academy-stage-name{grid-column:1 / -1;grid-row:2;margin:0;font-size:12px;line-height:1.2;letter-spacing:0;white-space:nowrap;color:var(--academy-ivory);justify-self:start;text-align:left}
