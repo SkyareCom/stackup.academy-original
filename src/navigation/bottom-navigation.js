@@ -33,7 +33,7 @@
   app.appendChild(nav);
 
   const setActive=key=>nav.querySelectorAll('[data-academy-nav]').forEach(b=>b.classList.toggle('active',b.dataset.academyNav===key));
-  const infer=()=>{const st=history.state;if(st?.type==='academy-profile')return'profile';if(st?.type==='academy-practice-tool')return'pratica';if(st?.stage)return st.stage;return'home'};
+  const infer=()=>{const st=history.state;if(st?.type==='academy-profile')return'profile';if(st?.type==='academy-practice-tool'||st?.type==='academy-study-tool')return'pratica';if(st?.stage)return st.stage;return'home'};
   const orderedKeys=items.map(x=>x[0]);
   const navigateTo=key=>{
     if(key==='home'){window.goHome?.();setActive('home');return}
