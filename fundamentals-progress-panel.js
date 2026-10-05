@@ -13,7 +13,7 @@
         margin:11px 12px!important;
         padding:0!important;
         overflow:hidden!important;
-        border:1px solid var(--academy-ivory)60!important;
+        border:1px solid var(--academy-card-border-color)!important;
         border-radius:14px!important;
         background:var(--academy-bg-3)!important;
       }
