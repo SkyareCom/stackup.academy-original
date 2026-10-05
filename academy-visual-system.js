@@ -285,14 +285,12 @@
 (() => {
  const id='stackup-academy-audit-v186';if(document.getElementById(id))return;
  const s=document.createElement('style');s.id=id;s.textContent=`
-  /* Catch every legacy semantic panel/card still produced by old modules. */
-  #root :is(
-   [class$="-card"],[class*="-card "],[class$="-panel"],[class*="-panel "],
-   [class$="-shell"],[class*="-shell "],[class$="-question"],[class*="-question "],
-   [class$="-option"],[class*="-option "],[class$="-feedback"],[class*="-feedback "],
-   [class$="-note"],[class*="-note "],[class$="-alert"],[class*="-alert "],
-   [class$="-mini"],[class*="-mini "],[class$="-row"],[class*="-row "]
-  ){border-color:var(--academy-card-border-color)!important}
+  /* Source modules now own their card borders. Keep this layer limited to
+     known interactive answer controls so rows, shells and structural panels
+     are not accidentally restyled by class-name heuristics. */
+  #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt){
+   border-color:var(--academy-card-border-color)!important
+  }
 
   /* Training answer states use fill/icon/text, never a different card outline. */
   #root :is(.fi-option,.m2-option,.mg-option,.p3-option,.p3x-opt).correct,
