@@ -18,7 +18,7 @@
   const fmt=ts=>{const d=new Date(ts),p=n=>String(n).padStart(2,'0');return p(d.getDate())+'/'+p(d.getMonth()+1)+' · '+p(d.getHours())+':'+p(d.getMinutes())};
 
   function render(kind){
-    const root=document.getElementById('root');if(!root)return;document.getElementById('navtools')?.classList.add('show');
+    const root=document.getElementById('root');if(!root)return;const nav=document.getElementById('navtools');if(nav){nav.classList.add('show');nav.innerHTML='<button class="navbtn" id="backBtn" type="button"><span class="navicon">‹</span><span>VOLTAR</span></button><button class="navbtn" id="homeBtn" type="button"><span class="navicon">⌂</span><span>MENU PRINCIPAL</span></button>'};
     const S=window.ProgressService?.snapshot?.(),p=S?.sections?.practice||{answered:0,correct:0,pct:0};
     let title='',body='',description='';
     if(kind==='ranking'){
