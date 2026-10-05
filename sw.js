@@ -1,5 +1,5 @@
-const CACHE='stackup-academy-v185';
-const SW_VERSION=185;
+const CACHE='stackup-academy-v186';
+const SW_VERSION=186;
 const ASSETS=[
   './','./index.html','./privacy.html','./manifest.webmanifest','./engine.js','./session-reset.js','./language-selector.js','./i18n-en-us-phrases-1.js','./i18n-en-us-phrases-2.js','./i18n-en-us-phrases-3.js','./i18n-en-us-words.js','./i18n-en-us-words-extra-1.js','./i18n-en-us-words-extra-2.js','./i18n-en-us-words-extra-3.js','./i18n-en-us-words-extra-4.js','./i18n-en-us.js',
   './positions-table.js','./fundamentals-details.js','./misdeal-staff-details.js','./terminology-profiles-details.js',
@@ -57,7 +57,7 @@ const SCRIPTS=[
   ['academy-loader.js',2],
   ['src/theme/academy-theme.js',16],
   ['src/utils/dom.js',1],
-  ['src/i18n/academy-copy.js',23],
+  ['src/i18n/academy-copy.js',24],
   ['src/content/academy-course-map.js',1],
   ['src/services/training-preference-service.js',4],
   ['src/services/training-history-service.js',9],
@@ -70,15 +70,15 @@ const SCRIPTS=[
   ['src/services/billing-service.js',4],
   ['src/services/plan-access-service.js',2],
   ['src/components/academy-components.js',12],
-  ['src/components/editorial-lesson-adapter.js',3],
+  ['src/components/editorial-lesson-adapter.js',4],
   ['src/components/training-save-bar.js',4],
   ['src/screens/home-screen.js',23],
   ['src/screens/stage-screen.js',14],
-  ['src/screens/profile-screen.js',25],
-  ['src/screens/practice-tools-screen.js',12],
-  ['src/screens/study-tools-screen.js',11],
+  ['src/screens/profile-screen.js',26],
+  ['src/screens/practice-tools-screen.js',13],
+  ['src/screens/study-tools-screen.js',12],
   ['src/hooks/academy-events.js',2],
-  ['src/navigation/bottom-navigation.js',10],
+  ['src/navigation/bottom-navigation.js',11],
 ];
 const AUTO_SCRIPTS=new Set([
   'session-reset.js','highlight-card-style.js','fundamentals-learning-flow.js',
