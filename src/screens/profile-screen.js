@@ -41,7 +41,7 @@
 
   function render(focus=''){
     const root=document.getElementById('root');if(!root)return;
-    document.getElementById('navtools')?.classList.add('show');
+    const nav=document.getElementById('navtools');if(nav){nav.classList.add('show');nav.innerHTML='<button class="navbtn" id="backBtn" type="button"><span class="navicon">‹</span><span>VOLTAR</span></button><button class="navbtn" id="homeBtn" type="button"><span class="navicon">⌂</span><span>MENU PRINCIPAL</span></button>'};
     const CC=C(),plans=window.BillingService?.getPlans?.()||[],addons=window.BillingService?.getAddons?.()||[],current=window.BillingService?.getCurrentPlan?.()?.id||'free',lang=window.AcademyI18n?.lang?.()||'pt-BR',historyMode=window.TrainingPreferenceService?.getMode?.()||'auto';
     root.innerHTML=`<section class="screen academy-profile">
       <header class="academy-profile-head academy-section-intro photo" style="position:relative;background:linear-gradient(rgba(5,5,5,.52),rgba(5,5,5,.82)),url('${window.academyTheme?.backgrounds?.home||''}') center/cover no-repeat;filter:grayscale(1)"><div class="academy-profile-hero-grid" style="position:relative;z-index:1"><div class="academy-kicker">STACKUP HOLD'EM · ACADEMY</div><h1 class="academy-title">${t('profile','PERFIL')}</h1><p class="academy-copy">${t('profileCopy','Preferências, plano do Academy e acesso ao ecossistema.')}</p></div></header>
