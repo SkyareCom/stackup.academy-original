@@ -14,7 +14,7 @@
       .academy-stage-hero-grid .academy-copy{margin:0;align-self:start;max-width:430px;line-height:1.5;max-height:54px;overflow:hidden}
       .academy-stage-intro .academy-title{font-size:12px}.academy-stage-intro .academy-copy{max-width:430px}
       .academy-group{margin-top:20px}.academy-group-title{margin:0 0 12px;font-size:12px;letter-spacing:.16em;color:var(--academy-silver-2);text-transform:uppercase}
-      .academy-group-list{border-bottom:1px solid var(--academy-line)}
+      .academy-group-list{display:grid;gap:10px}
       .academy-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
       .academy-practice-card{min-height:148px;padding:16px 10px;border:1px solid var(--academy-card-border-color);border-radius:var(--academy-radius-md);background:var(--academy-surface);color:var(--academy-ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;cursor:pointer}
       .academy-practice-card svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
@@ -23,7 +23,7 @@
       .academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-card-border-color);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
       .academy-access-preview{display:grid;gap:14px;padding:18px}.academy-access-preview h2,.academy-access-preview p{margin:0}.academy-access-preview p{color:var(--academy-muted);line-height:1.5}
       .academy-access-options{display:grid;gap:8px}.academy-access-options button{width:100%;text-align:left}.academy-access-options button.correct{border-color:var(--academy-card-border-color)!important;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--academy-success) 45%,transparent)}.academy-access-options button.wrong{border-color:var(--academy-card-border-color)!important;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--academy-danger) 45%,transparent)}
-      .academy-access-feedback{padding:12px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);color:var(--academy-muted);line-height:1.5}.academy-access-actions{display:grid;gap:8px}.academy-access-actions button{width:100%}
+      .academy-access-feedback{padding:12px;border:1px solid var(--academy-card-border-color);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);color:var(--academy-muted);line-height:1.5}.academy-access-actions{display:grid;gap:8px}.academy-access-actions button{width:100%}
     `;document.head.appendChild(s);
   }
 
