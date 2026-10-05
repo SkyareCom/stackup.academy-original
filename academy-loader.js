@@ -15,19 +15,19 @@
       ['other-rules-details.js',6],
       ['fundamentals-interactive-bank.js',2],
       ['fundamentals-visual-layer.js',6],
-      ['fundamentals-interactive.js',11],
+      ['fundamentals-interactive.js',12],
       ['fundamentals-progress-panel.js',6]
     ],
     modalidades:[
-      ['modalities-module.js',9],
+      ['modalities-module.js',10],
       ['modalities-depth-details.js',5],
-      ['mixed-games-module.js',8]
+      ['mixed-games-module.js',9]
     ],
     pratica:[
       ['practice-module.js',5],
       ['practice-table.js',7],
       ['practice-advanced-bank.js',4],
-      ['practice-advanced.js',11],
+      ['practice-advanced.js',12],
       ['table-rotation-guard.js',5],
       ['math-card-structure.js',2],
       ['practice-math-odds.js',6]
