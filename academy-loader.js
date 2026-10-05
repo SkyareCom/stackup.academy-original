@@ -12,7 +12,7 @@
   const loading=new Map();
   const groups={
     fundamentos:[
-      ['other-rules-details.js',6],
+      ['other-rules-details.js',7],
       ['fundamentals-interactive-bank.js',2],
       ['fundamentals-visual-layer.js',7],
       ['fundamentals-interactive.js',12],
