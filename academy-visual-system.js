@@ -134,7 +134,7 @@
     #root .academy-row,#root .card.stage,#root .card.topic,#root .card.lesson,#root .block,#root .detail-card,#root .m2-card,#root .m2-depth-card,#root .academy-stage-card,#root .academy-practice-card,#root .academy-study-card,#root .academy-history-row,#root .academy-history-draft,#root .academy-certificate,#root .academy-skill-row,#root .academy-coach-box,#root .academy-plan,#root .academy-addon,#root .academy-app-card,#root .academy-weekly,#root .academy-state,#root .compare{
       border:1px solid var(--academy-card-border)!important;border-radius:var(--academy-radius-md)!important
     }
-    #root .academy-row{margin:0 0 10px!important;padding:14px 12px!important;background:var(--academy-surface)!important}
+    #root .academy-row{background:var(--academy-surface)!important}
     #root .academy-group-list{border:0!important}
     #root .block,#root .detail-card,#root .m2-card,#root .m2-depth-card{padding:15px 16px!important;margin-bottom:10px!important;background:var(--academy-surface)!important;color:var(--academy-ivory)!important}
     #root .block h3,#root .detail-card h3,#root .m2-card h3,#root .m2-depth-card h3{color:var(--academy-ivory)!important}
@@ -198,10 +198,10 @@
       .academy-history-row,.academy-plan,.academy-addon,.academy-app-card){
       min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
     }
-    #root :is(.academy-row,.card.topic){display:grid!important;grid-template-columns:42px minmax(0,1fr) 14px!important;align-items:center!important;column-gap:12px!important}
-    #root :is(.academy-row,.card.topic) :is(.idx,.academy-row-index){grid-column:1!important}
-    #root :is(.academy-row,.card.topic) :is(.tcopy,.academy-row-copy){grid-column:2!important;min-width:0!important}
-    #root :is(.academy-row,.card.topic) .arrow{grid-column:3!important;justify-self:end!important}
+    #root .card.topic{display:grid!important;grid-template-columns:42px minmax(0,1fr) 14px!important;align-items:center!important;column-gap:12px!important}
+    #root .card.topic :is(.idx,.academy-row-index){grid-column:1!important}
+    #root .card.topic :is(.tcopy,.academy-row-copy){grid-column:2!important;min-width:0!important}
+    #root .card.topic .arrow{grid-column:3!important;justify-self:end!important}
 
     /* Heroes share one height, crop and darkness. */
     #root :is(.academy-home-hero,.academy-stage-intro,.academy-stage-intro.photo,.academy-profile-head){
@@ -221,7 +221,7 @@
     #root .academy-grid,#root .academy-study-grid,#root .academy-practice-grid{min-width:0!important;max-width:100%!important}
 
     @media(max-width:390px){
-      #root :is(.academy-row,.card.topic){grid-template-columns:36px minmax(0,1fr) 12px!important;column-gap:9px!important}
+      #root .card.topic{grid-template-columns:36px minmax(0,1fr) 12px!important;column-gap:9px!important}
     }
   `;document.head.appendChild(s);
 })();
