@@ -196,7 +196,7 @@
 
   function shell(title,description,body){
     const root=document.getElementById('root');if(!root)return;
-    document.getElementById('navtools')?.classList.add('show');
+    const nav=document.getElementById('navtools');if(nav){nav.classList.add('show');nav.innerHTML='<button class="navbtn" id="backBtn" type="button"><span class="navicon">‹</span><span>VOLTAR</span></button><button class="navbtn" id="homeBtn" type="button"><span class="navicon">⌂</span><span>MENU PRINCIPAL</span></button>'};
     root.innerHTML='<section class="screen academy-stage-screen"><header class="academy-stage-intro"><div class="academy-stage-hero-grid"><div class="academy-kicker">'+t('advancedStudy','ESTUDO AVANÇADO')+'</div><h1 class="academy-title">'+esc(title)+'</h1><p class="academy-copy">'+esc(description)+'</p></div></header><section class="academy-group">'+body+'</section></section>';
   }
 
