@@ -31,6 +31,11 @@
   const remove=()=>document.getElementById(BAR_ID)?.remove();
 
   function render(){
+    /* History saving is controlled only from Perfil > SALVAR TREINOS.
+       No manual-save mode or inline save controls exist. */
+    remove();
+    return;
+    /*
     const manual=window.TrainingPreferenceService?.getMode?.()==='manual';
     const host=visibleTrainingHost();
     const pending=window.TrainingHistoryService?.pendingSummary?.()||{total:0,answered:0,correct:0};
@@ -58,6 +63,7 @@
         <button type="button" class="academy-secondary" data-inline-open-history>${t('history','HISTÓRICO')}</button>
       </div>
     `;
+    */
   }
 
   let scheduled=false;
