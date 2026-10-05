@@ -22,7 +22,7 @@
       .academy-practice-card small{font-size:12px;font-weight:400;color:var(--academy-muted);line-height:1.35}
       .academy-training-label{display:inline-flex;margin-top:8px;padding:5px 8px;border:1px solid var(--academy-card-border-color);border-radius:999px;color:var(--academy-silver-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
       .academy-access-preview{display:grid;gap:14px;padding:18px}.academy-access-preview h2,.academy-access-preview p{margin:0}.academy-access-preview p{color:var(--academy-muted);line-height:1.5}
-      .academy-access-options{display:grid;gap:8px}.academy-access-options button{width:100%;text-align:left}.academy-access-options button.correct{border-color:var(--academy-success)!important}.academy-access-options button.wrong{border-color:var(--academy-danger)!important}
+      .academy-access-options{display:grid;gap:8px}.academy-access-options button{width:100%;text-align:left}.academy-access-options button.correct{border-color:var(--academy-card-border-color)!important;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--academy-success) 45%,transparent)}.academy-access-options button.wrong{border-color:var(--academy-card-border-color)!important;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--academy-danger) 45%,transparent)}
       .academy-access-feedback{padding:12px;border:1px solid var(--academy-line);border-radius:var(--academy-radius-md);background:var(--academy-bg-2);color:var(--academy-muted);line-height:1.5}.academy-access-actions{display:grid;gap:8px}.academy-access-actions button{width:100%}
     `;document.head.appendChild(s);
   }
