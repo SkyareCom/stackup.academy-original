@@ -90,13 +90,7 @@
     const hm=e.target.closest('[data-history-toggle]');
     if(hm){
       e.preventDefault();
-      const mode=window.TrainingPreferenceService?.isAuto?.()?'manual':'auto';
-      if(mode==='auto'){
-        window.ProgressService?.commitManualSession?.();
-        if((window.TrainingHistoryService?.pendingSummary?.().total||0)>0)window.TrainingHistoryService?.savePending?.();
-      }else{
-        window.TrainingPreferenceService?.clearDraft?.();
-      }
+      const mode=window.TrainingPreferenceService?.isEnabled?.()?'off':'auto';
       window.TrainingPreferenceService?.setMode?.(mode);
       render('history-mode');
       return;
