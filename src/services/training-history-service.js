@@ -6,13 +6,8 @@
   const read=()=>safeParse(localStorage.getItem(KEY),{runs:[]});
   const write=s=>{try{localStorage.setItem(KEY,JSON.stringify(s))}catch(_){}};
   const prefs=()=>window.TrainingPreferenceService;
-  const targetRead=()=>prefs()?.isAuto?.()===false?(prefs()?.readDraft?.()||{runs:[]}):read();
-  const targetWrite=s=>{
-    if(prefs()?.isAuto?.()===false){
-      prefs()?.writeDraft?.(s);
-      window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
-    }else write(s);
-  };
+  const targetRead=()=>read();
+  const targetWrite=s=>{if(prefs()?.isEnabled?.()===false)return false;write(s);return true};
 
   const answerStats=store=>{
     let answered=0,correct=0;
@@ -128,6 +123,7 @@
   };
 
   function recordStorageChange(key,beforeRaw,afterRaw){
+    if(prefs()?.isEnabled?.()===false)return;
     const before=descriptors(key,beforeRaw),after=descriptors(key,afterRaw);
     if(!after.length)return;
     const state=targetRead();state.runs=Array.isArray(state.runs)?state.runs:[];
@@ -185,29 +181,9 @@
       correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
     };
   }
-  function pendingSummary(){
-    const runs=prefs()?.readDraft?.()?.runs||[];
-    return {
-      total:runs.length,
-      answered:runs.reduce((n,r)=>n+Number(r.deltaAnswered||0),0),
-      correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
-    };
-  }
-  function savePending(){
-    const draft=prefs()?.readDraft?.()||{runs:[]},rows=Array.isArray(draft.runs)?draft.runs:[];
-    if(!rows.length)return 0;
-    const state=read();state.runs=[...rows,...(state.runs||[])]
-      .sort((a,b)=>Number(b.updatedAt||0)-Number(a.updatedAt||0))
-      .slice(0,250);
-    write(state);prefs()?.clearDraft?.();
-    window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
-    return rows.length;
-  }
-  function discardPending(){
-    prefs()?.clearDraft?.();
-    window.dispatchEvent(new CustomEvent('academy:historydraft',{detail:pendingSummary()}));
-    return true;
-  }
+  function pendingSummary(){return {total:0,answered:0,correct:0}}
+  function savePending(){prefs()?.clearDraft?.();return 0}
+  function discardPending(){prefs()?.clearDraft?.();return true}
   function get(id){return (read().runs||[]).find(r=>r.id===id)||null}
   function remove(id){
     const s=read();s.runs=(s.runs||[]).filter(r=>r.id!==id);write(s);return true;
