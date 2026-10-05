@@ -181,18 +181,14 @@
       correct:runs.reduce((n,r)=>n+Number(r.deltaCorrect||0),0)
     };
   }
-  function pendingSummary(){return {total:0,answered:0,correct:0}}
-  function savePending(){prefs()?.clearDraft?.();return 0}
-  function discardPending(){prefs()?.clearDraft?.();return true}
   function get(id){return (read().runs||[]).find(r=>r.id===id)||null}
   function remove(id){
     const s=read();s.runs=(s.runs||[]).filter(r=>r.id!==id);write(s);return true;
   }
   function clear(){
     try{localStorage.removeItem(KEY)}catch(_){}
-    prefs()?.clearDraft?.();
     return true;
   }
 
-  window.TrainingHistoryService={KEY,list,get,summary,pendingSummary,savePending,discardPending,remove,clear,startNewRun,recordStorageChange};
+  window.TrainingHistoryService={KEY,list,get,summary,remove,clear,startNewRun,recordStorageChange};
 })();
