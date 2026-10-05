@@ -5,7 +5,7 @@
 
   if(!document.getElementById('academy-history-style')){
     const s=document.createElement('style');s.id='academy-history-style';s.textContent=`
-      .academy-history-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--academy-line);border:1px solid var(--academy-line);margin-bottom:20px}
+      .academy-history-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--academy-line);border:1px solid var(--academy-card-border-color);margin-bottom:20px}
       .academy-history-summary>div{padding:14px 6px;background:var(--academy-bg-2);text-align:center}
       .academy-history-summary b,.academy-history-summary span{display:block}.academy-history-summary span{margin-top:4px;color:var(--academy-muted);text-transform:uppercase}
       .academy-history-list{border-top:1px solid var(--academy-line)}
