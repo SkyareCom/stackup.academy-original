@@ -10,7 +10,6 @@
   };
   const TOTALS={fundamentals:700,modalities:550,practice:495};
   const TRACKED=[KEYS.fundamentals,KEYS.modalities,KEYS.mixed,KEYS.practice,KEYS.advanced];
-  const DRAFT_PREFIX='academy.progress.draft.';
   const safeParse=(v,fallback={})=>{try{return JSON.parse(v||'')||fallback}catch(_){return fallback}};
   const read=k=>{try{return safeParse(localStorage.getItem(k),{})}catch(_){return {}}};
   const values=o=>Object.values(o&&typeof o==='object'?o:{});
@@ -70,36 +69,17 @@
     return 0;
   };
 
-  let commitManualSession=()=>({stores:0,answered:0}),discardManualSession=()=>0,hasManualDraft=()=>false;
+  /* Training persistence is binary: enabled writes progress/history; disabled
+     discards tracked training writes instead of creating a manual draft. */
   if(!window.__academyProgressStoragePatch && typeof Storage!=='undefined'){
     window.__academyProgressStoragePatch=true;
-    const nativeGet=Storage.prototype.getItem,nativeSet=Storage.prototype.setItem,nativeRemove=Storage.prototype.removeItem;
-    const draftKey=key=>DRAFT_PREFIX+key;
-    const manualMode=()=>window.TrainingPreferenceService?.isAuto?.()===false;
-    const rawPersistent=key=>nativeGet.call(localStorage,key);
-
-    Storage.prototype.getItem=function(key){
-      if(this===localStorage&&TRACKED.includes(key)&&manualMode()){
-        const draft=nativeGet.call(sessionStorage,draftKey(key));
-        if(draft!==null)return draft;
-      }
-      return nativeGet.call(this,key);
-    };
-
+    const nativeGet=Storage.prototype.getItem,nativeSet=Storage.prototype.setItem;
     Storage.prototype.setItem=function(key,value){
       const track=this===localStorage&&TRACKED.includes(key);
       if(!track)return nativeSet.call(this,key,value);
+      if(window.TrainingPreferenceService?.isEnabled?.()===false)return;
       let beforeRaw=null,before=0;
-      try{beforeRaw=this.getItem(key);before=countStore(key,beforeRaw);}catch(_){}
-      if(manualMode()){
-        const result=nativeSet.call(sessionStorage,draftKey(key),value);
-        try{
-          const after=countStore(key,value),delta=Math.max(0,after-before);
-          window.TrainingHistoryService?.recordStorageChange?.(key,beforeRaw,value);
-          if(delta>0)window.AnalyticsService?.track?.('training_progress_draft',{store:key,answered_delta:delta,answered_total:after});
-        }catch(_){}
-        return result;
-      }
+      try{beforeRaw=nativeGet.call(localStorage,key);before=countStore(key,beforeRaw);}catch(_){}
       const result=nativeSet.call(localStorage,key,value);
       try{
         const after=countStore(key,value),delta=Math.max(0,after-before);
@@ -109,35 +89,6 @@
         if(delta>0)window.AnalyticsService?.track?.('training_progress',{store:key,answered_delta:delta,answered_total:after});
       }catch(_){}
       return result;
-    };
-
-    hasManualDraft=()=>TRACKED.some(key=>nativeGet.call(sessionStorage,draftKey(key))!==null);
-
-    commitManualSession=()=>{
-      let stores=0,answered=0;
-      for(const key of TRACKED){
-        const draft=nativeGet.call(sessionStorage,draftKey(key));
-        if(draft===null)continue;
-        const beforeRaw=rawPersistent(key),before=countStore(key,beforeRaw),after=countStore(key,draft);
-        nativeSet.call(localStorage,key,draft);
-        nativeRemove.call(sessionStorage,draftKey(key));
-        const delta=Math.max(0,after-before);
-        if(delta>0){recordActivity(delta);answered+=delta;}
-        window.EvolutionService?.recordStorageChange?.(key,beforeRaw,draft);
-        if(delta>0)window.AnalyticsService?.track?.('training_progress_saved',{store:key,answered_delta:delta,answered_total:after});
-        stores++;
-      }
-      const detail={stores,answered};window.dispatchEvent(new CustomEvent('academy:manualcommit',{detail}));return detail;
-    };
-
-    discardManualSession=()=>{
-      let removed=0;
-      for(const key of TRACKED){
-        if(nativeGet.call(sessionStorage,draftKey(key))!==null){
-          nativeRemove.call(sessionStorage,draftKey(key));removed++;
-        }
-      }
-      window.dispatchEvent(new CustomEvent('academy:manualdiscard',{detail:{removed}}));return removed;
     };
   }
 
@@ -177,5 +128,5 @@
   }
   const setLastRoute=route=>{try{localStorage.setItem(KEYS.last,JSON.stringify(route))}catch(_){}};
   const getLastRoute=()=>read(KEYS.last);
-  window.ProgressService={KEYS,TOTALS,TRACKED,DRAFT_PREFIX,snapshot,setLastRoute,getLastRoute,recordActivity,setWeeklyGoal,commitManualSession,discardManualSession,hasManualDraft};
+  window.ProgressService={KEYS,TOTALS,TRACKED,snapshot,setLastRoute,getLastRoute,recordActivity,setWeeklyGoal};
 })();
