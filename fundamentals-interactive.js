@@ -37,7 +37,7 @@
       .fi-type{padding:5px 7px!important;border-radius:8px;background:var(--academy-bg)!important;color:var(--academy-ivory)!important;border:1px solid var(--academy-card-border-color)}
       .fi-question{padding:15px 14px 10px;font-size:12px;line-height:1.42;color:var(--academy-bg-3)}
       .fi-options{display:grid;gap:8px;padding:4px 12px 14px}
-      .fi-option{width:100%;min-height:46px;border:1px solid var(--academy-warning)66;border-radius:12px;background:var(--academy-white);color:var(--academy-bg-3);text-align:left;padding:10px 12px;font:inherit;font-size:12px;line-height:1.3;cursor:pointer}
+      .fi-option{width:100%;min-height:46px;border:1px solid var(--academy-card-border-color);border-radius:12px;background:var(--academy-white);color:var(--academy-bg-3);text-align:left;padding:10px 12px;font:inherit;font-size:12px;line-height:1.3;cursor:pointer}
       .fi-option:active{transform:scale(.99)}
       .fi-option[disabled]{cursor:default;opacity:1}
       .fi-option.fi-picked{border:2px solid var(--academy-muted-2);background:var(--academy-ivory-2)}
@@ -45,7 +45,7 @@
       .fi-option.fi-wrong{border:2px solid var(--academy-warning);background:var(--academy-ivory-2);color:var(--academy-bg-3)}
       .fi-seqnum{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:8px;background:var(--academy-bg);color:var(--academy-ivory);margin-right:8px;font-size:12px;vertical-align:middle}
       .fi-help{padding:0 14px 11px;color:var(--academy-muted-2);font-size:12px;line-height:1.35}
-      .fi-feedback{margin:0 12px 14px;border-radius:13px;border:1px solid var(--academy-warning)60;overflow:hidden;background:var(--academy-ivory)}
+      .fi-feedback{margin:0 12px 14px;border-radius:13px;border:1px solid var(--academy-card-border-color);overflow:hidden;background:var(--academy-ivory)}
       .fi-result{padding:10px 12px;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
       .fi-result.ok{background:var(--academy-success);color:var(--academy-white)}
       .fi-result.no{background:var(--academy-bg);color:var(--academy-ivory)}
