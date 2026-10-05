@@ -178,7 +178,7 @@
     #root :is(.academy-group-list,.blocks,.ranking){border-color:transparent!important}
 
     /* Fixed footer must never cover the final card/title/control. */
-    .app{padding-bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important}
+    .app{padding-bottom:0!important}
     #root>.screen,
     #root>.academy-home,
     #root>.academy-stage-screen,
@@ -260,7 +260,7 @@
   /* Fixed navigation is the final visual layer but content always clears it. */
   .academy-bottom-nav{height:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important}
   #root{min-height:calc(100dvh - var(--academy-bottom-nav-h) - env(safe-area-inset-bottom))!important}
-  #root>:last-child{padding-bottom:var(--academy-content-safe-bottom)!important}
+  #root>.screen{padding-bottom:var(--academy-content-safe-bottom)!important}
 
   /* Profile hero must obey the same monochrome/blur treatment as all other section heroes. */
   #root .academy-profile-head{filter:none!important}
@@ -321,11 +321,6 @@
   #root :is(.training-save-bar,.academy-training-save-bar,.academy-save-bar){
    bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom))!important;
    max-width:560px!important
-  }
-
-  /* The final content item always remains fully reachable. */
-  #root :is(.fi-shell,.m2-shell,.mg-shell,.p3-shell,.p3x-shell,.academy-training-shell):last-child{
-   margin-bottom:calc(var(--academy-bottom-nav-h) + env(safe-area-inset-bottom) + 24px)!important
   }
  `;document.head.appendChild(s);
 })();
