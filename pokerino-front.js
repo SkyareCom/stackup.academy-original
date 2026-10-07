@@ -5,7 +5,7 @@
     body{background:radial-gradient(circle at 50% -10%,#143b2d 0,#07130f 36%,#030806 100%)!important}
     .app{background:linear-gradient(180deg,#071711 0%,#03100c 100%)!important}
     .brand{background:rgba(3,13,10,.94)!important;border-bottom:1px solid rgba(255,200,61,.28)!important}
-    .pokerino-mascot{position:absolute;right:4px;bottom:-4px;width:146px;height:166px;pointer-events:none;filter:drop-shadow(0 12px 18px rgba(0,0,0,.42));transform:scale(1.08);transform-origin:right bottom}
+    .pokerino-real .pokerino-photo{position:absolute;inset:0;background-image:url('./assets/pokerino/pokerino-hero.png');background-size:cover;background-position:center;border-radius:28px}.pokerino-real{overflow:hidden;border-radius:28px}.pokerino-mascot{position:absolute;right:4px;bottom:-4px;width:146px;height:166px;pointer-events:none;filter:drop-shadow(0 12px 18px rgba(0,0,0,.42));transform:scale(1.08);transform-origin:right bottom}
     .pokerino-head{position:absolute;left:32px;top:26px;width:78px;height:86px;border-radius:48% 48% 45% 45%;background:linear-gradient(145deg,#f5ad72,#bd623e);border:2px solid #3b1c13}
     .pokerino-hair{position:absolute;left:18px;top:8px;width:102px;height:58px;border-radius:58% 45% 40% 35%;background:#3a1a12;transform:rotate(-7deg);box-shadow:-12px 12px 0 -4px #29110d,15px 9px 0 -5px #4b2115}
     .pokerino-eye{position:absolute;top:47px;width:12px;height:16px;border-radius:50%;background:#fff}.pokerino-eye:after{content:'';position:absolute;left:4px;top:5px;width:6px;height:7px;border-radius:50%;background:#2b170d}
@@ -26,7 +26,7 @@
     .pokerino-guide{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;align-items:center;padding:12px;border:1px solid rgba(255,200,61,.4);border-radius:18px;background:linear-gradient(135deg,#102d23,#071713);margin-bottom:14px}.pokerino-mini{position:relative;width:68px;height:72px}.pokerino-mini .pokerino-head{transform:scale(.62);transform-origin:top left}.pokerino-mini .pokerino-hair{transform:scale(.62) rotate(-7deg);transform-origin:top left}.pokerino-mini .pokerino-eye,.pokerino-mini .pokerino-smile,.pokerino-mini .pokerino-body,.pokerino-mini .pokerino-chip{display:none}.pokerino-guide strong{display:block;color:var(--pokerino-gold);font-size:14px}.pokerino-guide span{display:block;margin-top:4px;color:#d5d2c8;font-size:12px;line-height:1.35}
     @media(max-width:350px){.pokerino-mascot{right:5px;transform:scale(.86);transform-origin:right bottom}.academy-home-hero .academy-hero-content,.academy-stage-hero-grid,.academy-profile-hero-grid{max-width:calc(100% - 92px)!important}.academy-title{font-size:18px!important}}
   `;document.head.appendChild(s);
-  const mascot=()=>'<div class="pokerino-mascot" aria-hidden="true"><i class="pokerino-hair"></i><i class="pokerino-head"></i><i class="pokerino-eye left"></i><i class="pokerino-eye right"></i><i class="pokerino-smile"></i><i class="pokerino-body"></i><i class="pokerino-chip"></i></div>';
+  const mascot=()=>'<div class="pokerino-mascot pokerino-real" aria-hidden="true"><div class="pokerino-photo"></div></div>';
   const guide=(message)=>'<div class="pokerino-guide"><div class="pokerino-mini">'+mascot()+'</div><div><strong>POKERINO</strong><span>'+message+'</span></div></div>';
   const decorate=()=>{
     document.querySelectorAll('.academy-home-hero,.academy-stage-intro,.academy-profile-head').forEach(el=>{if(!el.querySelector(':scope > .pokerino-mascot'))el.insertAdjacentHTML('beforeend',mascot())});
