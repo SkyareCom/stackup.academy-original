@@ -26,10 +26,10 @@
       html.academy-entry-active .navtools,
       html.academy-entry-active .academy-bottom-nav{display:none!important}
       .academy-entry{position:fixed;z-index:120;inset:0;margin:auto;width:min(100%,560px);min-height:100dvh;overflow:auto;background:var(--academy-bg,#070707);color:var(--academy-ivory,#F2EDE2)}
-      .academy-entry-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) saturate(.04) brightness(.28) blur(3px);transform:scale(1.035)}
-      .academy-entry-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.38) 0%,rgba(7,7,7,.72) 44%,#070707 86%)}
+      .academy-entry-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.72) brightness(.32) blur(2px);transform:scale(1.035)}
+      .academy-entry-shade{position:absolute;inset:0;background:radial-gradient(circle at 50% 16%,rgba(255,168,42,.16),transparent 27%),linear-gradient(180deg,rgba(3,20,14,.32) 0%,rgba(3,19,14,.72) 46%,#03100c 88%)}
       .academy-entry-inner{position:relative;z-index:2;min-height:100dvh;padding:calc(34px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
-      .academy-entry-brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:0}
+      .academy-entry-brand{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:0}.academy-entry-brand:after{content:'APRENDA. PRATIQUE. EVOLUA. · COM POKERINO';margin-top:13px;color:#f4efe5;font-size:12px;letter-spacing:.08em}
       .academy-entry-logo{width:210px!important;height:210px!important;object-fit:contain;border-radius:50%;filter:drop-shadow(0 14px 34px rgba(0,0,0,.62))}
       .academy-entry-company{margin-top:6px;font-family:'Saira Semi Condensed',system-ui,sans-serif!important;font-size:24px!important;font-weight:600!important;line-height:1.05;letter-spacing:.055em;text-transform:uppercase;color:var(--academy-ivory,#F2EDE2);text-shadow:0 2px 10px rgba(0,0,0,.45)}
       .academy-entry-product{margin-top:7px;font-family:'Saira Stencil One','Saira Semi Condensed',system-ui,sans-serif!important;font-size:35px!important;font-weight:400!important;line-height:1;letter-spacing:.10em;text-transform:uppercase;color:#D9AA57!important;text-shadow:0 2px 14px rgba(217,170,87,.22)}
@@ -38,7 +38,7 @@
       .academy-entry-lang{min-height:40px;padding:8px 10px;border:1px solid rgba(242,237,226,.18);border-radius:12px;background:rgba(18,18,18,.58);backdrop-filter:blur(12px);color:var(--academy-silver-3,#B9B9B9);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.025);transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s ease}
       .academy-entry-lang.active{background:rgba(242,237,226,.10);border-color:rgba(242,237,226,.46);color:var(--academy-ivory,#F2EDE2)}
       .academy-entry-access{display:grid;gap:9px}
-      .academy-entry-access-btn{position:relative;width:100%;min-height:52px;padding:0 15px;border:1px solid rgba(242,237,226,.16);border-radius:14px;background:linear-gradient(180deg,rgba(34,34,34,.78),rgba(20,20,20,.82));backdrop-filter:blur(14px);color:var(--academy-ivory,#F2EDE2);display:grid;grid-template-columns:28px 1fr 16px;align-items:center;gap:12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.055em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 24px rgba(0,0,0,.16);transition:background .18s ease,border-color .18s ease,transform .12s ease}
+      .academy-entry-access-btn{position:relative;width:100%;min-height:52px;padding:0 15px;border:1px solid rgba(255,200,61,.32);border-radius:14px;background:linear-gradient(180deg,rgba(10,43,32,.86),rgba(4,22,16,.92));backdrop-filter:blur(14px);color:var(--academy-ivory,#F2EDE2);display:grid;grid-template-columns:28px 1fr 16px;align-items:center;gap:12px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.055em;text-transform:uppercase;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 24px rgba(0,0,0,.16);transition:background .18s ease,border-color .18s ease,transform .12s ease}
       .academy-entry-lang:hover,.academy-entry-access-btn:hover{border-color:rgba(242,237,226,.36);background-color:rgba(44,44,44,.82)}
       .academy-entry-lang:active,.academy-entry-access-btn:active{transform:translateY(1px)}
       .academy-entry-access-btn:disabled{opacity:.55;cursor:wait}
